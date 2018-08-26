@@ -2,16 +2,18 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const passport = require('passport');
 
 const users = require("./routes/api/users");
 
 const db = require('./config/keys').mongoURI;
 mongoose
-    .connect(db)
-    .then(() => console.log("Connected to MongoDB successfully"))
-    .catch(err => console.log(err));
+.connect(db)
+.then(() => console.log("Connected to MongoDB successfully"))
+.catch(err => console.log(err));
 
-app.get("/", (req, res) => res.send("Hello"));
+require('./config/passport')(passport);
+app.use(passport.initialize());
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
