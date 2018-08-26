@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require('passport');
-
+const path = require('path');
 const users = require("./routes/api/users");
 
 const db = require('./config/keys').mongoURI;
@@ -20,4 +20,5 @@ app.listen(port, () => console.log(`Server is running on port ${port}`));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/api/users", users);
+app.use(express.static(path.join(__dirname, "/frontend/public")));
 
