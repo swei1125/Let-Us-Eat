@@ -18,7 +18,8 @@
     "mongoose": "^5.2.9",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "validator": "^10.7.0"
+    "validator": "^10.7.0",
+    "yelp-fusion": "^2.0.3"
   },
   "devDependencies": {
     "nodemon": "^1.18.3"
