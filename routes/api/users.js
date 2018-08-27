@@ -93,6 +93,11 @@ router.get('/current', passport.authenticate('jwt', {session: false}), (req, res
     })
 })
 
+router.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/')
+})
+
 
 
 module.exports = router;
