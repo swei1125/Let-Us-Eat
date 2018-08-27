@@ -14,9 +14,16 @@ export const login = (user) => (
   })
 );
 
+export const currentUser = () => (
+  $.ajax({
+    method: 'GET',
+    url: 'api/users/current'
+  })
+)
+
 export const logout = () => (
   $.ajax({
     method: 'DELETE',
-    url: 'api/users/current'
+    // url: 'api/users/current'
   })
 );
