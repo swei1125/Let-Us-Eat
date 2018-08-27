@@ -17,7 +17,9 @@ const UserSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
 })
 
 module.exports = User = mongoose.model('users', UserSchema);
+
+// Create another schema for res table and res liked table
