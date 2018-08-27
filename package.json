@@ -8,7 +8,9 @@
     "server": "nodemon app.js",
     "webpack": "webpack --watch --mode=development"
   },
-  "keywords": ["AppAcademy"],
+  "keywords": [
+    "AppAcademy"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
