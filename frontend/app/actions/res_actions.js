@@ -17,23 +17,7 @@ export const receiveCurrentRes = (res) => ({
     res
 });
 
-export const fetchRestaurants = (data) => dispatch => (
-    client.search(data)
-    .then(res => dispatch(receiveRestaurants(res.businesses)))
-    .catch(err => console.log(err)) 
-)
-
-const yelpFetch = (id) => (
-    $.ajax({
-        method: 'get',
-        url: `https://api.yelp.com/v3/businesses/${id}`,
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", "Bearer " + keys.yelpKey);
-        }
-    })
-)
-
-export const fetchSingleRes = (id) => dispatch => (
-    yelpFetch(id)
-    .then(res => dispatch(receiveCurrentRes(res)))
-)
+export const fetchRestaurants = (data = {location: 'san francisco'}) => {
+    return client.search(data)
+    .then(res => console.log(res))
+}

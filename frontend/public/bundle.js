@@ -153,23 +153,25 @@ var receiveCurrentRes = exports.receiveCurrentRes = function receiveCurrentRes(r
     };
 };
 
-var fetchRestaurants = exports.fetchRestaurants = function fetchRestaurants(data) {
-    return function (dispatch) {
-        return client.search(data).then(function (res) {
-            return dispatch(receiveRestaurants(res.businesses));
-        }).catch(function (err) {
-            return console.log(err);
-        });
-    };
+var fetchRestaurants = exports.fetchRestaurants = function fetchRestaurants() {
+    var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { location: 'san francisco' };
+
+    return client.search(data).then(function (res) {
+        return console.log(res);
+    });
 };
 
 var yelpFetch = function yelpFetch(id) {
     return _jquery2.default.ajax({
-        method: 'get',
+        method: "get",
         url: 'https://api.yelp.com/v3/businesses/' + id,
-        beforeSend: function beforeSend(xhr) {
-            xhr.setRequestHeader("Authorization", "Bearer " + _keys2.default.yelpKey);
-        }
+        // beforeSend: function (xhr) {
+        //     xhr.setRequestHeader("Authorization", "Bearer " + keys.yelpKey);
+        // }
+        headers: {
+            Authorization: 'Bearer ' + _keys2.default.yelpKey
+        },
+        dataType: "json"
     });
 };
 
