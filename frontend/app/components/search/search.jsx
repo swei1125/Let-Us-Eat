@@ -1,5 +1,5 @@
 import React from 'react';
-// import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class Search extends React.Component {
     constructor(props) {
@@ -18,8 +18,15 @@ class Search extends React.Component {
         });
     }
 
-    handleSubmit() {
+    handleSubmit(e) {   
+        e.preventDefault();
+
         this.props.fetchrestaurants(this.state);
+            .then(() => {
+                this.props.history.push(
+                    `/search/${this.state.term}&${this.state.location}&${this.state.radius}&${this.state.price}`
+                );
+            });
     }
 
     render(){
