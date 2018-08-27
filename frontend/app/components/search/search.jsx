@@ -1,10 +1,10 @@
 import React from 'react';
-// import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class Search extends React.Component {
     constructor(props) {
         super(props);
-        this.state: {
+        this.state= {
             term: "restaurants",
             location: "",
             radius: 25,
@@ -18,14 +18,21 @@ class Search extends React.Component {
         });
     }
 
-    handleSubmit() {
-        this.props.fetchrestaurants(this.state);
+    handleSubmit(e) {   
+        e.preventDefault();
+
+        this.props.fetchrestaurants(this.state)
+            .then(() => {
+                this.props.history.push(
+                    `/search/${this.state.term}&${this.state.location}&${this.state.radius}&${this.state.price}`
+                );
+            });
     }
 
     render(){
         return(
             <div>
-                <form onSubmit={this.handleSubmit.bind(this)>
+                <form onSubmit={this.handleSubmit.bind(this)}>
 
                     <label>Where?
                         <input type="text" onChange={this.update('zip')} value={this.state.zip} />
