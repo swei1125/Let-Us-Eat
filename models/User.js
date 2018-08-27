@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const RestaurantSchema = require('./Restaurant');
 
 const UserSchema = new Schema({
     name: {
@@ -17,7 +18,11 @@ const UserSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    likedRestaurants: [{
+        type: Schema.Types.ObjectId,
+        ref: 'restaurants'
+    }]
 })
 
 module.exports = User = mongoose.model('users', UserSchema);

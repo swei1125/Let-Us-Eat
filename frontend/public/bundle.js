@@ -128,6 +128,10 @@ var _yelpFusion = __webpack_require__(/*! yelp-fusion */ "./node_modules/yelp-fu
 
 var _yelpFusion2 = _interopRequireDefault(_yelpFusion);
 
+var _jquery = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'jquery'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var RECEIVE_RESTAURANTS = exports.RECEIVE_RESTAURANTS = 'RECEIVE_RESTAURANTS';
@@ -159,19 +163,21 @@ var fetchRestaurants = exports.fetchRestaurants = function fetchRestaurants(data
     };
 };
 
+var yelpFetch = function yelpFetch(id) {
+    return _jquery2.default.ajax({
+        method: 'get',
+        url: 'https://api.yelp.com/v3/businesses/' + id,
+        beforeSend: function beforeSend(xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer " + _keys2.default.yelpKey);
+        }
+    });
+};
+
 var fetchSingleRes = exports.fetchSingleRes = function fetchSingleRes(id) {
     return function (dispatch) {
-        return function (id) {
-            return $.ajax({
-                method: 'get',
-                url: 'https://api.yelp.com/v3/businesses/' + id,
-                headers: {
-                    Authorization: 'Bearer' + _keys2.default.yelpKey
-                }
-            }).then(function (res) {
-                return dispatch(receiveCurrentRes(res));
-            });
-        };
+        return yelpFetch(id).then(function (res) {
+            return dispatch(receiveCurrentRes(res));
+        });
     };
 };
 
@@ -449,9 +455,43 @@ document.addEventListener("DOMContentLoaded", function () {
     window.getState = store.getState;
     window.dispatch = store.dispatch;
     window.fetchSingleRes = _res_actions.fetchSingleRes;
+    window.fetchRestaurants = _res_actions.fetchRestaurants;
 
     _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 });
+
+/***/ }),
+
+/***/ "./frontend/app/reducers/currentres_reducer.js":
+/*!*****************************************************!*\
+  !*** ./frontend/app/reducers/currentres_reducer.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _res_actions = __webpack_require__(/*! ../actions/res_actions */ "./frontend/app/actions/res_actions.js");
+
+var currentResReducer = function currentResReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var action = arguments[1];
+
+    Object.freeze(state);
+    switch (action.type) {
+        case _res_actions.RECEIVE_CURRENT_RES:
+            return action.res;
+        default:
+            return state;
+    }
+};
+
+exports.default = currentResReducer;
 
 /***/ }),
 
@@ -464,6 +504,64 @@ document.addEventListener("DOMContentLoaded", function () {
 
 "use strict";
 
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+
+var _reslist_reducer = __webpack_require__(/*! ./reslist_reducer */ "./frontend/app/reducers/reslist_reducer.js");
+
+var _reslist_reducer2 = _interopRequireDefault(_reslist_reducer);
+
+var _currentres_reducer = __webpack_require__(/*! ./currentres_reducer */ "./frontend/app/reducers/currentres_reducer.js");
+
+var _currentres_reducer2 = _interopRequireDefault(_currentres_reducer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var entitiesReducer = (0, _redux.combineReducers)({
+    resList: _reslist_reducer2.default,
+    currentRes: _currentres_reducer2.default
+});
+
+exports.default = entitiesReducer;
+
+/***/ }),
+
+/***/ "./frontend/app/reducers/reslist_reducer.js":
+/*!**************************************************!*\
+  !*** ./frontend/app/reducers/reslist_reducer.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _res_actions = __webpack_require__(/*! ../actions/res_actions */ "./frontend/app/actions/res_actions.js");
+
+var resListReducer = function resListReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var action = arguments[1];
+
+    Object.freeze(state);
+    switch (action.type) {
+        case _res_actions.RECEIVE_RESTAURENTS:
+            return action.resList.map(function (res) {
+                return res.id;
+            });
+        default:
+            return state;
+    }
+};
+
+exports.default = resListReducer;
 
 /***/ }),
 
