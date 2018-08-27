@@ -99,7 +99,7 @@
 module.exports = {
   mongoURI: "mongodb://wsyalways:baobeiwsy1314@ds133262.mlab.com:33262/flex_pj",
   secretOrKey: "secret",
-  yelpKey: "ep2ZPMGFAw-UMN7N4oHAYZ51r1Z3zL-oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF-CW3Yx"
+  apiKey: "ep2ZPMGFAw-UMN7N4oHAYZ51r1Z3zL-oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF-CW3Yx"
   //Make sure this is your own unique string
 };
 
@@ -177,6 +177,49 @@ var fetchSingleRes = exports.fetchSingleRes = function fetchSingleRes(id) {
 
 /***/ }),
 
+/***/ "./frontend/app/components/app.js":
+/*!****************************************!*\
+  !*** ./frontend/app/components/app.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _search_container = __webpack_require__(/*! ./search/search_container */ "./frontend/app/components/search/search_container.js");
+
+var _search_container2 = _interopRequireDefault(_search_container);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var App = function App() {
+    return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement('header', { className: 'navbar' }),
+        _react2.default.createElement(
+            _reactRouterDom.Switch,
+            null,
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _search_container2.default })
+        )
+    );
+};
+
+exports.default = App;
+
+/***/ }),
+
 /***/ "./frontend/app/components/root.jsx":
 /*!******************************************!*\
   !*** ./frontend/app/components/root.jsx ***!
@@ -195,6 +238,10 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _app = __webpack_require__(/*! ./app */ "./frontend/app/components/app.js");
+
+var _app2 = _interopRequireDefault(_app);
+
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
@@ -209,16 +256,159 @@ var Root = function Root(_ref) {
         _react2.default.createElement(
             _reactRouterDom.HashRouter,
             null,
-            _react2.default.createElement(
-                'h1',
-                null,
-                'React is running'
-            )
+            _react2.default.createElement(_app2.default, null)
         )
     );
 };
 
 exports.default = Root;
+
+/***/ }),
+
+/***/ "./frontend/app/components/search/search.jsx":
+/*!***************************************************!*\
+  !*** ./frontend/app/components/search/search.jsx ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Search = function (_React$Component) {
+    _inherits(Search, _React$Component);
+
+    function Search(props) {
+        _classCallCheck(this, Search);
+
+        var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
+
+        _this.state = {
+            term: "restaurants",
+            location: "",
+            radius: 25,
+            price: ""
+        };
+        return _this;
+    }
+
+    _createClass(Search, [{
+        key: 'update',
+        value: function update(field) {
+            var _this2 = this;
+
+            return function (e) {
+                return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+            };
+        }
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit(e) {
+            var _this3 = this;
+
+            e.preventDefault();
+
+            this.props.fetchrestaurants(this.state).then(function () {
+                _this3.props.history.push('/search/' + _this3.state.term + '&' + _this3.state.location + '&' + _this3.state.radius + '&' + _this3.state.price);
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'form',
+                    { onSubmit: this.handleSubmit.bind(this) },
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        'Where?',
+                        _react2.default.createElement('input', { type: 'text', onChange: this.update('zip'), value: this.state.zip })
+                    ),
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        'Max. Distance',
+                        _react2.default.createElement('input', { type: 'number', onChange: this.update('radius'), value: this.state.radius })
+                    ),
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        'Price',
+                        _react2.default.createElement('input', { type: 'text', onChange: this.update('price'), value: this.state.price })
+                    ),
+                    _react2.default.createElement('input', { type: 'submit', value: 'search' })
+                )
+            );
+        }
+    }]);
+
+    return Search;
+}(_react2.default.Component);
+
+exports.default = Search;
+
+/***/ }),
+
+/***/ "./frontend/app/components/search/search_container.js":
+/*!************************************************************!*\
+  !*** ./frontend/app/components/search/search_container.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+var _res_actions = __webpack_require__(/*! ../../actions/res_actions */ "./frontend/app/actions/res_actions.js");
+
+var _search = __webpack_require__(/*! ./search */ "./frontend/app/components/search/search.jsx");
+
+var _search2 = _interopRequireDefault(_search);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        fetchRestaurants: function fetchRestaurants(data) {
+            return dispatch((0, _res_actions.fetchRestaurants)(data));
+        }
+    };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(null, mapDispatchToProps)(_search2.default));
 
 /***/ }),
 
