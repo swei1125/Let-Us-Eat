@@ -1,5 +1,6 @@
 import keys from '../../../config/keys';
 import yelp from 'yelp-fusion';
+import $ from 'jquery';
 
 export const RECEIVE_RESTAURANTS = 'RECEIVE_RESTAURANTS';
 export const RECEIVE_CURRENT_RES = 'RECEIVE_CURRENT_RES';
@@ -22,12 +23,17 @@ export const fetchRestaurants = (data) => dispatch => (
     .catch(err => console.log(err)) 
 )
 
-export const fetchSingleRes = (id) => dispatch => (
-    (id) => ($.ajax({
+const yelpFetch = (id) => (
+    $.ajax({
         method: 'get',
         url: `https://api.yelp.com/v3/businesses/${id}`,
-        headers: {
-            Authorization: 'Bearer' + keys.yelpKey
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer " + keys.yelpKey);
         }
-    })).then(res => dispatch(receiveCurrentRes(res)))
+    })
+)
+
+export const fetchSingleRes = (id) => dispatch => (
+    yelpFetch(id)
+    .then(res => dispatch(receiveCurrentRes(res)))
 )
