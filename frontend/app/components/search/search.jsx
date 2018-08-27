@@ -35,15 +35,15 @@ class Search extends React.Component {
                 <form onSubmit={this.handleSubmit.bind(this)}>
 
                     <label>Where?
-                        <input type="text" onChange={this.update('zip')} value={this.state.zip} />
+                        <input type="text" onChange={this.update.bind(this, 'zip')} value={this.state.zip} />
                     </label>
 
                     <label>Max. Distance
-                        <input type="number" onChange={this.update('radius')} value={this.state.radius} />
+                        <input type="number" onChange={this.update.bind(this, 'radius')} value={this.state.radius} />
                     </label>
 
                     <label>Price
-                        <input type="text" onChange={this.update('price')} value={this.state.price} />
+                        <input type="text" onChange={this.update.bind(this, 'price')} value={this.state.price} />
                     </label>
                     
                     <input type="submit" value="search" />

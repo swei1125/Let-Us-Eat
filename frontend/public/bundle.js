@@ -353,19 +353,19 @@ var Search = function (_React$Component) {
                         'label',
                         null,
                         'Where?',
-                        _react2.default.createElement('input', { type: 'text', onChange: this.update('zip'), value: this.state.zip })
+                        _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, 'zip'), value: this.state.zip })
                     ),
                     _react2.default.createElement(
                         'label',
                         null,
                         'Max. Distance',
-                        _react2.default.createElement('input', { type: 'number', onChange: this.update('radius'), value: this.state.radius })
+                        _react2.default.createElement('input', { type: 'number', onChange: this.update.bind(this, 'radius'), value: this.state.radius })
                     ),
                     _react2.default.createElement(
                         'label',
                         null,
                         'Price',
-                        _react2.default.createElement('input', { type: 'text', onChange: this.update('price'), value: this.state.price })
+                        _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, 'price'), value: this.state.price })
                     ),
                     _react2.default.createElement('input', { type: 'submit', value: 'search' })
                 )
