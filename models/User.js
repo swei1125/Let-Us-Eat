@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const RestaurantSchema = require('./Restaurant');
 
 const UserSchema = new Schema({
     name: {
@@ -18,8 +19,10 @@ const UserSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    likedRestaurants: [{
+        type: Schema.Types.ObjectId,
+        ref: 'restaurants'
+    }]
 })
 
 module.exports = User = mongoose.model('users', UserSchema);
-
-// Create another schema for res table and res liked table
