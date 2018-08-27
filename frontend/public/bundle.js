@@ -116,7 +116,7 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.fetchSingleRes = exports.fetchRestaurants = exports.receiveCurrentRes = exports.receiveRestaurants = exports.RECEIVE_CURRENT_RES = exports.RECEIVE_RESTAURANTS = undefined;
+exports.fetchRestaurants = exports.receiveCurrentRes = exports.receiveRestaurants = exports.RECEIVE_CURRENT_RES = exports.RECEIVE_RESTAURANTS = undefined;
 
 var _keys = __webpack_require__(/*! ../../../config/keys */ "./config/keys.js");
 
@@ -157,28 +157,6 @@ var fetchRestaurants = exports.fetchRestaurants = function fetchRestaurants() {
     return client.search(data).then(function (res) {
         return console.log(res);
     });
-};
-
-var yelpFetch = function yelpFetch(id) {
-    return _jquery2.default.ajax({
-        method: "get",
-        url: 'https://api.yelp.com/v3/businesses/' + id,
-        // beforeSend: function (xhr) {
-        //     xhr.setRequestHeader("Authorization", "Bearer " + keys.yelpKey);
-        // }
-        headers: {
-            Authorization: 'Bearer ' + _keys2.default.yelpKey
-        },
-        dataType: "json"
-    });
-};
-
-var fetchSingleRes = exports.fetchSingleRes = function fetchSingleRes(id) {
-    return function (dispatch) {
-        return yelpFetch(id).then(function (res) {
-            return dispatch(receiveCurrentRes(res));
-        });
-    };
 };
 
 /***/ }),
