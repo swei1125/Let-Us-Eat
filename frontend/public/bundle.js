@@ -254,6 +254,8 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -270,6 +272,7 @@ var Res = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Res.__proto__ || Object.getPrototypeOf(Res)).call(this, props));
 
+        _this.resIds = props.resIds;
         _this.idx = 0;
         return _this;
     }
@@ -278,6 +281,20 @@ var Res = function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.props.fetchSingleRes(this.props.resIds[this.idx]);
+        }
+    }, {
+        key: 'goNext',
+        value: function goNext(e) {
+            e.preventDefault();
+            if (this.idx === this.resIds.length - 1) {
+                this.idx = 0;
+                this.resIds = (0, _lodash.shuffle)(this.props.resIds);
+            } else {
+                this.idx += 1;
+            }
+            console.log(this.resIds);
+
+            this.props.fetchSingleRes(this.resIds[this.idx]);
         }
     }, {
         key: 'render',
@@ -292,6 +309,17 @@ var Res = function (_React$Component) {
                     'h1',
                     null,
                     'Res Show'
+                ),
+                _react2.default.createElement(
+                    'button',
+                    { onClick: this.goNext.bind(this) },
+                    'Next'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'res-box' },
+                    _react2.default.createElement('div', { className: 'pix-box' }),
+                    _react2.default.createElement('div', { className: 'content-wrapper' })
                 )
             );
         }
@@ -470,7 +498,7 @@ var Search = function (_React$Component) {
 
       e.preventDefault();
 
-      var input = { term: this.state.term, location: this.state.location, radius: this.state.radius, price: this.state.price };
+      var input = { limit: 50, term: this.state.term, location: this.state.location, radius: this.state.radius, price: this.state.price };
 
       this.props.fetchRestaurants(input).then(function () {
         _this2.props.history.push('/search/' + _this2.state.term + '&' + _this2.state.location + '&' + _this2.state.radius + '&' + _this2.state.price);
