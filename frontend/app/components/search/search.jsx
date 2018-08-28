@@ -14,10 +14,17 @@ class Search extends React.Component {
     }
 
     update(field, e) {
-        this.setState({
-            [field]: e.currentTarget.value
-        });
-        console.log("radius", this.state.radius)
+        if (field === 'radius') {
+            this.setState({
+                [field]: parseInt(e.currentTarget.value)
+            });
+        }else{
+            this.setState({
+              [field]: e.currentTarget.value
+            });
+        }
+        
+        console.log("state", this.state)
     }
 
     handleClick(index, e) {
@@ -31,15 +38,14 @@ class Search extends React.Component {
         this.setState({selected: arr, price: str})
     }
 
-    handleSubmit(e) {   
+    handleSubmit(e) {  
         e.preventDefault();
 
-        this.props.fetchrestaurants(this.state)
-            .then(() => {
-                this.props.history.push(
-                    `/search/${this.state.term}&${this.state.location}&${this.state.radius}&${this.state.price}`
-                );
-            });
+        let input = {term: this.state.term, location: this.state.location, radius: this.state.radius, price: this.state.price}
+
+        this.props.fetchRestaurants(input).then(() => {
+          this.props.history.push(`/search/${this.state.term}&${this.state.location}&${this.state.radius}&${this.state.price}`);
+        });
     }
 
     render(){
@@ -87,7 +93,7 @@ class Search extends React.Component {
               </div>
             </div>
 
-            <input type="submit" value="search" />
+            <input type="submit" value="Search" />
           </form>;
     }
 }
