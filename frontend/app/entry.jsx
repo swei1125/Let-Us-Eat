@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const root = document.querySelector("#root");
     const store = configureStore();
 
+<<<<<<< HEAD
+    window.getState = store.store.getState;
+    window.dispatch = store.store.dispatch;
+=======
     if (localStorage.jwtToken) {
         APIUtil.setAuthToken(localStorage.jwtToken);
 
@@ -28,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.getState = store.getState;
     window.dispatch = store.dispatch;
+>>>>>>> dad30d44a26b2b5ac7dfd4cf5a494fe27c8f3c07
     window.fetchSingleRes = fetchSingleRes;
     window.fetchRestaurants = fetchRestaurants;
     window.fetch = fetch;
