@@ -605,33 +605,9 @@ exports.default = entitiesReducer;
   !*** ./frontend/app/reducers/reslist_reducer.js ***!
   \**************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _res_actions = __webpack_require__(/*! ../actions/res_actions */ "./frontend/app/actions/res_actions.js");
-
-var resListReducer = function resListReducer() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var action = arguments[1];
-
-    Object.freeze(state);
-    switch (action.type) {
-        case _res_actions.RECEIVE_RESTAURANTS:
-            return action.resList.map(function (res) {
-                return res.id;
-            });
-        default:
-            return state;
-    }
-};
-
-exports.default = resListReducer;
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/amon/Desktop/Flex/package.json: Error while parsing JSON - Unexpected token < in JSON at position 1099\n    at JSON.parse (<anonymous>)\n    at ConfigChainBuilder.addConfig (/Users/amon/Desktop/Flex/node_modules/babel-core/lib/transformation/file/options/build-config-chain.js:150:65)\n    at ConfigChainBuilder.findConfigs (/Users/amon/Desktop/Flex/node_modules/babel-core/lib/transformation/file/options/build-config-chain.js:102:30)\n    at buildConfigChain (/Users/amon/Desktop/Flex/node_modules/babel-core/lib/transformation/file/options/build-config-chain.js:61:13)\n    at OptionManager.init (/Users/amon/Desktop/Flex/node_modules/babel-core/lib/transformation/file/options/option-manager.js:354:58)\n    at File.initOptions (/Users/amon/Desktop/Flex/node_modules/babel-core/lib/transformation/file/index.js:212:65)\n    at new File (/Users/amon/Desktop/Flex/node_modules/babel-core/lib/transformation/file/index.js:135:24)\n    at Pipeline.transform (/Users/amon/Desktop/Flex/node_modules/babel-core/lib/transformation/pipeline.js:46:16)\n    at transpile (/Users/amon/Desktop/Flex/node_modules/babel-loader/lib/index.js:50:20)\n    at Object.module.exports (/Users/amon/Desktop/Flex/node_modules/babel-loader/lib/index.js:173:20)");
 
 /***/ }),
 
