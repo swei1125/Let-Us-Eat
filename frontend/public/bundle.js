@@ -509,6 +509,10 @@ var _root = __webpack_require__(/*! ./components/root */ "./frontend/app/compone
 
 var _root2 = _interopRequireDefault(_root);
 
+__webpack_require__(/*! bootstrap/dist/css/bootstrap.css */ "./node_modules/bootstrap/dist/css/bootstrap.css");
+
+__webpack_require__(/*! bootstrap/dist/css/bootstrap-theme.css */ "./node_modules/bootstrap/dist/css/bootstrap-theme.css");
+
 var _res_actions = __webpack_require__(/*! ./actions/res_actions */ "./frontend/app/actions/res_actions.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -697,6 +701,28 @@ var configureStore = function configureStore() {
 };
 
 exports.default = configureStore;
+
+/***/ }),
+
+/***/ "./node_modules/bootstrap/dist/css/bootstrap-theme.css":
+/*!*************************************************************!*\
+  !*** ./node_modules/bootstrap/dist/css/bootstrap-theme.css ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module parse failed: Unexpected token (6:0)\nYou may need an appropriate loader to handle this file type.\n|  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)\n|  */\n> .btn-default,\n| .btn-primary,\n| .btn-success,");
+
+/***/ }),
+
+/***/ "./node_modules/bootstrap/dist/css/bootstrap.css":
+/*!*******************************************************!*\
+  !*** ./node_modules/bootstrap/dist/css/bootstrap.css ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module parse failed: Unexpected token (7:5)\nYou may need an appropriate loader to handle this file type.\n|  */\n| /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */\n> html {\n|   font-family: sans-serif;\n|   -webkit-text-size-adjust: 100%;");
 
 /***/ }),
 

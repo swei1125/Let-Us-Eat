@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import configureStore from './store/store';
 import Root from './components/root';
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap-theme.css";
 import {fetchSingleRes, fetchRestaurants, fetch} from './actions/res_actions';
 
 

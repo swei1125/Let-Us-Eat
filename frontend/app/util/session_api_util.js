@@ -28,3 +28,4 @@ export const logout = () => (
         method: 'DELETE',
         url: 'api/users/logout'
     })
+)
