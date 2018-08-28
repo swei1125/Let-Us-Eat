@@ -26,5 +26,5 @@ export const currentUser = () => (
 export const logout = () => (
     $.ajax({
         method: 'DELETE',
-        // url: 'api/users/current'
+        url: 'api/users/logout'
     })
