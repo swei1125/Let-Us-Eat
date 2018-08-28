@@ -8,12 +8,11 @@
     "server": "nodemon app.js",
     "webpack": "webpack --watch --mode=development",
     "precommit": "lint-staged",
-    "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start": "npm-run-all -p watch-css webpack",
     "frontend-install": "npm install --prefix frontend",
     "frontend": "npm node --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run frontend\""
+    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "css-watch": "sass --watch frontend/public/stylesheets/main.scss:frontend/public/main.css"
   },
   "keywords": [
     "AppAcademy"
