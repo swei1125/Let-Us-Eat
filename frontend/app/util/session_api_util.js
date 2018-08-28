@@ -1,31 +1,47 @@
 import $ from 'jquery';
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
-export const signup = (user) => (
-    $.ajax({
-        method: 'POST',
-        url: 'api/users/register',
-        data: { user }
-    })
-);
+const $ = window.$;
+export const GET_ERRORS = 'GET_ERRORS'
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 
-export const login = (user) => (
-    $.ajax({
-        method: 'POST',
-        url: 'api/users/login',
-        data: { user }
-    })
-);
+export const setAuthToken = token => {
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = token
+    } else {
+        delete axios.defaults.headers.common['Authorization'];
+    }
+}
 
-export const currentUser = () => (
-    $.ajax({
-        method: 'GET',
-        url: 'api/users/current'
+export const registerUser = (userData, history) => dispatch => {
+    axios
+    .post('api/users/login', userData)
+    .then(res => {
+        const { token } = res.data
+        localStorage.setItem('jwToken', token)
+        setAuthToken(token)
+        const decoded = jwt_decode(token)
+        dispatch(setCurrentUser(decoded))
     })
-)
+    .catch(err => 
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        })
+    )
+}   
 
-export const logout = () => (
-    $.ajax({
-        method: 'DELETE',
-        url: 'api/users/logout'
-    })
-)
+export const setCurrentUser = decoded => {
+    return {
+        type: RECEIVE_CURRENT_USER,
+        payload: decoded
+    }
+}
+
+export const logoutUser = () => dispatch => {
+    localStorage.removeItem('jwToken')
+    setAuthToken(false);
+    dispatch(setCurrentUser({}))
+}
