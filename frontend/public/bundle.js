@@ -322,45 +322,96 @@ var Search = function (_React$Component) {
             term: "restaurants",
             location: "",
             radius: 12,
-            price: ""
+            price: "",
+            selected: [false, false, false, false]
         };
         return _this;
     }
 
     _createClass(Search, [{
         key: 'update',
-        value: function update(field) {
-            var _this2 = this;
-
-            return function (e) {
-                return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
-            };
+        value: function update(field, e) {
+            this.setState(_defineProperty({}, field, e.currentTarget.value));
+        }
+    }, {
+        key: 'handleClick',
+        value: function handleClick(index, e) {
+            var arr = [];
+            var str = "";
+            for (var i = 0; i < 4; i++) {
+                arr[i] = i <= index;
+                str = str + (i < index ? i + 1 + ', ' : "");
+            }
+            str = str + ('' + (index + 1));
+            this.setState({ selected: arr, price: str });
         }
     }, {
         key: 'handleSubmit',
         value: function handleSubmit(e) {
-            var _this3 = this;
+            var _this2 = this;
 
             e.preventDefault();
 
             this.props.fetchrestaurants(this.state).then(function () {
-                _this3.props.history.push('/search/' + _this3.state.term + '&' + _this3.state.location + '&' + _this3.state.radius + '&' + _this3.state.price);
+                _this2.props.history.push('/search/' + _this2.state.term + '&' + _this2.state.location + '&' + _this2.state.radius + '&' + _this2.state.price);
             });
         }
     }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
-                'div',
-                null,
+                'form',
+                { onSubmit: this.handleSubmit.bind(this), className: 'search_form' },
                 _react2.default.createElement(
-                    'form',
-                    { onSubmit: this.handleSubmit.bind(this) },
+                    'div',
+                    { className: 'what' },
                     _react2.default.createElement(
-                        'label',
-                        null,
-                        'Where?',
-                        _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, "zip"), value: this.state.zip })
+                        'div',
+                        { className: 'inputs' },
+                        _react2.default.createElement(
+                            'h2',
+                            null,
+                            'FIND'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, "term"), value: this.state.term, placeholder: 'restaurants, food, burguers...' })
+                    ),
+                    _react2.default.createElement(
+                        'ul',
+                        { className: 'price' },
+                        _react2.default.createElement(
+                            'li',
+                            { onClick: this.handleClick.bind(this, 0), className: this.state.selected[0] ? "checked" : "" },
+                            '$'
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            { onClick: this.handleClick.bind(this, 1), className: this.state.selected[1] ? "checked" : "" },
+                            '$'
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            { onClick: this.handleClick.bind(this, 2), className: this.state.selected[2] ? "checked" : "" },
+                            '$'
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            { onClick: this.handleClick.bind(this, 3), className: this.state.selected[3] ? "checked" : "" },
+                            '$'
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'where' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'inputs' },
+                        _react2.default.createElement(
+                            'h2',
+                            null,
+                            'NEAR'
+                        ),
+                        _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, "location"), value: this.state.location, placeholder: 'Downtown Berkeley, Berkeley, CA' })
                     ),
                     _react2.default.createElement(
                         'div',
@@ -382,15 +433,9 @@ var Search = function (_React$Component) {
                                 _react2.default.createElement('option', { value: '24' })
                             )
                         )
-                    ),
-                    _react2.default.createElement(
-                        'label',
-                        null,
-                        'Price',
-                        _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, "price"), value: this.state.price })
-                    ),
-                    _react2.default.createElement('input', { type: 'submit', value: 'search' })
-                )
+                    )
+                ),
+                _react2.default.createElement('input', { type: 'submit', value: 'search' })
             );
         }
     }]);

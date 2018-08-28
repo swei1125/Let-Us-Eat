@@ -36,3 +36,8 @@
     background: #4CAF50; /* Green background */
     cursor: pointer; /* Cursor on hover */
 }
+
+.checked {
+    color: green;
+    font-weight: 600;
+}
