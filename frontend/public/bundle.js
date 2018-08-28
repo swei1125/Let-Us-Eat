@@ -116,7 +116,7 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.fetchRestaurants = exports.receiveCurrentRes = exports.receiveRestaurants = exports.RECEIVE_CURRENT_RES = exports.RECEIVE_RESTAURANTS = undefined;
+exports.fetchSingleRes = exports.fetchRestaurants = exports.receiveCurrentRes = exports.receiveRestaurants = exports.RECEIVE_CURRENT_RES = exports.RECEIVE_RESTAURANTS = undefined;
 
 var _keys = __webpack_require__(/*! ../../../config/keys */ "./config/keys.js");
 
@@ -126,6 +126,10 @@ var _yelpFusion = __webpack_require__(/*! yelp-fusion */ "./node_modules/yelp-fu
 
 var _yelpFusion2 = _interopRequireDefault(_yelpFusion);
 
+var _axios = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'axios'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _jquery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 var _jquery2 = _interopRequireDefault(_jquery);
@@ -134,8 +138,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var RECEIVE_RESTAURANTS = exports.RECEIVE_RESTAURANTS = 'RECEIVE_RESTAURANTS';
 var RECEIVE_CURRENT_RES = exports.RECEIVE_CURRENT_RES = 'RECEIVE_CURRENT_RES';
-
-var client = _yelpFusion2.default.client(_keys2.default.yelpKey);
 
 var receiveRestaurants = exports.receiveRestaurants = function receiveRestaurants(resList) {
     return {
@@ -151,10 +153,33 @@ var receiveCurrentRes = exports.receiveCurrentRes = function receiveCurrentRes(r
     };
 };
 
-var fetchRestaurants = exports.fetchRestaurants = function fetchRestaurants() {
-    return client.search({ location: 'San francisco' }).then(function (res) {
-        return console.log(res);
-    });
+var fetchRestaurants = exports.fetchRestaurants = function fetchRestaurants(data) {
+    return function (dispatch) {
+        return _jquery2.default.ajax({
+            method: 'get',
+            url: 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search',
+            data: data,
+            headers: {
+                'Authorization': 'Bearer ' + _keys2.default.yelpKey
+            }
+        }).then(function (res) {
+            return dispatch(receiveRestaurants(res.businesses));
+        });
+    };
+};
+
+var fetchSingleRes = exports.fetchSingleRes = function fetchSingleRes(id) {
+    return function (dispatch) {
+        return _jquery2.default.ajax({
+            method: 'get',
+            url: 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/' + id,
+            headers: {
+                'Authorization': 'Bearer ' + _keys2.default.yelpKey
+            }
+        }).then(function (res) {
+            return dispatch(receiveCurrentRes(res));
+        });
+    };
 };
 
 /***/ }),
@@ -432,6 +457,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.dispatch = store.dispatch;
     window.fetchSingleRes = _res_actions.fetchSingleRes;
     window.fetchRestaurants = _res_actions.fetchRestaurants;
+    window.fetch = _res_actions.fetch;
 
     _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 });
