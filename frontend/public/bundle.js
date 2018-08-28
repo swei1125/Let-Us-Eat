@@ -435,7 +435,7 @@ var Search = function (_React$Component) {
     _this.state = {
       term: "",
       location: "",
-      radius: 12,
+      radius: 12 * 1600,
       price: "",
       selected: [false, false, false, false]
     };
@@ -446,7 +446,7 @@ var Search = function (_React$Component) {
     key: 'update',
     value: function update(field, e) {
       if (field === 'radius') {
-        this.setState(_defineProperty({}, field, parseInt(e.currentTarget.value) * 1609));
+        this.setState(_defineProperty({}, field, parseInt(e.currentTarget.value)));
       } else {
         this.setState(_defineProperty({}, field, e.currentTarget.value));
       }
@@ -536,23 +536,22 @@ var Search = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'slidecontainer' },
-            _react2.default.createElement('input', { type: 'range', min: '2', max: '25', step: '1', className: 'slider', list: 'tickmarks', onChange: this.update.bind(this, "radius"), value: this.state.radius }),
+            _react2.default.createElement('input', { type: 'range', min: '3200', max: '38400', step: '1600', className: 'slider', list: 'tickmarks', onChange: this.update.bind(this, "radius"), value: this.state.radius }),
             _react2.default.createElement(
               'datalist',
               { id: 'tickmarks' },
-              _react2.default.createElement('option', { value: '2' }),
-              _react2.default.createElement('option', { value: '4' }),
-              _react2.default.createElement('option', { value: '8' }),
-              _react2.default.createElement('option', { value: '12' }),
-              _react2.default.createElement('option', { value: '16' }),
-              _react2.default.createElement('option', { value: '20' }),
-              _react2.default.createElement('option', { value: '24' }),
-              _react2.default.createElement('option', { value: '25' })
+              _react2.default.createElement('option', { value: '3200' }),
+              _react2.default.createElement('option', { value: '6400' }),
+              _react2.default.createElement('option', { value: '12800' }),
+              _react2.default.createElement('option', { value: '20200' }),
+              _react2.default.createElement('option', { value: '26600' }),
+              _react2.default.createElement('option', { value: '32000' }),
+              _react2.default.createElement('option', { value: '38400' })
             ),
             _react2.default.createElement(
               'p',
               null,
-              this.state.radius,
+              Math.floor(this.state.radius / 1600),
               ' miles around'
             )
           )
