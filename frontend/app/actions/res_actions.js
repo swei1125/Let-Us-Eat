@@ -17,7 +17,9 @@ export const receiveCurrentRes = (res) => ({
     res
 });
 
-export const fetchRestaurants = (data = {location: 'san francisco'}) => {
-    return client.search(data)
+export const fetchRestaurants = () => {
+    return client.search({ location: 'San francisco' })
     .then(res => console.log(res))
 }
+
+

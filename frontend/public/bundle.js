@@ -152,9 +152,7 @@ var receiveCurrentRes = exports.receiveCurrentRes = function receiveCurrentRes(r
 };
 
 var fetchRestaurants = exports.fetchRestaurants = function fetchRestaurants() {
-    var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { location: 'san francisco' };
-
-    return client.search(data).then(function (res) {
+    return client.search({ location: 'San francisco' }).then(function (res) {
         return console.log(res);
     });
 };
