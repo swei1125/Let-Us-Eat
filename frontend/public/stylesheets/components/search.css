@@ -1,12 +1,27 @@
-.search_form {
-    width: auto;
-    margin: 0px 80px;
-    border: 2px solid white;
-    height: 500px;
-    background-image: url("../../images/breakfast.jpg");
+body {
+    background-image: url("../../images/search3.jpg");
     background-size: cover;  
     background-repeat: no-repeat;
     display: block;
+}
+
+.search_form {
+    width: auto;
+    margin: 0px 80px;
+    border: 1px solid #e6e6e8;
+    height: 600px;
+    background-image: url("../../images/search3.jpg");
+    background-size: cover;  
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.search_form2 {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: rgb(0,0,0, 0.5) ;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,15 +35,12 @@
     flex-direction: row;
     align-items: center;
     margin: 20px 100px;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
+    justify-content: center;  
 }
 
 .inputs {
     width: 500px;
-    padding: 5px 10px 5px 10px;
-    border: 2px solid #B39BC8;
+    padding: 8px 10px 8px 10px;
     background-color: white;
     border-radius: 5px;
     display: flex;
@@ -39,22 +51,22 @@
 
 .inputs h2 {
     margin-right: 12px;
-    color: #B39BC8;
+    color: #751b79;
     font-size: 16px;
     font-weight: bold;
 }
 
 .inputs input {
     width: 100%;
-    color: #A1C3D1;
+    color: #300032;
     font-size: 14px;
     font-weight: bold;
 }
 
 .inputs input::placeholder {
-    color: #F0EBF4;
+    color: rgb(220, 193, 241);
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 200;
 }
 
 .price {
@@ -93,13 +105,9 @@ li {
     width: 100%;
     height: 14px;
     background: #A1C3D1;
-    opacity: 0.7;
     margin: 5px 15px;
 }
 
-.slider:hover {
-    opacity: 1;
-}
 
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -119,21 +127,19 @@ li {
 
 .slidecontainer p {
     width: auto;
-    color: #A1C3D1;
+    color: #e6e6e8;
     font-size: 12px;
     text-align: center;
 }
 
 
 .search_form input[type="submit"] {
-    padding: 5px;
-    margin: 20px;
-    width: 30px;
-    height: 30px;
-    background-image: url("../../images/loupe.png");
+    margin: 50px;
+    width: 80px;
+    height: 70px;
+    background-image: url("../../images/logoWhite.png");
     background-size: cover;  
-    background-position: 0px 0px;
+    background-position: center;
     background-repeat: no-repeat;
     display: block;
-    z-index: 2;
 }
