@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { shuffle } from "lodash";
 
 class Res extends React.Component {
@@ -6,10 +7,11 @@ class Res extends React.Component {
         super(props);
         this.resIds = props.resIds;
         this.idx = 0;
+        
     }
 
     componentDidMount() {
-        this.props.fetchSingleRes(this.props.resIds[this.idx])
+            this.props.fetchSingleRes(this.props.resIds[this.idx]);
     }
 
     goNext(e) {
@@ -20,7 +22,6 @@ class Res extends React.Component {
         } else {
             this.idx += 1;
         }
-        console.log(this.resIds);
         
         this.props.fetchSingleRes(this.resIds[this.idx])
     }
@@ -31,8 +32,8 @@ class Res extends React.Component {
         };
         return (
             <div className='res-wrapper'>
-                <h1>Res Show</h1>
                 <button onClick={this.goNext.bind(this)}>Next</button>
+
                 <div className='res-box' >
                     <div className='pix-box' ></div>
                     <div className='content-wrapper' ></div>
@@ -43,4 +44,4 @@ class Res extends React.Component {
  
 }
 
-export default Res;
+export default withRouter(Res);
