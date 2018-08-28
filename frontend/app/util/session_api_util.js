@@ -20,7 +20,7 @@ export const registerUser = (userData, history) => dispatch => {
     .post('api/users/login', userData)
     .then(res => {
         const { token } = res.data
-        localStorage.setItem('jwToken', token)
+        localStorage.setItem('jwtToken', token)
         setAuthToken(token)
         const decoded = jwt_decode(token)
         dispatch(setCurrentUser(decoded))
@@ -41,7 +41,7 @@ export const setCurrentUser = decoded => {
 }
 
 export const logoutUser = () => dispatch => {
-    localStorage.removeItem('jwToken')
+    localStorage.removeItem('jwtToken')
     setAuthToken(false);
     dispatch(setCurrentUser({}))
 }
