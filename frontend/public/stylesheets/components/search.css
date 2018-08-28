@@ -104,6 +104,15 @@ li {
     cursor: pointer;
 }
 
-.search_form ims {
+.search_form img{
     width: 40px;
+}
+
+.search_form input[type="submit"] {
+  padding: 5px;
+  margin: 20px;
+  width: 30px;
+  height: 30px;
+  background-image: "../images/loupe.png";
+  border: 2px solid #B39BC8;
 }
