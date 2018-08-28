@@ -1,11 +1,12 @@
 import keys from '../../../config/keys';
 import yelp from 'yelp-fusion';
+import axios from 'axios';
 import $ from 'jquery';
+
 
 export const RECEIVE_RESTAURANTS = 'RECEIVE_RESTAURANTS';
 export const RECEIVE_CURRENT_RES = 'RECEIVE_CURRENT_RES';
 
-const client = yelp.client(keys.yelpKey);
 
 export const receiveRestaurants = (resList) => ({
     type: RECEIVE_RESTAURANTS,
@@ -17,7 +18,25 @@ export const receiveCurrentRes = (res) => ({
     res
 });
 
-export const fetchRestaurants = (data = {location: 'san francisco'}) => {
-    return client.search(data)
-    .then(res => console.log(res))
-}
+
+
+export const fetchRestaurants = (data) => dispatch => (
+    $.ajax({
+        method: 'get',
+        url: 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search',
+        data,
+        headers: {
+            'Authorization': `Bearer ${keys.yelpKey}`
+        }
+    }).then(res => dispatch(receiveRestaurants(res.businesses)))
+)
+
+export const fetchSingleRes = id => dispatch => (
+    $.ajax({
+        method: 'get',
+        url: `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${id}`,
+        headers: {
+            'Authorization': `Bearer ${keys.yelpKey}`
+        }
+    }).then(res => dispatch(receiveCurrentRes(res)))
+)
