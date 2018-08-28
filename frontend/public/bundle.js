@@ -126,10 +126,6 @@ var _yelpFusion = __webpack_require__(/*! yelp-fusion */ "./node_modules/yelp-fu
 
 var _yelpFusion2 = _interopRequireDefault(_yelpFusion);
 
-var _axios = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'axios'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var _axios2 = _interopRequireDefault(_axios);
-
 var _jquery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 var _jquery2 = _interopRequireDefault(_jquery);

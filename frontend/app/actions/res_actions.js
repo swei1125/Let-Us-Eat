@@ -1,6 +1,5 @@
 import keys from '../../../config/keys';
 import yelp from 'yelp-fusion';
-import axios from 'axios';
 import $ from 'jquery';
 
 
