@@ -7,7 +7,7 @@ class Res extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchSingleRes(this.props.resIds[idx])
+        this.props.fetchSingleRes(this.props.resIds[this.idx])
     }
 
     render() {
@@ -16,7 +16,7 @@ class Res extends React.Component {
         };
         return (
             <div className='res-wrapper'>
-                
+                <h1>Res Show</h1>
             </div>
         )
     }

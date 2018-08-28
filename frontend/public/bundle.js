@@ -158,6 +158,8 @@ var fetchRestaurants = exports.fetchRestaurants = function fetchRestaurants(data
             }
         }).then(function (res) {
             return dispatch(receiveRestaurants(res.businesses));
+        }, function (err) {
+            return console.log(err);
         });
     };
 };
@@ -172,6 +174,8 @@ var fetchSingleRes = exports.fetchSingleRes = function fetchSingleRes(id) {
             }
         }).then(function (res) {
             return dispatch(receiveCurrentRes(res));
+        }, function (err) {
+            return console.log(err);
         });
     };
 };
@@ -200,6 +204,10 @@ var _search_container = __webpack_require__(/*! ./search/search_container */ "./
 
 var _search_container2 = _interopRequireDefault(_search_container);
 
+var _res_container = __webpack_require__(/*! ./res/res_container */ "./frontend/app/components/res/res_container.js");
+
+var _res_container2 = _interopRequireDefault(_res_container);
+
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -216,12 +224,126 @@ var App = function App() {
         _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _search_container2.default })
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _search_container2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/search/:term&:location&:radius&:price', component: _res_container2.default })
         )
     );
 };
 
 exports.default = App;
+
+/***/ }),
+
+/***/ "./frontend/app/components/res/res.jsx":
+/*!*********************************************!*\
+  !*** ./frontend/app/components/res/res.jsx ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Res = function (_React$Component) {
+    _inherits(Res, _React$Component);
+
+    function Res(props) {
+        _classCallCheck(this, Res);
+
+        var _this = _possibleConstructorReturn(this, (Res.__proto__ || Object.getPrototypeOf(Res)).call(this, props));
+
+        _this.idx = 0;
+        return _this;
+    }
+
+    _createClass(Res, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.props.fetchSingleRes(this.props.resIds[this.idx]);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            if (!this.props.currentRes) {
+                return null;
+            };
+            return _react2.default.createElement(
+                'div',
+                { className: 'res-wrapper' },
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Res Show'
+                )
+            );
+        }
+    }]);
+
+    return Res;
+}(_react2.default.Component);
+
+exports.default = Res;
+
+/***/ }),
+
+/***/ "./frontend/app/components/res/res_container.js":
+/*!******************************************************!*\
+  !*** ./frontend/app/components/res/res_container.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _res_actions = __webpack_require__(/*! ../../actions/res_actions */ "./frontend/app/actions/res_actions.js");
+
+var _res = __webpack_require__(/*! ./res */ "./frontend/app/components/res/res.jsx");
+
+var _res2 = _interopRequireDefault(_res);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        resIds: state.entities.resList,
+        currentRes: state.entities.currentRes
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        fetchSingleRes: function fetchSingleRes(id) {
+            return dispatch((0, _res_actions.fetchSingleRes)(id));
+        }
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_res2.default);
 
 /***/ }),
 
@@ -324,12 +446,10 @@ var Search = function (_React$Component) {
     key: 'update',
     value: function update(field, e) {
       if (field === 'radius') {
-        this.setState(_defineProperty({}, field, parseInt(e.currentTarget.value)));
+        this.setState(_defineProperty({}, field, parseInt(e.currentTarget.value) * 1609));
       } else {
         this.setState(_defineProperty({}, field, e.currentTarget.value));
       }
-
-      console.log("state", this.state);
     }
   }, {
     key: 'handleClick',
@@ -416,11 +536,10 @@ var Search = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'slidecontainer' },
-            _react2.default.createElement('input', { type: 'range', min: '1', max: '26', step: '1', className: 'slider', list: 'tickmarks', onChange: this.update.bind(this, "radius"), value: this.state.radius }),
+            _react2.default.createElement('input', { type: 'range', min: '2', max: '25', step: '1', className: 'slider', list: 'tickmarks', onChange: this.update.bind(this, "radius"), value: this.state.radius }),
             _react2.default.createElement(
               'datalist',
               { id: 'tickmarks' },
-              _react2.default.createElement('option', { value: '1' }),
               _react2.default.createElement('option', { value: '2' }),
               _react2.default.createElement('option', { value: '4' }),
               _react2.default.createElement('option', { value: '8' }),
@@ -428,12 +547,17 @@ var Search = function (_React$Component) {
               _react2.default.createElement('option', { value: '16' }),
               _react2.default.createElement('option', { value: '20' }),
               _react2.default.createElement('option', { value: '24' }),
-              _react2.default.createElement('option', { value: '25' }),
-              _react2.default.createElement('option', { value: '26' })
+              _react2.default.createElement('option', { value: '25' })
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              this.state.radius,
+              ' miles around'
             )
           )
         ),
-        _react2.default.createElement('input', { type: 'submit', value: 'Search' })
+        _react2.default.createElement('input', { type: 'submit', value: '' })
       );
     }
   }]);
@@ -508,10 +632,6 @@ var _store2 = _interopRequireDefault(_store);
 var _root = __webpack_require__(/*! ./components/root */ "./frontend/app/components/root.jsx");
 
 var _root2 = _interopRequireDefault(_root);
-
-__webpack_require__(/*! bootstrap/dist/css/bootstrap.css */ "./node_modules/bootstrap/dist/css/bootstrap.css");
-
-__webpack_require__(/*! bootstrap/dist/css/bootstrap-theme.css */ "./node_modules/bootstrap/dist/css/bootstrap-theme.css");
 
 var _res_actions = __webpack_require__(/*! ./actions/res_actions */ "./frontend/app/actions/res_actions.js");
 
@@ -703,28 +823,6 @@ var configureStore = function configureStore() {
 };
 
 exports.default = configureStore;
-
-/***/ }),
-
-/***/ "./node_modules/bootstrap/dist/css/bootstrap-theme.css":
-/*!*************************************************************!*\
-  !*** ./node_modules/bootstrap/dist/css/bootstrap-theme.css ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-throw new Error("Module parse failed: Unexpected token (6:0)\nYou may need an appropriate loader to handle this file type.\n|  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)\n|  */\n> .btn-default,\n| .btn-primary,\n| .btn-success,");
-
-/***/ }),
-
-/***/ "./node_modules/bootstrap/dist/css/bootstrap.css":
-/*!*******************************************************!*\
-  !*** ./node_modules/bootstrap/dist/css/bootstrap.css ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-throw new Error("Module parse failed: Unexpected token (7:5)\nYou may need an appropriate loader to handle this file type.\n|  */\n| /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */\n> html {\n|   font-family: sans-serif;\n|   -webkit-text-size-adjust: 100%;");
 
 /***/ }),
 

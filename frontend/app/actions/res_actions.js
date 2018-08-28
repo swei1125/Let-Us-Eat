@@ -26,7 +26,10 @@ export const fetchRestaurants = (data) => dispatch => (
         headers: {
             'Authorization': `Bearer ${keys.yelpKey}`
         }
-    }).then(res => dispatch(receiveRestaurants(res.businesses)))
+    }).then(
+        res => dispatch(receiveRestaurants(res.businesses)),
+        err => console.log(err)
+    )
 )
 
 export const fetchSingleRes = id => dispatch => (
@@ -36,5 +39,8 @@ export const fetchSingleRes = id => dispatch => (
         headers: {
             'Authorization': `Bearer ${keys.yelpKey}`
         }
-    }).then(res => dispatch(receiveCurrentRes(res)))
+    }).then(
+        res => dispatch(receiveCurrentRes(res)),
+        err => console.log(err)
+        )
 )
