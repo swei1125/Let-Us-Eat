@@ -16,15 +16,13 @@ class Search extends React.Component {
     update(field, e) {
         if (field === 'radius') {
             this.setState({
-                [field]: parseInt(e.currentTarget.value)
+                [field]: parseInt(e.currentTarget.value)*1609
             });
         }else{
             this.setState({
               [field]: e.currentTarget.value
             });
         }
-        
-        console.log("state", this.state)
     }
 
     handleClick(index, e) {
@@ -77,9 +75,8 @@ class Search extends React.Component {
                 <input type="text" onChange={this.update.bind(this, "location")} value={this.state.location} placeholder="Downtown Berkeley, Berkeley, CA" />
               </div>
               <div className="slidecontainer">
-                <input type="range" min="1" max="26" step="1" className="slider" list="tickmarks" onChange={this.update.bind(this, "radius")} value={this.state.radius} />
+                <input type="range" min="2" max="25" step="1" className="slider" list="tickmarks" onChange={this.update.bind(this, "radius")} value={this.state.radius} />
                 <datalist id="tickmarks">
-                    <option value="1" />
                     <option value="2" />
                     <option value="4" />
                     <option value="8" />
@@ -88,12 +85,12 @@ class Search extends React.Component {
                     <option value="20" />
                     <option value="24" />
                     <option value="25" />
-                    <option value="26" />
                 </datalist>
+                <p>{this.state.radius} miles around</p>
               </div>
             </div>
 
-            <input type="submit" value="Search" />
+            <input type="submit" value=""/>
           </form>;
     }
 }
