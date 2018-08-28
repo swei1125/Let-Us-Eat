@@ -556,7 +556,7 @@ var resListReducer = function resListReducer() {
 
     Object.freeze(state);
     switch (action.type) {
-        case _res_actions.RECEIVE_RESTAURENTS:
+        case _res_actions.RECEIVE_RESTAURANTS:
             return action.resList.map(function (res) {
                 return res.id;
             });
