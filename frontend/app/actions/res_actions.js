@@ -1,5 +1,4 @@
 import keys from '../../../config/keys';
-import yelp from 'yelp-fusion';
 import $ from 'jquery';
 
 
