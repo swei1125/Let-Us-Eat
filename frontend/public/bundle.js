@@ -208,7 +208,11 @@ var App = function App() {
     return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement('header', { className: 'navbar' }),
+        _react2.default.createElement(
+            'header',
+            { className: 'navbar' },
+            'hello'
+        ),
         _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
@@ -277,7 +281,7 @@ exports.default = Root;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -299,76 +303,142 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Search = function (_React$Component) {
-    _inherits(Search, _React$Component);
+  _inherits(Search, _React$Component);
 
-    function Search(props) {
-        _classCallCheck(this, Search);
+  function Search(props) {
+    _classCallCheck(this, Search);
 
-        var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
 
-        _this.state = {
-            term: "restaurants",
-            location: "",
-            radius: 25,
-            price: ""
-        };
-        return _this;
+    _this.state = {
+      term: "",
+      location: "",
+      radius: 12,
+      price: "",
+      selected: [false, false, false, false]
+    };
+    return _this;
+  }
+
+  _createClass(Search, [{
+    key: 'update',
+    value: function update(field, e) {
+      if (field === 'radius') {
+        this.setState(_defineProperty({}, field, parseInt(e.currentTarget.value)));
+      } else {
+        this.setState(_defineProperty({}, field, e.currentTarget.value));
+      }
+
+      console.log("state", this.state);
     }
+  }, {
+    key: 'handleClick',
+    value: function handleClick(index, e) {
+      var arr = [];
+      var str = "";
+      for (var i = 0; i < 4; i++) {
+        arr[i] = i <= index;
+        str = str + (i < index ? i + 1 + ', ' : "");
+      }
+      str = str + ('' + (index + 1));
+      this.setState({ selected: arr, price: str });
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      var _this2 = this;
 
-    _createClass(Search, [{
-        key: 'update',
-        value: function update(field) {
-            var _this2 = this;
+      e.preventDefault();
 
-            return function (e) {
-                return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
-            };
-        }
-    }, {
-        key: 'handleSubmit',
-        value: function handleSubmit(e) {
-            var _this3 = this;
+      var input = { term: this.state.term, location: this.state.location, radius: this.state.radius, price: this.state.price };
 
-            e.preventDefault();
+      this.props.fetchRestaurants(input).then(function () {
+        _this2.props.history.push('/search/' + _this2.state.term + '&' + _this2.state.location + '&' + _this2.state.radius + '&' + _this2.state.price);
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'form',
+        { onSubmit: this.handleSubmit.bind(this), className: 'search_form' },
+        _react2.default.createElement(
+          'div',
+          { className: 'what' },
+          _react2.default.createElement(
+            'div',
+            { className: 'inputs' },
+            _react2.default.createElement(
+              'h2',
+              null,
+              'Find'
+            ),
+            _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, "term"), value: this.state.term, placeholder: 'restaurants, food, burguers...' })
+          ),
+          _react2.default.createElement(
+            'ul',
+            { className: 'price' },
+            _react2.default.createElement(
+              'li',
+              { onClick: this.handleClick.bind(this, 0), className: this.state.selected[0] ? "checked" : "" },
+              '$'
+            ),
+            _react2.default.createElement(
+              'li',
+              { onClick: this.handleClick.bind(this, 1), className: this.state.selected[1] ? "checked" : "" },
+              '$'
+            ),
+            _react2.default.createElement(
+              'li',
+              { onClick: this.handleClick.bind(this, 2), className: this.state.selected[2] ? "checked" : "" },
+              '$'
+            ),
+            _react2.default.createElement(
+              'li',
+              { onClick: this.handleClick.bind(this, 3), className: this.state.selected[3] ? "checked" : "" },
+              '$'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'where' },
+          _react2.default.createElement(
+            'div',
+            { className: 'inputs' },
+            _react2.default.createElement(
+              'h2',
+              null,
+              'Near'
+            ),
+            _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, "location"), value: this.state.location, placeholder: 'Downtown Berkeley, Berkeley, CA' })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'slidecontainer' },
+            _react2.default.createElement('input', { type: 'range', min: '1', max: '26', step: '1', className: 'slider', list: 'tickmarks', onChange: this.update.bind(this, "radius"), value: this.state.radius }),
+            _react2.default.createElement(
+              'datalist',
+              { id: 'tickmarks' },
+              _react2.default.createElement('option', { value: '1' }),
+              _react2.default.createElement('option', { value: '2' }),
+              _react2.default.createElement('option', { value: '4' }),
+              _react2.default.createElement('option', { value: '8' }),
+              _react2.default.createElement('option', { value: '12' }),
+              _react2.default.createElement('option', { value: '16' }),
+              _react2.default.createElement('option', { value: '20' }),
+              _react2.default.createElement('option', { value: '24' }),
+              _react2.default.createElement('option', { value: '25' }),
+              _react2.default.createElement('option', { value: '26' })
+            )
+          )
+        ),
+        _react2.default.createElement('input', { type: 'submit', value: 'Search' })
+      );
+    }
+  }]);
 
-            this.props.fetchrestaurants(this.state).then(function () {
-                _this3.props.history.push('/search/' + _this3.state.term + '&' + _this3.state.location + '&' + _this3.state.radius + '&' + _this3.state.price);
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    'form',
-                    { onSubmit: this.handleSubmit.bind(this) },
-                    _react2.default.createElement(
-                        'label',
-                        null,
-                        'Where?',
-                        _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, 'zip'), value: this.state.zip })
-                    ),
-                    _react2.default.createElement(
-                        'label',
-                        null,
-                        'Max. Distance',
-                        _react2.default.createElement('input', { type: 'number', onChange: this.update.bind(this, 'radius'), value: this.state.radius })
-                    ),
-                    _react2.default.createElement(
-                        'label',
-                        null,
-                        'Price',
-                        _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, 'price'), value: this.state.price })
-                    ),
-                    _react2.default.createElement('input', { type: 'submit', value: 'search' })
-                )
-            );
-        }
-    }]);
-
-    return Search;
+  return Search;
 }(_react2.default.Component);
 
 exports.default = Search;
