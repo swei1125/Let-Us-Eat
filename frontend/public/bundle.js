@@ -332,6 +332,7 @@ var Search = function (_React$Component) {
         key: 'update',
         value: function update(field, e) {
             this.setState(_defineProperty({}, field, e.currentTarget.value));
+            console.log("radius", this.state.radius);
         }
     }, {
         key: 'handleClick',
@@ -416,22 +417,20 @@ var Search = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'slidecontainer' },
+                        _react2.default.createElement('input', { type: 'range', min: '1', max: '26', step: '1', className: 'slider', list: 'tickmarks', onChange: this.update.bind(this, "radius"), value: this.state.radius }),
                         _react2.default.createElement(
-                            'label',
-                            null,
-                            'Max. Distance',
-                            _react2.default.createElement('input', { type: 'range', min: '2', max: '24', step: '1', className: 'slider', list: 'tickmarks', onChange: this.update.bind(this, "radius"), value: this.state.radius }),
-                            _react2.default.createElement(
-                                'datalist',
-                                { id: 'tickmarks' },
-                                _react2.default.createElement('option', { value: '2' }),
-                                _react2.default.createElement('option', { value: '4' }),
-                                _react2.default.createElement('option', { value: '8' }),
-                                _react2.default.createElement('option', { value: '12' }),
-                                _react2.default.createElement('option', { value: '16' }),
-                                _react2.default.createElement('option', { value: '20' }),
-                                _react2.default.createElement('option', { value: '24' })
-                            )
+                            'datalist',
+                            { id: 'tickmarks' },
+                            _react2.default.createElement('option', { value: '1' }),
+                            _react2.default.createElement('option', { value: '2' }),
+                            _react2.default.createElement('option', { value: '4' }),
+                            _react2.default.createElement('option', { value: '8' }),
+                            _react2.default.createElement('option', { value: '12' }),
+                            _react2.default.createElement('option', { value: '16' }),
+                            _react2.default.createElement('option', { value: '20' }),
+                            _react2.default.createElement('option', { value: '24' }),
+                            _react2.default.createElement('option', { value: '25' }),
+                            _react2.default.createElement('option', { value: '26' })
                         )
                     )
                 ),
