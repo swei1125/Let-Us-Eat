@@ -13,7 +13,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const store = configureStore();
 
     if (localStorage.jwtToken) {
-        
+        APIUtil.setAuthToken(localStorage.jwtToken);
+
+        const decoded = jwt_decode(localStorage.jwtToken);
+        store.dispatch(APIUtil.setCurrentUser(decoded));
+
+        const currentTime = Date.now() / 1000;
+
+        if (decoded.exp < currentTime) {
+            store.dispatch(APIUtil.logoutUser());
+            window.location.href = '/login';
+        }
     }
 
     window.getState = store.getState;
