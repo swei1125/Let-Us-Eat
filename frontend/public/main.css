@@ -1,0 +1,190 @@
+/*= require_self
+*/
+html, body, header, nav, h1, a, ul, li, strong, main, button, i, section, img, div, h2, p, form,
+fieldset, label, input, textarea, span, article, footer, time, small {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-family: 'Open Sans', sans-serif;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: inherit;
+  box-sizing: inherit;
+  background: transparent; }
+
+ul {
+  list-style: none; }
+
+input[type="password"],
+input[type="email"],
+input[type="text"],
+input[type="number"],
+input[type="submit"],
+textarea,
+button {
+  /*
+  Get rid of native styling. Read more here:
+  http://css-tricks.com/almanac/properties/a/appearance/
+  */
+  -webkit-appearance: none;
+  -moz-appearance: none; }
+
+button, li,
+input[type="submit"] {
+  cursor: pointer; }
+
+/* Colors
+Texts and Icons:
+Dark Grey: #2F2F2F
+White: #FFFFFF
+Grey: #666666
+Light Grey: #CCCCCC
+
+WebPage:
+Blue: #A1C3D1
+Purple: #B39BC8
+Very Light Purple: #F0EBF4
+Yellow: #FBE8A6
+Pink: #F172A1
+Lighter Pink: #E64398
+
+Font and Sizes 
+Font: Open Sans
+Weight: 400
+Line Height: 1.5
+Sizes: 
+Heading:  20px
+Title: 18px
+Subtitle: 16 px
+Body: 14px */
+.navbar {
+  width: auto;
+  color: #ffffff;
+  height: 70px; }
+
+.search_form {
+  width: auto;
+  margin: 0px 80px;
+  border: 2px solid white;
+  height: 500px;
+  background-image: url("../../images/breakfast.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center; }
+
+.what, .where {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px 100px;
+  justify-content: center;
+  position: relative;
+  z-index: 2; }
+
+.inputs {
+  width: 500px;
+  padding: 5px 10px 5px 10px;
+  border: 2px solid #B39BC8;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left; }
+
+.inputs h2 {
+  margin-right: 12px;
+  color: #B39BC8;
+  font-size: 16px;
+  font-weight: bold; }
+
+.inputs input {
+  width: 100%;
+  color: #A1C3D1;
+  font-size: 14px;
+  font-weight: bold; }
+
+.inputs input::placeholder {
+  color: #F0EBF4;
+  font-size: 14px;
+  font-weight: bold; }
+
+.price {
+  width: 100px;
+  margin: 5px 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around; }
+
+li {
+  color: #B39BC8;
+  font-size: 18px;
+  font-weight: bold; }
+
+.checked {
+  color: #9bc8a8;
+  font-size: 18px;
+  font-weight: bolder; }
+
+.slidecontainer {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  margin: 5px 15px; }
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 14px;
+  background: #A1C3D1;
+  opacity: 0.7;
+  margin: 5px 15px; }
+
+.slider:hover {
+  opacity: 1; }
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 5px;
+  height: 18px;
+  background: #B39BC8;
+  cursor: pointer; }
+
+.slider::-moz-range-thumb {
+  width: 5px;
+  height: 18px;
+  background: #B39BC8;
+  cursor: pointer; }
+
+.slidecontainer p {
+  width: auto;
+  color: #A1C3D1;
+  font-size: 12px;
+  text-align: center; }
+
+.search_form input[type="submit"] {
+  padding: 5px;
+  margin: 20px;
+  width: 30px;
+  height: 30px;
+  background-image: url("../../images/loupe.png");
+  background-size: cover;
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  display: block;
+  z-index: 2; }
+
+/*# sourceMappingURL=main.css.map */
