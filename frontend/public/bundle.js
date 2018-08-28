@@ -216,7 +216,11 @@ var App = function App() {
     return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement('header', { className: 'navbar' }),
+        _react2.default.createElement(
+            'header',
+            { className: 'navbar' },
+            'hello'
+        ),
         _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
@@ -317,7 +321,7 @@ var Search = function (_React$Component) {
         _this.state = {
             term: "restaurants",
             location: "",
-            radius: 25,
+            radius: 12,
             price: ""
         };
         return _this;
@@ -356,19 +360,34 @@ var Search = function (_React$Component) {
                         'label',
                         null,
                         'Where?',
-                        _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, 'zip'), value: this.state.zip })
+                        _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, "zip"), value: this.state.zip })
                     ),
                     _react2.default.createElement(
-                        'label',
-                        null,
-                        'Max. Distance',
-                        _react2.default.createElement('input', { type: 'number', onChange: this.update.bind(this, 'radius'), value: this.state.radius })
+                        'div',
+                        { className: 'slidecontainer' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            'Max. Distance',
+                            _react2.default.createElement('input', { type: 'range', min: '2', max: '24', step: '1', className: 'slider', list: 'tickmarks', onChange: this.update.bind(this, "radius"), value: this.state.radius }),
+                            _react2.default.createElement(
+                                'datalist',
+                                { id: 'tickmarks' },
+                                _react2.default.createElement('option', { value: '2' }),
+                                _react2.default.createElement('option', { value: '4' }),
+                                _react2.default.createElement('option', { value: '8' }),
+                                _react2.default.createElement('option', { value: '12' }),
+                                _react2.default.createElement('option', { value: '16' }),
+                                _react2.default.createElement('option', { value: '20' }),
+                                _react2.default.createElement('option', { value: '24' })
+                            )
+                        )
                     ),
                     _react2.default.createElement(
                         'label',
                         null,
                         'Price',
-                        _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, 'price'), value: this.state.price })
+                        _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, "price"), value: this.state.price })
                     ),
                     _react2.default.createElement('input', { type: 'submit', value: 'search' })
                 )

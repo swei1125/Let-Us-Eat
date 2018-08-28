@@ -7,7 +7,7 @@ class Search extends React.Component {
         this.state= {
             term: "restaurants",
             location: "",
-            radius: 25,
+            radius: 12,
             price: ""
         }
     }
@@ -30,26 +30,37 @@ class Search extends React.Component {
     }
 
     render(){
-        return(
-            <div>
-                <form onSubmit={this.handleSubmit.bind(this)}>
+        return <div>
+            <form onSubmit={this.handleSubmit.bind(this)}>
+              <label>
+                Where?
+                <input type="text" onChange={this.update.bind(this, "zip")} value={this.state.zip} />
+              </label>
 
-                    <label>Where?
-                        <input type="text" onChange={this.update.bind(this, 'zip')} value={this.state.zip} />
-                    </label>
+              <div className="slidecontainer">
+                <label>
+                  Max. Distance
+                    <input type="range" min="2" max="24" step="1" className="slider" list="tickmarks" onChange={this.update.bind(this, "radius")} value={this.state.radius} />
+                    <datalist id="tickmarks">
+                        <option value="2"/>
+                        <option value="4"/>
+                        <option value="8"/>
+                        <option value="12"/>
+                        <option value="16"/>
+                        <option value="20"/>
+                        <option value="24"/>
+                    </datalist>
+                </label>
+              </div>
 
-                    <label>Max. Distance
-                        <input type="number" onChange={this.update.bind(this, 'radius')} value={this.state.radius} />
-                    </label>
+              <label>
+                Price
+                <input type="text" onChange={this.update.bind(this, "price")} value={this.state.price} />
+              </label>
 
-                    <label>Price
-                        <input type="text" onChange={this.update.bind(this, 'price')} value={this.state.price} />
-                    </label>
-                    
-                    <input type="submit" value="search" />
-                </form>
-            </div>
-        )
+              <input type="submit" value="search" />
+            </form>
+          </div>;
     }
 }
 
