@@ -7,7 +7,7 @@ class Search extends React.Component {
         this.state= {
             term: "",
             location: "",
-            radius: 12,
+            radius: 12 * 1600,
             price: "",
             selected: [false, false, false, false]
         }
@@ -16,7 +16,7 @@ class Search extends React.Component {
     update(field, e) {
         if (field === 'radius') {
             this.setState({
-                [field]: parseInt(e.currentTarget.value)*1609
+                [field]: parseInt(e.currentTarget.value)
             });
         }else{
             this.setState({
@@ -75,18 +75,17 @@ class Search extends React.Component {
                 <input type="text" onChange={this.update.bind(this, "location")} value={this.state.location} placeholder="Downtown Berkeley, Berkeley, CA" />
               </div>
               <div className="slidecontainer">
-                <input type="range" min="2" max="25" step="1" className="slider" list="tickmarks" onChange={this.update.bind(this, "radius")} value={this.state.radius} />
+                <input type="range" min="3200" max="38400" step="1600" className="slider" list="tickmarks" onChange={this.update.bind(this, "radius")} value={this.state.radius} />
                 <datalist id="tickmarks">
-                    <option value="2" />
-                    <option value="4" />
-                    <option value="8" />
-                    <option value="12" />
-                    <option value="16" />
-                    <option value="20" />
-                    <option value="24" />
-                    <option value="25" />
+                    <option value="3200" />
+                    <option value="6400" />
+                    <option value="12800" />
+                    <option value="20200" />
+                    <option value="26600" />
+                    <option value="32000" />
+                    <option value="38400" />
                 </datalist>
-                <p>{this.state.radius} miles around</p>
+                <p>{Math.floor(this.state.radius/1600)} miles around</p>
               </div>
             </div>
 
