@@ -1,3 +1,73 @@
+.search_form {
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-around;
+    background-color: #F0EBF4;
+    padding: 100px 200px;
+}
+
+.what {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.inputs {
+    width: 500px;
+    padding: 5px 10px 5px 10px;
+    border: 2px solid #B39BC8;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+} 
+
+.inputs h2 {
+    margin-right: 12px;
+    color: #B39BC8;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.inputs input {
+    color: #A1C3D1;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.inputs input::placeholder {
+    color: #F0EBF4;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.price {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+li {
+    padding: 5px 15px;
+    padding-right: 0px;
+    color: #B39BC8;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.checked {
+    color: rgb(155, 200, 168);
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+
 .slidecontainer {
     width: 100%; /* Width of the outside container */
 }
@@ -35,9 +105,4 @@
     height: 25px; /* Slider handle height */
     background: #4CAF50; /* Green background */
     cursor: pointer; /* Cursor on hover */
-}
-
-.checked {
-    color: green;
-    font-weight: 600;
 }

@@ -5,7 +5,7 @@ class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state= {
-            term: "restaurants",
+            term: "",
             location: "",
             radius: 12,
             price: "",
@@ -47,7 +47,7 @@ class Search extends React.Component {
 
               <div className="what">
                 <div className="inputs">
-                    <h2>FIND</h2>
+                    <h2>Find</h2>
                     <input type="text" onChange={this.update.bind(this, "term")} value={this.state.term} placeholder="restaurants, food, burguers..." />
                 </div>
                 <ul className="price">
@@ -60,7 +60,7 @@ class Search extends React.Component {
 
               <div className="where">
                 <div className="inputs">
-                    <h2>NEAR</h2>
+                    <h2>Near</h2>
                     <input type="text" onChange={this.update.bind(this, "location")} value={this.state.location} placeholder="Downtown Berkeley, Berkeley, CA" />
                 </div>
                     <div className="slidecontainer">

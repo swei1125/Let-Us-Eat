@@ -319,7 +319,7 @@ var Search = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
 
         _this.state = {
-            term: "restaurants",
+            term: "",
             location: "",
             radius: 12,
             price: "",
@@ -371,7 +371,7 @@ var Search = function (_React$Component) {
                         _react2.default.createElement(
                             'h2',
                             null,
-                            'FIND'
+                            'Find'
                         ),
                         _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, "term"), value: this.state.term, placeholder: 'restaurants, food, burguers...' })
                     ),
@@ -409,7 +409,7 @@ var Search = function (_React$Component) {
                         _react2.default.createElement(
                             'h2',
                             null,
-                            'NEAR'
+                            'Near'
                         ),
                         _react2.default.createElement('input', { type: 'text', onChange: this.update.bind(this, "location"), value: this.state.location, placeholder: 'Downtown Berkeley, Berkeley, CA' })
                     ),
