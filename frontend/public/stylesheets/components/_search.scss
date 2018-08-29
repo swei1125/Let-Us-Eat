@@ -1,5 +1,5 @@
 body {
-    background-image: url("../../images/search3.jpg");
+    background-image: url("../../images/search1.jpg");
     background-size: cover;  
     background-repeat: no-repeat;
     display: block;
@@ -7,26 +7,39 @@ body {
 
 .search_form {
     width: auto;
-    margin: 0px 80px;
+    margin: 70px 80px;
     border: 1px solid #e6e6e8;
     height: 600px;
-    background-image: url("../../images/search3.jpg");
+    background-image: url("../../images/search1.jpg");
     background-size: cover;  
     background-repeat: no-repeat;
     display: block;
-}
-
-.search_form2 {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    background-color: rgb(0,0,0, 0.5) ;
     display: flex;
     flex-direction: column;
     align-items: center;
     align-content: center;
     justify-content: center;
+}
+
+.search_form2 {
+    background-color: rgba(0,0,0, 0.5);
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.search_form2 h3{
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    margin: 15px 15px 50px 15px;
+    font-weight: 100;
 }
 
 .what, .where{
@@ -79,15 +92,13 @@ body {
 }
 
 li {
-    color: #B39BC8;
-    font-size: 18px;
-    font-weight: bold;
+    color: #e6e6e8;
+    font-size: 20px;
 }
 
 .checked {
-    color: rgb(155, 200, 168);
-    font-size: 18px;
-    font-weight: bolder;
+    color: rgb(145, 187, 157);
+    font-size: 22px;
 }
 
 .slidecontainer {
@@ -104,7 +115,8 @@ li {
     appearance: none;
     width: 100%;
     height: 14px;
-    background: #A1C3D1;
+    background: #e6e6e8;
+    border: 1px solid #751b79;
     margin: 5px 15px;
 }
 
@@ -114,14 +126,16 @@ li {
     appearance: none;
     width: 5px;
     height: 18px;
-    background: #B39BC8;
+    background: #751b79;
+    border: 1px solid #e6e6e8;
     cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
     width: 5px;
     height: 18px;
-    background: #B39BC8;
+    background: #751b79;
+    border: 1px solid #e6e6e8;
     cursor: pointer;
 }
 
@@ -135,9 +149,17 @@ li {
 
 .search_form input[type="submit"] {
     margin: 50px;
-    width: 80px;
     height: 70px;
+    width: 70px;
     background-image: url("../../images/logoWhite.png");
+    background-size: cover;  
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.search_form input[type="submit"]:hover {
+    background-image: url("../../images/logoPurple.png");
     background-size: cover;  
     background-position: center;
     background-repeat: no-repeat;

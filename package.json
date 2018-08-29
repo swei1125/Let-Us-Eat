@@ -8,7 +8,6 @@
     "server": "nodemon app.js",
     "webpack": "webpack --watch --mode=development",
     "precommit": "lint-staged",
-    "start": "npm-run-all -p watch-css webpack",
     "frontend-install": "npm install --prefix frontend",
     "frontend": "npm node --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
