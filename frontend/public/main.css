@@ -193,4 +193,13 @@ li {
   margin: 0 auto;
   background-color: aqua; }
 
+.pic-box {
+  width: 55%;
+  height: 100%;
+  background-color: beige; }
+  .pic-box .img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; }
+
 /*# sourceMappingURL=main.css.map */

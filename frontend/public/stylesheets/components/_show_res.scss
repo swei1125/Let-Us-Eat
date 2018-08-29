@@ -4,3 +4,15 @@
     margin: 0 auto;
     background-color: aqua;
 }
+
+.pic-box {
+    width: 55%;
+    height: 100%;
+    background-color: beige;
+
+    .img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}

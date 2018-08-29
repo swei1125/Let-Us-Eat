@@ -35,7 +35,9 @@ class Res extends React.Component {
                 <button onClick={this.goNext.bind(this)}>Next</button>
 
                 <div className='res-box' >
-                    <div className='pix-box' ></div>
+                    <div className='pic-box' >
+                        <img className='img' src={this.props.currentRes.image_url} />
+                    </div>
                     <div className='content-wrapper' ></div>
                 </div>
             </div>
