@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchSingleRes } from '../../actions/res_actions';
+import { fetchSingleRes, fetchRestaurants } from '../../actions/res_actions';
 import Res from './res';
 
 const mapStateToProps = state => ({
@@ -8,7 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchSingleRes: id => dispatch(fetchSingleRes(id))
+    fetchSingleRes: id => dispatch(fetchSingleRes(id)),
+    fetchRestaurants: data => dispatch(fetchRestaurants(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Res);
