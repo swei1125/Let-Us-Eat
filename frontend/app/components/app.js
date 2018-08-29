@@ -14,8 +14,6 @@ import { AuthRoute, ProtectedRoute } from "../util/route_util";
 
 const App = () => (
   <div>
-    <header className="navbar">hello</header>
-
     <Switch>
       <Route exact path="/" component={SearchContainer} />
       <Route exact path="/search/:term&:location&:radius&:price" component={ResContainer}/>

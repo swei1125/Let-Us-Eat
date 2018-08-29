@@ -1,15 +1,18 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { shuffle } from "lodash";
+import MapContainer from '../map/map_container';
 
 class Res extends React.Component {
     constructor(props) {
         super(props);
         this.resIds = props.resIds;
         this.idx = 0;
+        
     }
 
     componentDidMount() {
-        this.props.fetchSingleRes(this.props.resIds[this.idx])
+            this.props.fetchSingleRes(this.props.resIds[this.idx]);
     }
 
     goNext(e) {
@@ -20,7 +23,6 @@ class Res extends React.Component {
         } else {
             this.idx += 1;
         }
-        console.log(this.resIds);
         
         this.props.fetchSingleRes(this.resIds[this.idx])
     }
@@ -31,11 +33,17 @@ class Res extends React.Component {
         };
         return (
             <div className='res-wrapper'>
-                <h1>Res Show</h1>
                 <button onClick={this.goNext.bind(this)}>Next</button>
+
                 <div className='res-box' >
-                    <div className='pix-box' ></div>
-                    <div className='content-wrapper' ></div>
+                    <div className='pic-box' >
+                        <img className='img' src={this.props.currentRes.photos[2]} />
+                    </div>
+                    <div className='content-wrapper' >
+                        <div className='map-box' >
+                            <MapContainer />
+                        </div>
+                    </div>
                 </div>
             </div>
         )
@@ -43,4 +51,4 @@ class Res extends React.Component {
  
 }
 
-export default Res;
+export default withRouter(Res);

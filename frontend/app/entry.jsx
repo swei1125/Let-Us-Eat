@@ -33,6 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.getState = store.getState;
     window.dispatch = store.dispatch;
+    window.getState = store.store.getState;
+    window.dispatch = store.store.dispatch;
     window.fetchSingleRes = fetchSingleRes;
     window.fetchRestaurants = fetchRestaurants;
     window.fetch = fetch;

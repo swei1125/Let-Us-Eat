@@ -1,0 +1,31 @@
+.res-box {
+    width: 960px;
+    height: 600px;
+    margin: 0 auto;
+    // background-color: aqua;
+    display: flex;
+    border: 1px solid gray;
+    border-radius: 4px;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+
+}
+
+.pic-box {
+    width: 55%;
+    height: 100%;
+    background-color: beige;
+
+    .img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+
+
+.map-box {
+    width: 400px;
+    height: 250px;
+    margin: 10px 15px;
+}

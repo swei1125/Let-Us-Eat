@@ -3,3 +3,4 @@
 .DS_Store
 frontend/public/bundle.js.map
 frontend/public/bundle.js
+frontend/public/.env
