@@ -41,22 +41,37 @@ div[class*='box-'] {
 
 .box-1 {
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    h1 {
-        font-size: 40px;
+    .info-wrapper {
+
+        h1 {
+            font-size: 35px;
+        }
+    
+        .tags {
+            margin: 10px 0;
+            color: #e5e5e5;
+            font-size: 13px;
+        }
+        .stars {
+            height: 24px;
+            width: 132px;
+            background-image: url("../../images/stars.png");
+            margin: 10px auto;
+        }
+        .price-review {
+            color: #e5e5e5
+        }
+        .heart {
+            margin-top: 5px;
+            color: #ff6666;
+            font-size: 60px;
+        }
     }
 
-    .tags {
-        margin: 10px 0;
-        color: #e5e5e5;
-        font-size: 13px;
-    }
-    .stars {
-        height: 24px;
-        width: 132px;
-        background-image: url("../../images/stars.png");
-        margin: 10px auto;
-    }
 }
 
 .map-box {

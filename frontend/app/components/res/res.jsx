@@ -6,7 +6,7 @@ import MapContainer from '../map/map_container';
 class Res extends React.Component {
     constructor(props) {
         super(props);
-        this.resIds = shuffle(props.resIds);
+        this.resIds = props.resIds;
         this.idx = +props.match.params.idx;
     }
     componentWillMount() {
@@ -30,7 +30,7 @@ class Res extends React.Component {
         const location = this.props.match.params.location;
         const radius = this.props.match.params.radius;
         const price = this.props.match.params.price
-        
+
         if (this.idx === this.resIds.length - 1) {
             this.resIds = shuffle(this.props.resIds)
             this.props.history.push(`/search/${term}&${location}&${radius}&${price}&0`)
@@ -65,16 +65,22 @@ class Res extends React.Component {
             <div className="res-box">
               <div className="top">
                 <div className="box-1">
-                    <h1>{res.name}</h1>
-                    <div className='stars' style={{ backgroundPosition: starPx }} ></div>
-                    <h4 className='tags' >{res.categories.map(tag => tag.title).join(", ")}</h4>
-                  
+                    <div className='info-wrapper' >
+                        <h1>{res.name}</h1>
+                        <div className='stars' style={{ backgroundPosition: starPx }} ></div>
+                        <h4 className='tags' >{res.categories.map(tag => tag.title).join(", ")}</h4>
+                        <div className='price-review' >
+                            <span>{res.price}</span> | <span>{res.review_count}&nbsp;reviews</span>
+                        </div>
+                        <div className='heart' >
+                            <i className="fas fa-heart"></i>
+                        </div>
+                    </div>
                 </div>
                 <div className='box-2 pic' >
                     <img className="img" src={this.props.currentRes.photos[0]} />
                 </div>
                 <div className='box-3 pic' >
-                    <img className="img" src={this.props.currentRes.photos[1]} />
                 </div>
               </div>
               <div className="bottom">
@@ -84,7 +90,10 @@ class Res extends React.Component {
                 <div className='box-5 map-box' >
                     <MapContainer />
                 </div>
-                <div className='box-6' ></div>
+                <div className='box-6 pic' >
+                    <img className="img" src={this.props.currentRes.photos[1]} />
+
+                </div>
               </div>
             </div>
           </div>;

@@ -323,18 +323,27 @@ div[class*='box-'] {
       object-fit: cover; }
 
 .box-1 {
-  color: white; }
-  .box-1 h1 {
-    font-size: 40px; }
-  .box-1 .tags {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .box-1 .info-wrapper h1 {
+    font-size: 35px; }
+  .box-1 .info-wrapper .tags {
     margin: 10px 0;
     color: #e5e5e5;
     font-size: 13px; }
-  .box-1 .stars {
+  .box-1 .info-wrapper .stars {
     height: 24px;
     width: 132px;
     background-image: url("../../images/stars.png");
     margin: 10px auto; }
+  .box-1 .info-wrapper .price-review {
+    color: #e5e5e5; }
+  .box-1 .info-wrapper .heart {
+    margin-top: 5px;
+    color: #ff6666;
+    font-size: 60px; }
 
 .map-box {
   width: 280px;
