@@ -39,17 +39,21 @@ class Search extends React.Component {
     handleSubmit(e) {  
         e.preventDefault();
 
-      let input = {limit: 50, term: this.state.term, location: this.state.location, radius: this.state.radius, price: this.state.price}
+        let input = {limit: 50, term: this.state.term, location: this.state.location, radius: this.state.radius, price: this.state.price}
 
         this.props.fetchRestaurants(input).then(() => {
           this.props.history.push(`/search/${this.state.term}&${this.state.location}&${this.state.radius}&${this.state.price}`);
         });
     }
 
+    componentDidMount(){
+      document.getElementById("initialInput").focus();
+    }
+
     render(){
         return (
 
-            <div className="search_form">
+          <div className="search_form" >
                 <div className="navbar">
                   <h1>LET'S EAT</h1>
                   <div className="session">
@@ -68,7 +72,7 @@ class Search extends React.Component {
                 <div className="what">
                   <div className="inputs">
                     <h2>Find</h2>
-                    <input type="text" onChange={this.update.bind(this, "term")} value={this.state.term} placeholder="restaurants, food, burguers..." />
+                    <input id="initialInput" type="text" onChange={this.update.bind(this, "term")} value={this.state.term} placeholder="restaurants, food, burguers..." />
                   </div>
                   <ul className="price">
                     <li onClick={this.handleClick.bind(this, 0)} className={this.state.selected[0] ? "checked" : ""}>
@@ -89,7 +93,7 @@ class Search extends React.Component {
                 <div className="where">
                   <div className="inputs">
                     <h2>Near</h2>
-                    <input type="text" onChange={this.update.bind(this, "location")} value={this.state.location} placeholder="Downtown Berkeley, Berkeley, CA" />
+                    <input type="text" onChange={this.update.bind(this, "location")} value={this.state.location} placeholder="city, area, state or/and zip" />
                   </div>
                   <div className="slidecontainer">
                     <input type="range" min="3200" max="38400" step="1600" className="slider" list="tickmarks" onChange={this.update.bind(this, "radius")} value={this.state.radius} />
