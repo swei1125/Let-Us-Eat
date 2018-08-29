@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { shuffle } from "lodash";
+import MapContainer from '../map/map_container';
 
 class Res extends React.Component {
     constructor(props) {
@@ -36,9 +37,13 @@ class Res extends React.Component {
 
                 <div className='res-box' >
                     <div className='pic-box' >
-                        <img className='img' src={this.props.currentRes.image_url} />
+                        <img className='img' src={this.props.currentRes.photos[2]} />
                     </div>
-                    <div className='content-wrapper' ></div>
+                    <div className='content-wrapper' >
+                        <div className='map-box' >
+                            <MapContainer />
+                        </div>
+                    </div>
                 </div>
             </div>
         )
