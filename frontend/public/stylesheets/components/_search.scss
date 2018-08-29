@@ -165,3 +165,36 @@ li {
     background-repeat: no-repeat;
     display: block;
 }
+
+@media all and (max-width: 1000px) {
+    .search_form {
+    margin: 40px 40px;
+    }
+
+    .search_form2 h3 {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin: 15px;
+    margin-top: none;
+    font-weight: 100;
+    }
+
+    .what, .where{
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+        justify-content: center;
+    }
+
+    .inputs {
+    width: 100%;
+    } 
+
+    .search_form input[type="submit"] {
+        margin: 20px;
+    }
+
+}

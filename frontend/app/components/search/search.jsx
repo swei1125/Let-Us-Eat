@@ -50,12 +50,18 @@ class Search extends React.Component {
         return (
 
             <div className="search_form">
-              <div className="navbar">
-                <h1>LET'S EAT</h1>
-                <div className="session">
-                    <a>Sign in</a>
-                    <a>Sign up</a>
-                </div>
+                <div className="navbar">
+                  <h1>LET'S EAT</h1>
+                  <div className="session" id="Session">
+                    <ul className="session">
+                      <li><a>Sign in</a></li>
+                      <li><a>Sign up</a></li>
+                    </ul>
+                    <ul className="dropdown">
+                      <li><a>Sign in</a></li>
+                      <li><a>Sign up</a></li>
+                    </ul>     
+                  </div>
                 </div>
               <form onSubmit={this.handleSubmit.bind(this)} className="search_form2">
                 <h3>Leave the simple things in life to us</h3>
