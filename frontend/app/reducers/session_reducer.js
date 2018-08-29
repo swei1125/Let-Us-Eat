@@ -2,6 +2,7 @@ import {
     RECEIVE_CURRENT_USER,
     SET_CURRENT_USER
 } from '../util/session_api_util'
+import merge from 'lodash/merge';
 
 const _nullUser = Object.freeze({
     id: null
@@ -16,6 +17,8 @@ const sessionReducer = (state = _nullUser, action) => {
                 name: action.payload.name,
                 email: action.payload.email 
             }
+        case RECEIVE_CURRENT_USER:
+            return merge({}, state, { [action.payload.id]: action.payload })
         default:
             return state;
     }

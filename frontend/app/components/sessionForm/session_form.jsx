@@ -15,7 +15,7 @@ export class SessionForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentWillUnmount() {
+    componentWillMount() {
         this.props.deleteErrors();
     }
 
@@ -73,8 +73,23 @@ export class SessionForm extends React.Component {
         }
     }
 
+    confirmPassword() {
+        if (this.props.formType === 'signup') {
+            return (
+                <label className="username-email">Password
+                                <input
+                        className="signup-input"
+                        type="password"
+                        value={this.state.password2}
+                        onChange={this.update('password2')}
+                        placeholder="Confirm Password" />
+                </label>
+            )
+        }
+    }
+
     renderErrors() {
-        if (this.props.errors === undefined) {
+        if (this.props.errors.length === 0) {
             return (
                 <div></div>
             )
@@ -96,6 +111,7 @@ export class SessionForm extends React.Component {
             <div className="full-page-session">
                 <div className="session-form-container">
                     <div className="form-type-header">{this.formTypeHeader()}</div>
+                    <div>{this.renderErrors()}</div>
                     <div className="session-form-input">
                         <form onSubmit={this.handleSubmit} className="form-container">
 
@@ -120,14 +136,7 @@ export class SessionForm extends React.Component {
                                     placeholder="6 or more characters" />
                             </label>
 
-                            <label className="username-email">Password
-                                <input
-                                    className="signup-input"
-                                    type="password"
-                                    value={this.state.password2}
-                                    onChange={this.update('password2')}
-                                    placeholder="Confirm Password" />
-                            </label>
+                            {this.confirmPassword()}
 
                             {this.formTypeButton()}
                         </form>
