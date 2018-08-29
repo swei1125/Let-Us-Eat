@@ -42,7 +42,7 @@ class Search extends React.Component {
       let input = {limit: 50, term: this.state.term, location: this.state.location, radius: this.state.radius, price: this.state.price}
 
         this.props.fetchRestaurants(input).then(() => {
-          this.props.history.push(`/search/${this.state.term}&${this.state.location}&${this.state.radius}&${this.state.price}`);
+          this.props.history.push(`/search/${this.state.term}&${this.state.location}&${this.state.radius}&${this.state.price}&0`);
         });
     }
 

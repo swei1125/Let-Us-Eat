@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
-import { fetchSingleRes, fetchRestaurants } from '../../actions/res_actions';
+import { fetchSingleRes, fetchRestaurants, updateIdx } from '../../actions/res_actions';
 import Res from './res';
 
 const mapStateToProps = state => ({
     resIds: state.entities.resList,
-    currentRes: state.entities.currentRes
+    currentRes: state.entities.currentRes,
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchSingleRes: id => dispatch(fetchSingleRes(id)),
-    fetchRestaurants: data => dispatch(fetchRestaurants(data))
+    fetchRestaurants: data => dispatch(fetchRestaurants(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Res);
