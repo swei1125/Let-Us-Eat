@@ -176,7 +176,7 @@ li {
 
 .checked {
   color: #91bb9d;
-  font-size: 22px; }
+  font-size: 20px; }
 
 .slidecontainer {
   width: 100px;
@@ -228,7 +228,7 @@ li {
   display: block; }
 
 .search_form input[type="submit"]:hover {
-  background-image: url("../../images/logoPurple.png");
+  background-image: url("../../images/logoCover.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
