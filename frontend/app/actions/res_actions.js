@@ -4,6 +4,7 @@ import $ from 'jquery';
 
 export const RECEIVE_RESTAURANTS = 'RECEIVE_RESTAURANTS';
 export const RECEIVE_CURRENT_RES = 'RECEIVE_CURRENT_RES';
+export const UPDATE_IDX = 'UPDATE_IDX';
 
 
 export const receiveRestaurants = (resList) => ({
@@ -15,7 +16,6 @@ export const receiveCurrentRes = (res) => ({
     type: RECEIVE_CURRENT_RES,
     res
 });
-
 
 
 export const fetchRestaurants = (data) => dispatch => (

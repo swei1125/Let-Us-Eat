@@ -5,6 +5,7 @@ const $ = window.$;
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 // We can use axios to set a default header
 export const setAuthToken = token => {
@@ -23,6 +24,8 @@ export const registerUser = (userData, history) => dispatch => {
         .post('/api/users/register', userData)
         .then(res => {
             // Save to localStorage
+            console.log(res);
+            
             const { token } = res.data;
             // Set token to ls
             localStorage.setItem('jwtToken', token);
@@ -33,12 +36,12 @@ export const registerUser = (userData, history) => dispatch => {
             // Set current user
             dispatch(setCurrentUser(decoded));
         })
-        .catch(err =>
+        .catch(err => (            
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
             })
-        );
+        ));
 };
 
 // Login - Get User Token

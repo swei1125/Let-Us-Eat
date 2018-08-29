@@ -16,7 +16,7 @@ const App = () => (
   <div>
     <Switch>
       <Route exact path="/" component={SearchContainer} />
-      <Route exact path="/search/:term&:location&:radius&:price" component={ResContainer}/>
+      <Route exact path="/search/:term&:location&:radius&:price&:idx" component={ResContainer}/>
       <AuthRoute exact path="/signup" component={SignUpFormContainer} />
     </Switch>
   </div>
