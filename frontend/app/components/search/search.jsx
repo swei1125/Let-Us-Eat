@@ -82,7 +82,7 @@ class Search extends React.Component {
                 <div className="where">
                   <div className="inputs">
                     <h2>Near</h2>
-                    <input type="text" onChange={this.update.bind(this, "location")} value={this.state.location} placeholder="city, area, state or/and zip" />
+                    <input required type="text" onChange={this.update.bind(this, "location")} value={this.state.location} placeholder="city, area, state or/and zip" />
                   </div>
                   <div className="slidecontainer">
                     <input type="range" min="3200" max="38400" step="1600" className="slider" list="tickmarks" onChange={this.update.bind(this, "radius")} value={this.state.radius} />
