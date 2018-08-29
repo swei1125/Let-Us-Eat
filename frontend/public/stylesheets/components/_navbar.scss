@@ -24,8 +24,53 @@
     align-items: center;
 }
 
+.navbar .dropdown {
+    display: none;
+}
+
 .navbar .session a {
     margin: 20px 30px;
     font-size: 16px;
     color: white;
+}
+
+.navbar .session a:hover {
+    text-decoration: underline;
+}
+
+
+@media all and (max-width: 1000px) {
+    .navbar .session {
+        display: none;
+    }
+
+    .navbar .dropdown {
+        display: block;
+    }
+
+    .navbar .dropdown > li{
+        background-image: url("../../images/menu.png");
+        background-repeat: no-repeat;
+        background-size: 30px 30px;
+        width: 30px;
+        height: 30px;
+        position: relative;
+    }
+
+    .navbar .dropdown ul {
+        position: absolute;
+        top: 30px;
+        left: 0 px;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .navbar .dropdown:hover ul {
+        display: flex;
+        background-color: ghostwhite;
+    }
+
+    .navbar .dropdown ul li:hover a {
+        text-decoration: underline;
+    }
 }
