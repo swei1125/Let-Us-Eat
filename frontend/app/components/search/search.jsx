@@ -8,7 +8,7 @@ class Search extends React.Component {
             term: "",
             location: "",
             radius: 12 * 1600,
-            price: "",
+            price: "1",
             selected: [false, false, false, false]
         }
     }
@@ -52,8 +52,8 @@ class Search extends React.Component {
             <div className="search_form">
                 <div className="navbar">
                   <h1>LET'S EAT</h1>
-                  <div className="session" id="Session">
-                    <ul className="session">
+                  <div className="session">
+                    <ul className="sessionul">
                       <li><a>Sign in</a></li>
                       <li><a>Sign up</a></li>
                     </ul>
