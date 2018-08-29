@@ -297,23 +297,49 @@ li {
   width: 960px;
   height: 600px;
   margin: 0 auto;
-  display: flex;
   border: 1px solid gray;
   border-radius: 4px;
-  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22); }
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  background-color: rgba(0, 0, 0, 0.7); }
 
-.pic-box {
-  width: 55%;
-  height: 100%;
-  background-color: beige; }
-  .pic-box .img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; }
+div[class*='box-'] {
+  width: 280px;
+  height: 280px; }
+
+.top, .bottom {
+  width: 93%;
+  height: auto;
+  text-align: center;
+  margin: 15px auto 10px;
+  display: flex;
+  justify-content: space-between; }
+  .top .pic, .bottom .pic {
+    width: 280px;
+    height: 280px; }
+    .top .pic .img, .bottom .pic .img {
+      border-radius: 5px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; }
+
+.box-1 {
+  color: white; }
+  .box-1 h1 {
+    font-size: 40px; }
+  .box-1 .tags {
+    margin: 10px 0;
+    color: #e5e5e5;
+    font-size: 13px; }
+  .box-1 .stars {
+    height: 24px;
+    width: 132px;
+    background-image: url("../../images/stars.png");
+    margin: 10px auto; }
 
 .map-box {
-  width: 400px;
-  height: 250px;
-  margin: 10px 15px; }
+  width: 280px;
+  height: 280px;
+  margin-bottom: 20px;
+  border-radius: 4px; }
 
 /*# sourceMappingURL=main.css.map */

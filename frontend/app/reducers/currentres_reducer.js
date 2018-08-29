@@ -1,4 +1,4 @@
-import { RECEIVE_CURRENT_RES, UPDATE_IDX } from "../actions/res_actions";
+import { RECEIVE_CURRENT_RES, CLEAR_CURRENT_RES } from "../actions/res_actions";
 
 const currentResReducer = (state = {}, action) => {
     Object.freeze(state);
@@ -6,6 +6,8 @@ const currentResReducer = (state = {}, action) => {
         case RECEIVE_CURRENT_RES:
             const idx = state.idx ? state.idx : 0;
             return Object.assign({}, action.res, {idx: idx});
+        case CLEAR_CURRENT_RES:
+            return {};
         default:
             return state;
     }
