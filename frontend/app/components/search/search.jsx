@@ -113,7 +113,7 @@ class Search extends React.Component {
                   </div>
                 </div>
 
-                <input type="submit" value="" />
+                <input type="submit" value="" id="submitInput" />
               </form>
             </div>
         )

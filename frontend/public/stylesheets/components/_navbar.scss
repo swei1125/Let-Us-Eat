@@ -55,12 +55,10 @@
         width: 30px;
         height: 30px;
         margin-right: 30px;
-        position: relative;
         flex-direction: column;
     }
 
     .dropdown > li {
-        position: absolute;
         display: none;
         top: 30px;
         cursor: pointer;
@@ -69,20 +67,22 @@
     .dropdown:hover {
         background-image: none;
         width: 50px;
-        height: 50px;
+        height: auto;
         background-color: rgba(0,0,0, 0.5);
         padding: 10px;
         margin-top: 30px;
         display: flex;
         flex-direction: column;
-        align-content: space-around;    
+        align-content: space-between;    
     }
 
     .dropdown:hover > li{
         height: 20px;
+        margin: 5px 0px;
         display: inline-block;
         color: white;
         font-size: 14px;
+        z-index: 0;
     }
 
     .dropdown li:hover a {
