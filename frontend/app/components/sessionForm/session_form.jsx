@@ -28,13 +28,15 @@ export class SessionForm extends React.Component {
     emailForm() {
         if (this.props.formType === 'signup') {
             return (
-                <label className="username-email">Email
-                    <input className="signup_input"
-                    type="text"
-                    value={this.state.email}
-                    onChange={this.update('email')}
-                    placeholder='email' />
-                </label>
+                <div className="email">
+                <div className="inputs">
+                    <h2>Email</h2>
+                    <input type="text"
+                        onChange={this.update('email')}
+                        value={this.state.email}
+                        placeholder="email" />
+                </div>
+                </div>
             )
         }
     }
@@ -53,11 +55,11 @@ export class SessionForm extends React.Component {
                 </div>
             )
         } else {
-            return (
-                <div>
-                    <header className="login-header">Login to LetsEat</header>
-                </div>
-            )
+            return <div>
+                <header className="signup-header">
+                  Login to LetsEat
+                </header>
+              </div>;
         }
     }
 
@@ -73,17 +75,36 @@ export class SessionForm extends React.Component {
         }
     }
 
+    linkToSession() {
+        if (this.props.formType === 'signup') {
+            return (
+                <div className="other-session">
+                    Have an account?
+                    <Link to="/login" className="other-session-link">Log in</Link>
+                </div>
+            )
+        } else {
+            return (
+                <div className="other-session">
+                    Don't have an account?
+                    <Link to="/signup" className="other-session-link">Sign up</Link>
+                </div>
+            )
+        }
+    }
+
     confirmPassword() {
         if (this.props.formType === 'signup') {
             return (
-                <label className="username-email">Password
-                                <input
-                        className="signup-input"
-                        type="password"
-                        value={this.state.password2}
-                        onChange={this.update('password2')}
-                        placeholder="Confirm Password" />
-                </label>
+                <div className="username">
+                    <div className="inputs">
+                        <h2>Password</h2>
+                        <input type="text"
+                            onChange={this.update('password2')}
+                            value={this.state.password2}
+                            placeholder="Confirm Password" />
+                    </div>
+                </div>
             )
         }
     }
@@ -95,7 +116,7 @@ export class SessionForm extends React.Component {
             )
         }
         return (
-            <ul>
+            <ul className="error-ul">
                 {this.props.errors.map((error, i) => (
                     <li key={`error-${i}`}>
                         {error}
@@ -109,32 +130,34 @@ export class SessionForm extends React.Component {
     return (
         <div className="session-form-outer">
             <div className="full-page-session">
+            <div className="form-type-header">{this.formTypeHeader()}</div>
+            {this.linkToSession()}
                 <div className="session-form-container">
-                    <div className="form-type-header">{this.formTypeHeader()}</div>
                     <div>{this.renderErrors()}</div>
                     <div className="session-form-input">
                         <form onSubmit={this.handleSubmit} className="form-container">
 
-                            <label className="username-email">Username
-                                <input
-                                    autoFocus
-                                    className="signup-input"
-                                    type="text"
-                                    value={this.state.username}
-                                    onChange={this.update('name')}
-                                    placeholder="username" />
-                            </label>
+                            <div className="username">
+                            <div className="inputs">
+                                <h2>Username</h2>
+                                <input type="text" 
+                                onChange={this.update('name')} 
+                                value={this.state.name} 
+                                placeholder="username" />
+                            </div>
+                            </div>
 
                             {this.emailForm()}
 
-                            <label className="username-email">Password
-                                <input
-                                    className="signup-input"
-                                    type="password"
-                                    value={this.state.password}
-                                    onChange={this.update('password')}
-                                    placeholder="6 or more characters" />
-                            </label>
+                            <div className="username">
+                                <div className="inputs">
+                                    <h2>Password</h2>
+                                    <input type="text"
+                                        onChange={this.update('password')}
+                                        value={this.state.password}
+                                        placeholder="Password" />
+                                </div>
+                            </div>
 
                             {this.confirmPassword()}
 

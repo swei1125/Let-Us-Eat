@@ -293,6 +293,80 @@ li {
 
   .search_form input[type="submit"] {
     margin: 20px; } }
+.session-form-outer {
+  width: auto;
+  margin: 70px 80px;
+  border: 1px solid #e6e6e8;
+  height: 600px;
+  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center; }
+
+.form-container {
+  position: relative;
+  top: 92px; }
+
+.full-page-session {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center; }
+
+.signup-header {
+  text-align: center;
+  font-size: 40px;
+  color: #FFF;
+  position: absolute;
+  top: 10%;
+  left: 41%; }
+
+.signup-input {
+  width: 500px;
+  padding: 8px 10px 8px 10px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left; }
+
+.username {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; }
+
+.error-ul {
+  text-align: center;
+  position: absolute;
+  top: 18%;
+  left: 33%; }
+
+.session-form-input {
+  display: flex;
+  flex-direction: column; }
+
+.username, .email {
+  margin: 26px; }
+
+.error-ul > li {
+  color: red; }
+
+.button-session {
+  float: right;
+  margin-right: 20px;
+  font-size: 16px;
+  color: #FFF; }
+
 .res-box {
   width: 960px;
   height: 600px;
