@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { shuffle } from "lodash";
 import MapContainer from '../map/map_container';
 
@@ -8,6 +8,7 @@ class Res extends React.Component {
         super(props);
         this.resIds = props.resIds;
         this.idx = +props.match.params.idx;
+        
     }
     componentWillMount() {
         this.props.clearCurrentRes();
@@ -60,41 +61,80 @@ class Res extends React.Component {
         };
         const starPx = starPos[res.rating];
         return <div className="res-wrapper">
-            <button onClick={this.goNext.bind(this)}>Next</button>
-
             <div className="res-box">
-              <div className="top">
+                <div className="navbar">
+                <h1>
+                  <Link to="/">LET'S EAT</Link>
+                </h1>
+                <div className="session" id="Session">
+                  <ul className="session">
+                    <li>
+                      <a>Sign in</a>
+                    </li>
+                    <li>
+                      <a>Sign up</a>
+                    </li>
+                  </ul>
+                  <ul className="dropdown">
+                    <li>
+                      <a>Sign in</a>
+                    </li>
+                    <li>
+                      <a>Sign up</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+                <div className="top">
                 <div className="box-1">
-                    <div className='info-wrapper' >
-                        <h1>{res.name}</h1>
-                        <div className='stars' style={{ backgroundPosition: starPx }} ></div>
-                        <h4 className='tags' >{res.categories.map(tag => tag.title).join(", ")}</h4>
-                        <div className='price-review' >
-                            <span>{res.price}</span> | <span>{res.review_count}&nbsp;reviews</span>
-                        </div>
-                        <div className='heart' >
-                            <i className="fas fa-heart"></i>
-                        </div>
+                  <div className="info-wrapper">
+                    <h1>{res.name}</h1>
+                    <div className="stars" style={{ backgroundPosition: starPx }} />
+                    <h4 className="tags">
+                      {res.categories.map(tag => tag.title).join(", ")}
+                    </h4>
+                    <div className="price-review">
+                      <span>{res.price}</span> | <span>
+                        {res.review_count}
+                        &nbsp;reviews
+                      </span>
                     </div>
+                    <div className="heart">
+                      <i className="fas fa-heart" />
+                    </div>
+                  </div>
                 </div>
-                <div className='box-2 pic' >
-                    <img className="img" src={this.props.currentRes.photos[0]} />
+                <div className="box-2 pic">
+                  <img className="img" src={this.props.currentRes.photos[0]} />
                 </div>
-                <div className='box-3 pic' >
+                <div className="box-3">
+                  <div className="more-info">
+                    <li className="phone">{res.display_phone}</li>
+                    {res.location.display_address.map((el, i) => (
+                      <li className="address" key={i}>
+                        {el}
+                      </li>
+                    ))}
+                    <li className="is-open" style={{ color: res.hours[0].is_open_now ? "#23A923" : "#cc0000" }}>
+                      {res.hours[0].is_open_now ? "Open Now" : "Close Now"}
+                    </li>
+                  </div>
                 </div>
               </div>
-              <div className="bottom">
-                <div className='box-4 pic' >
-                    <img className="img" src={this.props.currentRes.photos[2]} />
+                <div className="bottom">
+                <div className="box-4 pic">
+                  <img className="img" src={this.props.currentRes.photos[2]} />
                 </div>
-                <div className='box-5 map-box' >
-                    <MapContainer />
+                <div className="box-5 map-box">
+                  <MapContainer />
                 </div>
-                <div className='box-6 pic' >
-                    <img className="img" src={this.props.currentRes.photos[1]} />
-
+                <div className="box-6 pic">
+                  <img className="img" src={this.props.currentRes.photos[1]} />
                 </div>
               </div>
+                <div className='btn'>
+                    <button onClick={this.goNext.bind(this)}>Next</button>
+                </div>
             </div>
           </div>;
     }

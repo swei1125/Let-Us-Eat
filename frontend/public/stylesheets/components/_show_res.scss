@@ -1,13 +1,32 @@
 .res-box {
-    width: 960px;
-    height: 600px;
-    margin: 0 auto;
+    width: 990px;
+    height: 730px;
+    margin: 10px auto;
     // background-color: aqua;
     // display: flex;
     border: 1px solid gray;
     border-radius: 4px;
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     background-color:rgba(0, 0, 0, 0.7);
+
+    .navbar {
+        background-color: transparent;
+        width: 93%;
+        height: 60px;
+        margin: 0 auto;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .btn {
+        width: 93%;
+        height: 50px;
+        border-top: 1px solid #e5e5e5;
+        // background-color: #ff6666;
+        margin: 15px auto 0;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+    }
 
 }
 div[class*='box-'] {
@@ -21,7 +40,7 @@ div[class*='box-'] {
     text-align: center;
  
     
-    margin: 15px auto 10px;
+    margin: 15px auto 0;
     display: flex;
     justify-content: space-between;
 
@@ -46,9 +65,12 @@ div[class*='box-'] {
     justify-content: center;
 
     .info-wrapper {
+        width: 100%;
+        height: auto;
+        align-items: center;
 
         h1 {
-            font-size: 35px;
+            font-size: 32px;
         }
     
         .tags {
@@ -66,17 +88,41 @@ div[class*='box-'] {
             color: #e5e5e5
         }
         .heart {
-            margin-top: 5px;
             color: #ff6666;
             font-size: 60px;
         }
     }
 
 }
+.box-3 {
+    color: #e5e5e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .more-info {
+        font-size: 18px;
+
+        li {
+            list-style: none;
+            margin: 10px 0;
+            cursor: auto;
+        }
+        .address {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .is-open {
+            font-weight: bold;
+            font-size: 28px;
+            margin-top: 20px;
+        }
+    }
+}
 
 .map-box {
     width: 280px;
     height: 280px;
-    margin-bottom: 20px;
     border-radius: 4px;
+    
 }

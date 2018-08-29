@@ -4,7 +4,7 @@ import { shuffle } from "lodash";
 import Res from './res';
 
 const mapStateToProps = state => ({
-    resIds: shuffle(state.entities.resList),
+    resIds: state.entities.resList,
     currentRes: state.entities.currentRes,
 });
 
