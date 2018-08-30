@@ -24,6 +24,16 @@
     align-items: center;
 }
 
+.sessionul button {
+    margin: 20px 30px;
+    background-color: transparent;
+    padding: 5px 10px;
+    border: 1.5px solid white;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+}
+
 .dropdown {
     display: none;
 }
@@ -36,6 +46,10 @@
 
 .sessionul a:hover {
     text-decoration: underline;
+}
+
+.sessionul button:hover {
+    background: linear-gradient(to left, red, blue);
 }
 
 

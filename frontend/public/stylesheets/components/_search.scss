@@ -55,19 +55,19 @@
 .inputs h2 {
     margin-right: 12px;
     color: #751b79;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: bolder;
 }
 
 .inputs input {
     width: 100%;
-    color:  #9441f4;
-    font-size: 14px;
+    color:  #dc41f4;
+    font-size: 16px;
     font-weight: bold;
 }
 
 .inputs input::placeholder {
-    color:  #d09cc5;
+    color:  #b3a3af;
     font-size: 14px;
     font-weight: 200;
 }

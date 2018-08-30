@@ -82,6 +82,15 @@ Body: 14px */
   justify-content: space-between;
   align-items: center; }
 
+.sessionul button {
+  margin: 20px 30px;
+  background-color: transparent;
+  padding: 5px 10px;
+  border: 1.5px solid white;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px; }
+
 .dropdown {
   display: none; }
 
@@ -92,6 +101,9 @@ Body: 14px */
 
 .sessionul a:hover {
   text-decoration: underline; }
+
+.sessionul button:hover {
+  background: linear-gradient(to left, red, blue); }
 
 @media all and (max-width: 1000px) {
   .sessionul {
@@ -187,17 +199,17 @@ Body: 14px */
 .inputs h2 {
   margin-right: 12px;
   color: #751b79;
-  font-size: 16px;
-  font-weight: bold; }
+  font-size: 18px;
+  font-weight: bolder; }
 
 .inputs input {
   width: 100%;
-  color: #9441f4;
-  font-size: 14px;
+  color: #dc41f4;
+  font-size: 16px;
   font-weight: bold; }
 
 .inputs input::placeholder {
-  color: #d09cc5;
+  color: #b3a3af;
   font-size: 14px;
   font-weight: 200; }
 
