@@ -46,7 +46,7 @@ class Res extends React.Component {
     }
 
     render() {
-        if (!this.props.currentRes.id) {
+        if (!this.props.currentRes.hours) {
             
             return null;
         };
@@ -68,53 +68,54 @@ class Res extends React.Component {
         return <div className="res-wrapper">
             <div className="res-box">
                 <NavBar />
-                <div className="top">
-                <div className="box-1">
-                  <div className="info-wrapper">
-                    <h1>{res.name}</h1>
-                    <div className="stars" style={{ backgroundPosition: starPx }} />
-                    <h4 className="tags">
-                      {res.categories.map(tag => tag.title).join(", ")}
-                    </h4>
-                    <div className="price-review">
-                      <span>{res.price}</span> | <span>
-                        {res.review_count}
-                        &nbsp;reviews
-                      </span>
+                <div className="top-bottom-wrapper">
+                    <div className="top">
+                        <div className="box-1">
+                            
+                            <div className="info-wrapper">
+                                <h1>{res.name}</h1>
+                                <div className="stars" style={{ backgroundPosition: starPx }} />
+                                <h4 className="tags">
+                                    {res.categories.map(tag => tag.title).join(", ")}
+                                </h4>
+                                <div className="price-review">
+                                    <span>{res.price}</span> | <span>{res.review_count}&nbsp;reviews</span>
+                                </div>
+                                <div className="heart">
+                                    <i className="fas fa-heart" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="box-2" >
+                            
+                            <MapContainer />
+                        </div>
+                        <div className="box-3">
+                        <div className="more-info">
+                            <li className="phone">{res.display_phone}</li>
+                            {res.location.display_address.map((el, i) => (
+                                <li className="address" key={i}>
+                                    {el}
+                                </li>
+                            ))}
+                            <li className="is-open" style={{ color: res.hours[0].is_open_now ? "#23A923" : "#cc0000" }}>
+                                {res.hours[0].is_open_now ? "Open Now" : "Close Now"}
+                            </li>
+                        </div>
                     </div>
-                    <div className="heart">
-                      <i className="fas fa-heart" />
                     </div>
-                  </div>
+                    <div className="bottom">
+                    <div className="box-4 pic">
+                    <img className="img" src={this.props.currentRes.photos[2]} />
+                    </div>
+                    <div className="box-5 pic">
+                        <img className="img" src={this.props.currentRes.photos[0]} />
+                    </div>
+                    <div className="box-6 pic">
+                    <img className="img" src={this.props.currentRes.photos[1]} />
                 </div>
-                <div className="box-2 pic">
-                  <img className="img" src={this.props.currentRes.photos[0]} />
                 </div>
-                <div className="box-3">
-                  <div className="more-info">
-                    <li className="phone">{res.display_phone}</li>
-                    {res.location.display_address.map((el, i) => (
-                      <li className="address" key={i}>
-                        {el}
-                      </li>
-                    ))}
-                    <li className="is-open" style={{ color: res.hours[0].is_open_now ? "#23A923" : "#cc0000" }}>
-                      {res.hours[0].is_open_now ? "Open Now" : "Close Now"}
-                    </li>
-                  </div>
                 </div>
-              </div>
-                <div className="bottom">
-                <div className="box-4 pic">
-                  <img className="img" src={this.props.currentRes.photos[2]} />
-                </div>
-                <div className="box-5 map-box">
-                  <MapContainer />
-                </div>
-                <div className="box-6 pic">
-                  <img className="img" src={this.props.currentRes.photos[1]} />
-                </div>
-              </div>
                 <div className='btn'>
                     <button onClick={this.goNext.bind(this)}>Next</button>
                 </div>
