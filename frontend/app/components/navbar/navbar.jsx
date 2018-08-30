@@ -1,11 +1,12 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
   render() {
-    return (
-      <div className="navbar">
-        <h1>LET'S EAT</h1>
+    return <div className="navbar">
+        <h1>
+          <Link to='/'>LET'S EAT</Link>
+        </h1>
         <div className="session">
           <ul className="sessionul">
             <li>
@@ -24,8 +25,7 @@ class NavBar extends React.Component {
             </li>
           </ul>
         </div>
-      </div>
-    );
+      </div>;
   }
 }
 
