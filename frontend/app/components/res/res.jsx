@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { shuffle } from "lodash";
 import MapContainer from '../map/map_container';
+import NavBar from '../navbar/navbar';
 
 class Res extends React.Component {
     constructor(props) {
@@ -11,6 +12,10 @@ class Res extends React.Component {
         
     }
     componentWillMount() {
+        this.props.clearCurrentRes();
+    }
+
+    componentWillUnmount() {
         this.props.clearCurrentRes();
     }
 
@@ -62,29 +67,7 @@ class Res extends React.Component {
         const starPx = starPos[res.rating];
         return <div className="res-wrapper">
             <div className="res-box">
-                <div className="navbar">
-                <h1>
-                  <Link to="/">LET'S EAT</Link>
-                </h1>
-                <div className="session" id="Session">
-                  <ul className="session">
-                    <li>
-                      <a>Sign in</a>
-                    </li>
-                    <li>
-                      <a>Sign up</a>
-                    </li>
-                  </ul>
-                  <ul className="dropdown">
-                    <li>
-                      <a>Sign in</a>
-                    </li>
-                    <li>
-                      <a>Sign up</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+                <NavBar />
                 <div className="top">
                 <div className="box-1">
                   <div className="info-wrapper">
