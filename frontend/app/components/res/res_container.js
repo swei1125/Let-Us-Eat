@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { fetchSingleRes, fetchRestaurants, updateIdx } from '../../actions/res_actions';
+import { fetchSingleRes, fetchRestaurants, clearCurrentRes } from '../../actions/res_actions';
+import { shuffle } from "lodash";
 import Res from './res';
 
 const mapStateToProps = state => ({
@@ -10,6 +11,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     fetchSingleRes: id => dispatch(fetchSingleRes(id)),
     fetchRestaurants: data => dispatch(fetchRestaurants(data)),
+    clearCurrentRes: () => dispatch(clearCurrentRes())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Res);
