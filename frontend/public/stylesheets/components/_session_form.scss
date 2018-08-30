@@ -10,8 +10,8 @@
 }
 
 .form-container {
-    position: relative;
-    top: 92px;
+    display: flex;
+    flex-direction: column;
 }
 
 .full-page-session {
@@ -22,24 +22,20 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .form-type-header {
-    text-align: center;
     font-size: 40px;
     color: #FFF;
-    position: absolute;
-    top: 10%;
-    left: 41%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 14px;
 }
 
 .other-session {
-    font-size: 20px;
-    display: flex;
-    align-items: center; 
+    font-size: 16px;
 }
 
 .signup-input {
@@ -71,9 +67,11 @@
 
 .error-ul {
     text-align: center;
-    position: absolute;
-    top: 18%;
-    left: 33%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: -20px;
 }
 
 .session-form-input {
@@ -100,3 +98,37 @@
 .other-session-link:hover {
     color: #751b79;
 }
+
+.error-list-container {
+
+}
+
+.session-form-container {
+}
+
+input:focus:required:invalid {
+    border-color: var(--color-error)
+}
+
+.inputs-sess-form {
+    padding-left: 6px;
+}
+
+.button-session {
+    font-style: 24px;
+    color: #FFF;
+    align-self: center;
+}
+
+.other-session {
+    align-self: center;
+    color: #FFF;
+}
+
+input[type='email']:invalid + .help-text::after {
+    content: 'Enter valid email'
+}
+
+
+
+
