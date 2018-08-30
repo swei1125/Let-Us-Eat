@@ -19,13 +19,15 @@ document.addEventListener("DOMContentLoaded", () => {
         // Decode token and get user info and exp
         const decoded = jwt_decode(localStorage.jwtToken);
         // Set user and isAuthenticated
-        store.dispatch(APIUtil.setCurrentUser(decoded));
+        console.log(decoded);
+        
+        store.store.dispatch(APIUtil.setCurrentUser(decoded));
 
         // Check for expired token
         const currentTime = Date.now() / 1000;
         if (decoded.exp < currentTime) {
             // Logout user
-            store.dispatch(APIUtil.logoutUser());
+            store.store.dispatch(APIUtil.logoutUser());
             // Redirect to login
             window.location.href = '/login';
         }

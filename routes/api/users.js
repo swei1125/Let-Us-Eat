@@ -30,13 +30,29 @@ router.post('/register', (req, res) => {
                     name: req.body.name,
                     email: req.body.email,
                     password: req.body.password
-                })
+                });
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(newUser.password, salt, (err, hash) => {
                         // if (err) throw err;
                         newUser.password = hash;
                         newUser.save()
-                            .then(user => res.json(user))
+                            .then(user => {
+
+                                const payload = { id: user.id, name: user.name, email: user.email };
+                                console.log(payload)
+                                jsonwebtoken.sign(
+                                    payload,
+                                    keys.secretOrKey,
+                                    // Key will expire in one hour
+                                    { expiresIn: 3600 },
+                                    (err, token) => {
+                                        res.json({
+                                            success: true,
+                                            token: 'Bearer ' + token,
+                                            user
+                                        });
+                                    });
+                            })
                             .catch(err => console.log(err));
                     })
                 })  
@@ -64,7 +80,7 @@ router.post('/login', (req, res) => {
         bcrypt.compare(password, user.password)
         .then(isMatch => {
             if (isMatch) {
-                const payload = { id: user.id, name: user.name };
+                const payload = { id: user.id, name: user.name, email: user.email };
 
                 jsonwebtoken.sign(
                     payload,
@@ -87,10 +103,11 @@ router.post('/login', (req, res) => {
 
 router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
     res.json({
-        id: req.user.id,
-        name: req.user.name,
-        email: req.user.email
-    })
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email,
+      likedRes: req.user.likedRestaurants
+    });
 })
 
 router.get('/logout', (req, res) => {

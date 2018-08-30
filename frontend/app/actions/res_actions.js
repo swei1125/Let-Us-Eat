@@ -4,6 +4,7 @@ import $ from 'jquery';
 
 export const RECEIVE_RESTAURANTS = 'RECEIVE_RESTAURANTS';
 export const RECEIVE_CURRENT_RES = 'RECEIVE_CURRENT_RES';
+export const CLEAR_CURRENT_RES = 'CLEAR_CURRENT_RES';
 
 
 export const receiveRestaurants = (resList) => ({
@@ -16,7 +17,9 @@ export const receiveCurrentRes = (res) => ({
     res
 });
 
-
+export const clearCurrentRes = () => ({
+    type: CLEAR_CURRENT_RES,
+})
 
 export const fetchRestaurants = (data) => dispatch => (
     $.ajax({

@@ -10,8 +10,9 @@ import {
 class Map extends React.Component {
 
     render() {
-        const lat = this.props.lat;
-        const lng = this.props.lng;
+        if(!this.props.coord) return null;
+        const lat = this.props.coord.latitude;
+        const lng = this.props.coord.longitude;
         const MapComponent = withScriptjs(withGoogleMap((props) => (
             <GoogleMap
                 defaultZoom={13}
