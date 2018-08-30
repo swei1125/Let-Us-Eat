@@ -6,10 +6,11 @@ class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state= {
-            term: "",
+            term: "restaurant",
             location: "",
             radius: 12 * 1600,
             price: "1",
+            open_now: false,
             selected: [false, false, false, false]
         }
     }
@@ -19,11 +20,16 @@ class Search extends React.Component {
             this.setState({
                 [field]: parseInt(e.currentTarget.value)
             });
+        }else if (field === 'open_now'){
+          document.getElementById("open_now").checked ? this.setState(
+                { [field]: true }
+              ) : this.setState({ [field]: false });
         }else{
             this.setState({
               [field]: e.currentTarget.value
             });
         }
+        console.log(this.state);
     }
 
     handleClick(index, e) {
@@ -58,35 +64,14 @@ class Search extends React.Component {
               <NavBar />
               <form onSubmit={this.handleSubmit.bind(this)} className="search_form2">
                 <h3>Leave the simple things in life to us</h3>
-                <div className="what">
-                  <div className="inputs">
-                    <h2>Find</h2>
-                    <input id="initialInput" type="text" onChange={this.update.bind(this, "term")} value={this.state.term} placeholder="restaurants, food, burguers..." />
-                  </div>
-                  <ul className="price">
-                    <li onClick={this.handleClick.bind(this, 0)} className={this.state.selected[0] ? "checked" : ""}>
-                      $
-                    </li>
-                    <li onClick={this.handleClick.bind(this, 1)} className={this.state.selected[1] ? "checked" : ""}>
-                      $
-                    </li>
-                    <li onClick={this.handleClick.bind(this, 2)} className={this.state.selected[2] ? "checked" : ""}>
-                      $
-                    </li>
-                    <li onClick={this.handleClick.bind(this, 3)} className={this.state.selected[3] ? "checked" : ""}>
-                      $
-                    </li>
-                  </ul>
-                </div>
-
                 <div className="where">
                   <div className="inputs">
                     <h2>Near</h2>
-                    <input required type="text" onChange={this.update.bind(this, "location")} value={this.state.location} placeholder="city, area, state or/and zip" />
+                    <input id="initialInput" required type="text" onChange={this.update.bind(this, "location")} value={this.state.location} placeholder="city, area, state or/and zip" />
                   </div>
                   <div className="slidecontainer">
                     <input type="range" min="3200" max="38400" step="1600" className="slider" list="tickmarks" onChange={this.update.bind(this, "radius")} value={this.state.radius}
-                      style={{ background: `linear-gradient(to left, #ffffff, #ffffff ${100 - Math.floor(this.state.radius * 100 / 38400)}%, #ffff00 ${100 - Math.floor(this.state.radius * 100 / 38400)}%, #ff0000)`}}
+                    style={{ background: `linear-gradient(to left, #ffffff, #ffffff ${100 - Math.floor((this.state.radius - 3200) * 100 / 35200)}%, #f44141 ${100 - Math.floor((this.state.radius - 3200) * 100 / 35200)}%, #4143f4)`}}
                       />
                     <datalist id="tickmarks">
                       <option value="3200" />
@@ -102,8 +87,28 @@ class Search extends React.Component {
                       around
                     </p>
                   </div>
+                  <div className="extra">
+                    <ul className="price">
+                      <li onClick={this.handleClick.bind(this, 0)} className={this.state.selected[0] ? "checked" : ""}>
+                        $
+                        </li>
+                      <li onClick={this.handleClick.bind(this, 1)} className={this.state.selected[1] ? "checked" : ""}>
+                        $
+                        </li>
+                      <li onClick={this.handleClick.bind(this, 2)} className={this.state.selected[2] ? "checked" : ""}>
+                        $
+                        </li>
+                      <li onClick={this.handleClick.bind(this, 3)} className={this.state.selected[3] ? "checked" : ""}>
+                        $
+                        </li>
+                    </ul>
+                    <div className="OpenNow">
+                      <input type="checkbox" id="open_now"
+                        onChange={this.update.bind(this, "open_now")} value={this.state.open_now} />
+                      <label for="open" className="open_now">Open</label>
+                    </div>
+                  </div>
                 </div>
-
                 <input type="submit" value="" id="submitInput" />
               </form>
             </div>
