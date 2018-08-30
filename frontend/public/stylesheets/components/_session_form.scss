@@ -2,8 +2,7 @@
     width: auto;
     margin: 70px 80px;
     border: 1px solid #e6e6e8;
-    height: 600px;
-    display: block;
+    height: 690px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,13 +27,19 @@
     justify-content: center;
 }
 
-.signup-header {
+.form-type-header {
     text-align: center;
     font-size: 40px;
     color: #FFF;
     position: absolute;
     top: 10%;
     left: 41%;
+}
+
+.other-session {
+    font-size: 20px;
+    display: flex;
+    align-items: center; 
 }
 
 .signup-input {
@@ -49,6 +54,14 @@
 }
 
 .username {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.email {
     width: auto;
     display: flex;
     flex-direction: row;
@@ -74,6 +87,7 @@
 
 .error-ul > li {
     color: red;
+    cursor: default;
 }
 
 .button-session {
@@ -81,4 +95,8 @@
     margin-right: 20px;
     font-size: 16px;
     color: #FFF; 
+}
+
+.other-session-link:hover {
+    color: #751b79;
 }

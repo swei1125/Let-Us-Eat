@@ -12,11 +12,7 @@ const sessionReducer = (state = _nullUser, action) => {
     Object.freeze(state);
     switch (action.type) {
         case SET_CURRENT_USER:
-            return {
-                id: action.payload.id,
-                name: action.payload.name,
-                email: action.payload.email 
-            }
+            return { id: action.payload.id, name: action.payload.name, email: action.payload.email, likedRes: action.payload.likedRestaurants };
         case RECEIVE_CURRENT_USER:
             return merge({}, state, { [action.payload.id]: action.payload })
         default:

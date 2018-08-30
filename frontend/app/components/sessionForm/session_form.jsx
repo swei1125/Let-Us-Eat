@@ -52,6 +52,9 @@ export class SessionForm extends React.Component {
             return (
                 <div>
                     <header className="signup-header">Join LetsEat!</header>
+                    <div className="other-session">
+                        <h4>Have an account?</h4>&nbsp;<Link className="other-session-link" to="/login">Login</Link>
+                    </div>
                 </div>
             )
         } else {
@@ -59,6 +62,9 @@ export class SessionForm extends React.Component {
                 <header className="signup-header">
                   Login to LetsEat
                 </header>
+                <div className="other-session">
+                    <h4>Don't have an account?</h4>&nbsp;<Link className="other-session-link" to="/signup">Create one</Link>
+                </div>
               </div>;
         }
     }
@@ -71,24 +77,6 @@ export class SessionForm extends React.Component {
         } else {
             return (
                 <input type="submit" className="buttin-session" value="Log in"/>
-            )
-        }
-    }
-
-    linkToSession() {
-        if (this.props.formType === 'signup') {
-            return (
-                <div className="other-session">
-                    Have an account?
-                    <Link to="/login" className="other-session-link">Log in</Link>
-                </div>
-            )
-        } else {
-            return (
-                <div className="other-session">
-                    Don't have an account?
-                    <Link to="/signup" className="other-session-link">Sign up</Link>
-                </div>
             )
         }
     }
@@ -131,7 +119,6 @@ export class SessionForm extends React.Component {
         <div className="session-form-outer">
             <div className="full-page-session">
             <div className="form-type-header">{this.formTypeHeader()}</div>
-            {this.linkToSession()}
                 <div className="session-form-container">
                     <div>{this.renderErrors()}</div>
                     <div className="session-form-input">
@@ -141,9 +128,9 @@ export class SessionForm extends React.Component {
                             <div className="inputs">
                                 <h2>Username</h2>
                                 <input type="text" 
-                                onChange={this.update('name')} 
-                                value={this.state.name} 
-                                placeholder="username" />
+                                onChange={this.update('email')} 
+                                value={this.state.email} 
+                                placeholder="email" />
                             </div>
                             </div>
 

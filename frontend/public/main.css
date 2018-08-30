@@ -297,8 +297,7 @@ li {
   width: auto;
   margin: 70px 80px;
   border: 1px solid #e6e6e8;
-  height: 600px;
-  display: block;
+  height: 690px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -320,13 +319,18 @@ li {
   align-content: center;
   justify-content: center; }
 
-.signup-header {
+.form-type-header {
   text-align: center;
   font-size: 40px;
   color: #FFF;
   position: absolute;
   top: 10%;
   left: 41%; }
+
+.other-session {
+  font-size: 20px;
+  display: flex;
+  align-items: center; }
 
 .signup-input {
   width: 500px;
@@ -339,6 +343,13 @@ li {
   justify-content: left; }
 
 .username {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; }
+
+.email {
   width: auto;
   display: flex;
   flex-direction: row;
@@ -359,13 +370,17 @@ li {
   margin: 26px; }
 
 .error-ul > li {
-  color: red; }
+  color: red;
+  cursor: default; }
 
 .button-session {
   float: right;
   margin-right: 20px;
   font-size: 16px;
   color: #FFF; }
+
+.other-session-link:hover {
+  color: #751b79; }
 
 .res-box {
   width: 960px;
