@@ -41,13 +41,14 @@ class Res extends React.Component {
         const term = this.props.match.params.term;
         const location = this.props.match.params.location;
         const radius = this.props.match.params.radius;
-        const price = this.props.match.params.price
+        const price = this.props.match.params.price;
+        const open_now = this.props.match.params.open_now;
         this.setState({loading: true});
         if (this.idx === this.resIds.length - 1) {
             this.resIds = shuffle(this.props.resIds)
-            this.props.history.push(`/search/${term}&${location}&${radius}&${price}&0`)
+            this.props.history.push(`/search/${term}&${location}&${radius}&${price}&${open_now}&0`)
         } else {
-            this.props.history.push(`/search/${term}&${location}&${radius}&${price}&${this.idx + 1}`)
+            this.props.history.push(`/search/${term}&${location}&${radius}&${price}&${open_now}&${this.idx + 1}`)
         }
     }
 
@@ -75,7 +76,9 @@ class Res extends React.Component {
           display: block;
           margin: 0 auto;
           border-color: red;
-          width: 50%;`;
+          position: absolute;
+          left: 525px;
+          top: 320px;`;
 
         return <div className="res-wrapper">
             <div className="res-box" >

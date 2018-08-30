@@ -107,7 +107,7 @@ class Search extends React.Component {
                     <div className="OpenNow">
                       <input type="checkbox" id="open_now"
                         onChange={this.update.bind(this, "open_now")} value={this.state.open_now} />
-                      <label for="open" className="open_now">Open</label>
+                      <label for="open" className="open_now">Open Now</label>
                     </div>
                   </div>
                 </div>
