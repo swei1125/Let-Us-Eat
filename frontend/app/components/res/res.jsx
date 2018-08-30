@@ -3,10 +3,15 @@ import { withRouter, Link } from 'react-router-dom';
 import { shuffle } from "lodash";
 import MapContainer from '../map/map_container';
 import NavBar from '../navbar/navbar';
+import { css } from "react-emotion";
+import { BeatLoader } from "react-spinners";
 
 class Res extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            loading: false
+        };
         this.resIds = props.resIds;
         this.idx = +props.match.params.idx;
         
@@ -27,6 +32,7 @@ class Res extends React.Component {
         if (+newProps.match.params.idx !== this.idx) {
             this.idx = +newProps.match.params.idx;
             newProps.fetchSingleRes(this.resIds[this.idx])
+                .then(() => this.setState({ loading: false }))
         }
     }
 
@@ -36,7 +42,7 @@ class Res extends React.Component {
         const location = this.props.match.params.location;
         const radius = this.props.match.params.radius;
         const price = this.props.match.params.price
-
+        this.setState({loading: true});
         if (this.idx === this.resIds.length - 1) {
             this.resIds = shuffle(this.props.resIds)
             this.props.history.push(`/search/${term}&${location}&${radius}&${price}&0`)
@@ -65,10 +71,23 @@ class Res extends React.Component {
             5: "0 -216px"
         };
         const starPx = starPos[res.rating];
+        const override = css`
+          display: block;
+          margin: 0 auto;
+          border-color: red;
+          width: 50%;`;
+
         return <div className="res-wrapper">
-            <div className="res-box">
+            <div className="res-box" >
                 <NavBar />
-                <div className="top-bottom-wrapper">
+                <BeatLoader
+                    className={override}
+                    sizeUnit={"px"}
+                    size={50}
+                    color={'white'}
+                    loading={this.state.loading}
+                />
+                <div className="top-bottom-wrapper" style={{ opacity: this.state.loading ? "0.15" : "1" }}>
                     <div className="top">
                         <div className="box-1">
                             
