@@ -80,7 +80,7 @@ router.post('/login', (req, res) => {
         bcrypt.compare(password, user.password)
         .then(isMatch => {
             if (isMatch) {
-                const payload = { id: user.id, name: user.name, email: user.email };
+                const payload = { id: user.id, name: user.name, email: user.email, likedRes: user.likedRestaurants };
 
                 jsonwebtoken.sign(
                     payload,
@@ -102,11 +102,12 @@ router.post('/login', (req, res) => {
 })
 
 router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
+    
     res.json({
       id: req.user.id,
       name: req.user.name,
       email: req.user.email,
-      likedRes: req.user.likedRestaurants
+      likedRes: req.user.likedRes
     });
 })
 
