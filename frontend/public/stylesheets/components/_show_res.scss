@@ -40,7 +40,6 @@ div[class*='box-'] {
     width: 93%;
     height: auto;
     text-align: center;
- 
     
     margin: 15px auto 0;
     display: flex;
@@ -65,14 +64,16 @@ div[class*='box-'] {
     display: flex;
     align-items: center;
     justify-content: center;
-
+    
     .info-wrapper {
         width: 100%;
         height: auto;
         align-items: center;
-
+        
         h1 {
+            font-family: 'Josefin Sans', sans-serif;
             font-size: 32px;
+            line-height: 40px;
         }
     
         .tags {
@@ -87,7 +88,8 @@ div[class*='box-'] {
             margin: 10px auto;
         }
         .price-review {
-            color: #e5e5e5
+            color: #e5e5e5;
+            font-family: 'Josefin Sans', sans-serif;
         }
         .heart {
             color: #ff6666;
@@ -101,11 +103,12 @@ div[class*='box-'] {
     display: flex;
     align-items: center;
     justify-content: center;
-
+    
     .more-info {
         font-size: 21px;
-
+        
         li {
+            font-family: 'Josefin Sans', sans-serif;
             list-style: none;
             margin: 10px 0;
             cursor: auto;
@@ -177,6 +180,17 @@ div[class*='box-'] {
                     margin: 10px auto;
                 }
     
+            }
+        }
+
+        .box-3 {
+            width: 100%;
+            height: auto;
+            .address {
+                font-size: 20px;
+            }
+            .is-open {
+                font-size: 25px;
             }
         }
     }

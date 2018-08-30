@@ -75,7 +75,9 @@ class Res extends React.Component {
           display: block;
           margin: 0 auto;
           border-color: red;
-          width: 50%;`;
+          position: absolute;
+          left: 525px;
+          top: 320px;`;
 
         return <div className="res-wrapper">
             <div className="res-box" >

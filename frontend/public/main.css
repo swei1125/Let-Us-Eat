@@ -502,7 +502,9 @@ div[class*='box-'] {
     height: auto;
     align-items: center; }
     .box-1 .info-wrapper h1 {
-      font-size: 32px; }
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 32px;
+      line-height: 40px; }
     .box-1 .info-wrapper .tags {
       margin: 10px 0;
       color: #e5e5e5;
@@ -513,7 +515,8 @@ div[class*='box-'] {
       background-image: url("../../images/stars.png");
       margin: 10px auto; }
     .box-1 .info-wrapper .price-review {
-      color: #e5e5e5; }
+      color: #e5e5e5;
+      font-family: 'Josefin Sans', sans-serif; }
     .box-1 .info-wrapper .heart {
       color: #ff6666;
       font-size: 60px; }
@@ -526,6 +529,7 @@ div[class*='box-'] {
   .box-3 .more-info {
     font-size: 21px; }
     .box-3 .more-info li {
+      font-family: 'Josefin Sans', sans-serif;
       list-style: none;
       margin: 10px 0;
       cursor: auto; }
@@ -581,6 +585,13 @@ div[class*='box-'] {
         font-size: 50px; }
       .top-bottom-wrapper .box-1 .info-wrapper .stars {
         margin: 10px auto; }
+    .top-bottom-wrapper .box-3 {
+      width: 100%;
+      height: auto; }
+      .top-bottom-wrapper .box-3 .address {
+        font-size: 20px; }
+      .top-bottom-wrapper .box-3 .is-open {
+        font-size: 25px; }
 
   .top {
     height: 835px; }
