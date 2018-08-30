@@ -1,32 +1,54 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
-  render() {
-    return (
-      <div className="navbar">
-        <h1>LET'S EAT</h1>
-        <div className="session">
-          <ul className="sessionul">
-            <li>
-              <a>Sign in</a>
-            </li>
-            <li>
-              <a>Sign up</a>
-            </li>
-          </ul>
-          <ul className="dropdown">
-            <li>
-              <a>Sign in</a>
-            </li>
-            <li>
-              <a>Sign up</a>
-            </li>
-          </ul>
+    constructor(props){
+        super(props);
+    }
+
+    render() {
+        return (
+        <div className="navbar">
+            <Link to="/"><h1>LET'S EAT</h1></Link>
+            <div className="session">
+                {this.props.session ? 
+                <div>
+                    <ul className="sessionul">
+                        <li>
+                            <Link to="/">Profile</Link>  
+                        </li>
+                    </ul>
+                    <ul className="dropdown">
+                        <li>
+                            <Link to="/">Profile</Link>
+                        </li>
+                    </ul>
+                </div> 
+                
+                :
+                <div>
+                    <ul className="sessionul">
+                        <li>
+                            <Link to="/login">Sign in</Link>
+                        </li>
+                        <li>
+                            <Link to="/signup">Sign up</Link>
+                        </li>
+                    </ul>
+                    <ul className="dropdown">
+                        <li>
+                            <Link to="/login">Sign in</Link>
+                        </li>
+                        <li>
+                            <Link to="/signup">Sign up</Link>
+                        </li>
+                    </ul>
+                </div>        
+                }
+            </div>
         </div>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 export default NavBar;
