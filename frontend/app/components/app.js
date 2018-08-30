@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 import SignUpFormContainer from "./sessionForm/signup_form_container";
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
+import LoginFormContainer from './sessionForm/login_form_container';
 
 
 const App = () => (
@@ -18,6 +19,7 @@ const App = () => (
       <Route exact path="/" component={SearchContainer} />
       <Route exact path="/search/:term&:location&:radius&:price&:idx" component={ResContainer}/>
       <AuthRoute exact path="/signup" component={SignUpFormContainer} />
+      <AuthRoute exact path="/login" component={LoginFormContainer} />
     </Switch>
   </div>
 );

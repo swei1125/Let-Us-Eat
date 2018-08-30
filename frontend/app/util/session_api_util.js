@@ -18,6 +18,11 @@ export const setAuthToken = token => {
     }
 };
 
+export const deleteErrors = () => {
+    return dispatch =>
+        dispatch({ type: CLEAR_ERRORS })
+}
+
 // Register User
 export const registerUser = (userData, history) => dispatch => {
     axios

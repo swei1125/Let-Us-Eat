@@ -15,7 +15,7 @@ export class SessionForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentWillUnmount() {
+    componentWillMount() {
         this.props.deleteErrors();
     }
 
@@ -28,13 +28,15 @@ export class SessionForm extends React.Component {
     emailForm() {
         if (this.props.formType === 'signup') {
             return (
-                <label className="username-email">Email
-                    <input className="signup_input"
-                    type="text"
-                    value={this.state.email}
-                    onChange={this.update('email')}
-                    placeholder='email' />
-                </label>
+                <div className="email">
+                <div className="inputs">
+                    <h2>Name</h2>
+                    <input type="text"
+                        onChange={this.update('name')}
+                        value={this.state.name}
+                        placeholder="name" />
+                </div>
+                </div>
             )
         }
     }
@@ -50,14 +52,20 @@ export class SessionForm extends React.Component {
             return (
                 <div>
                     <header className="signup-header">Join LetsEat!</header>
+                    <div className="other-session">
+                        <h4>Have an account?</h4>&nbsp;<Link className="other-session-link" to="/login">Login</Link>
+                    </div>
                 </div>
             )
         } else {
-            return (
-                <div>
-                    <header className="login-header">Login to LetsEat</header>
+            return <div>
+                <header className="signup-header">
+                  Login to LetsEat
+                </header>
+                <div className="other-session">
+                    <h4>Don't have an account?</h4>&nbsp;<Link className="other-session-link" to="/signup">Create one</Link>
                 </div>
-            )
+              </div>;
         }
     }
 
@@ -73,14 +81,30 @@ export class SessionForm extends React.Component {
         }
     }
 
+    confirmPassword() {
+        if (this.props.formType === 'signup') {
+            return (
+                <div className="username">
+                    <div className="inputs">
+                        <h2>Password</h2>
+                        <input type="password"
+                            onChange={this.update('password2')}
+                            value={this.state.password2}
+                            placeholder="Confirm Password" />
+                    </div>
+                </div>
+            )
+        }
+    }
+
     renderErrors() {
-        if (this.props.errors === undefined) {
+        if (this.props.errors.length === 0) {
             return (
                 <div></div>
             )
         }
         return (
-            <ul>
+            <ul className="error-ul">
                 {this.props.errors.map((error, i) => (
                     <li key={`error-${i}`}>
                         {error}
@@ -94,40 +118,35 @@ export class SessionForm extends React.Component {
     return (
         <div className="session-form-outer">
             <div className="full-page-session">
+            <div className="form-type-header">{this.formTypeHeader()}</div>
                 <div className="session-form-container">
-                    <div className="form-type-header">{this.formTypeHeader()}</div>
+                    <div>{this.renderErrors()}</div>
                     <div className="session-form-input">
                         <form onSubmit={this.handleSubmit} className="form-container">
 
-                            <label className="username-email">Username
-                                <input
-                                    autoFocus
-                                    className="signup-input"
-                                    type="text"
-                                    value={this.state.username}
-                                    onChange={this.update('name')}
-                                    placeholder="username" />
-                            </label>
+                            <div className="username">
+                            <div className="inputs">
+                                <h2>Username</h2>
+                                <input type="text" 
+                                onChange={this.update('email')} 
+                                value={this.state.email} 
+                                placeholder="email" />
+                            </div>
+                            </div>
 
                             {this.emailForm()}
 
-                            <label className="username-email">Password
-                                <input
-                                    className="signup-input"
-                                    type="password"
-                                    value={this.state.password}
-                                    onChange={this.update('password')}
-                                    placeholder="6 or more characters" />
-                            </label>
+                            <div className="username">
+                                <div className="inputs">
+                                    <h2>Password</h2>
+                                    <input type="password"
+                                        onChange={this.update('password')}
+                                        value={this.state.password}
+                                        placeholder="Password" />
+                                </div>
+                            </div>
 
-                            <label className="username-email">Password
-                                <input
-                                    className="signup-input"
-                                    type="password"
-                                    value={this.state.password2}
-                                    onChange={this.update('password2')}
-                                    placeholder="Confirm Password" />
-                            </label>
+                            {this.confirmPassword()}
 
                             {this.formTypeButton()}
                         </form>
