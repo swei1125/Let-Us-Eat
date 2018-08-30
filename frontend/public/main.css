@@ -447,13 +447,13 @@ input[type='checkbox']:checked {
   color: #751b79; }
 
 .res-box {
-  width: 990px;
-  height: 720px;
+  max-width: 990px;
+  height: 725px;
   margin: 20px auto;
   border: 1px solid gray;
   border-radius: 4px;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
-  background-color: rgba(0, 0, 0, 0.7); }
+  background-color: rgba(0, 0, 0, 0.8); }
   .res-box .navbar {
     background-color: transparent;
     width: 93%;
@@ -467,7 +467,10 @@ input[type='checkbox']:checked {
     margin: 15px auto 0;
     display: flex;
     justify-content: center;
-    align-items: center; }
+    align-items: center;
+    color: white; }
+    .res-box .btn button {
+      font-size: 25px; }
 
 div[class*='box-'] {
   width: 280px;
@@ -521,22 +524,77 @@ div[class*='box-'] {
   align-items: center;
   justify-content: center; }
   .box-3 .more-info {
-    font-size: 18px; }
+    font-size: 21px; }
     .box-3 .more-info li {
       list-style: none;
       margin: 10px 0;
       cursor: auto; }
     .box-3 .more-info .address {
-      font-size: 20px;
+      font-size: 23px;
       font-weight: bold; }
     .box-3 .more-info .is-open {
       font-weight: bold;
-      font-size: 28px;
+      font-size: 30px;
       margin-top: 20px; }
 
 .map-box {
   width: 280px;
   height: 280px;
   border-radius: 4px; }
+
+@media only screen and (max-width: 920px) {
+  .res-box {
+    width: 100%;
+    height: auto; }
+    .res-box .navbar {
+      margin-bottom: 15px; }
+
+  .top-bottom-wrapper {
+    width: 85%;
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    margin: 0 auto; }
+
+  .top, .bottom {
+    height: 900px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px; } }
+@media only screen and (max-width: 675px) {
+  .res-box {
+    height: auto; }
+
+  .top-bottom-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: auto; }
+    .top-bottom-wrapper .box-1 {
+      width: 100%;
+      height: auto; }
+      .top-bottom-wrapper .box-1 .info-wrapper h1 {
+        margin-bottom: 10px; }
+      .top-bottom-wrapper .box-1 .info-wrapper .heart {
+        font-size: 50px; }
+      .top-bottom-wrapper .box-1 .info-wrapper .stars {
+        margin: 10px auto; }
+
+  .top {
+    height: 835px; }
+
+  .bottom {
+    height: 950px; }
+
+  .top, .bottom {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+
+  .box-6 {
+    margin-bottom: 20px; } }
 
 /*# sourceMappingURL=main.css.map */
