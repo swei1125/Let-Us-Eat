@@ -25,13 +25,15 @@ export class SessionForm extends React.Component {
         }
     }
 
-    emailForm() {
+    nameForm() {
         if (this.props.formType === 'signup') {
             return (
                 <div className="email">
                 <div className="inputs">
                     <h2>Name</h2>
                     <input type="text"
+                        required
+                        className="inputs-sess-form"
                         onChange={this.update('name')}
                         value={this.state.name}
                         placeholder="name" />
@@ -50,20 +52,14 @@ export class SessionForm extends React.Component {
     formTypeHeader() {
         if (this.props.formType === 'signup') {
             return (
-                <div>
-                    <header className="signup-header">Join LetsEat!</header>
-                    <div className="other-session">
-                        <h4>Have an account?</h4>&nbsp;<Link className="other-session-link" to="/login">Login</Link>
-                    </div>
+                <div className="inner-header-container">
+                    <div className="signup-header">Join LetsEat!</div>
                 </div>
             )
         } else {
-            return <div>
-                <header className="signup-header">
+            return <div className="inner-header-container">
+                <div className="signup-header">
                   Login to LetsEat
-                </header>
-                <div className="other-session">
-                    <h4>Don't have an account?</h4>&nbsp;<Link className="other-session-link" to="/signup">Create one</Link>
                 </div>
               </div>;
         }
@@ -76,24 +72,36 @@ export class SessionForm extends React.Component {
             )
         } else {
             return (
-                <input type="submit" className="buttin-session" value="Log in"/>
+                <input type="submit" className="button-session" value="Log in"/>
             )
         }
     }
 
     confirmPassword() {
         if (this.props.formType === 'signup') {
+            return <div className="username">
+                <div className="inputs">
+                  <h2>Password</h2>
+                    <input type="password" className="inputs-sess-form" required onChange={this.update("password2")} value={this.state.password2} placeholder="Confirm Password" />
+                </div>
+              </div>;
+        }
+    }
+
+    linkToSession() {
+        if (this.props.formType === 'signup') {
             return (
-                <div className="username">
-                    <div className="inputs">
-                        <h2>Password</h2>
-                        <input type="password"
-                            onChange={this.update('password2')}
-                            value={this.state.password2}
-                            placeholder="Confirm Password" />
-                    </div>
+                <div className="other-session">
+                    Have an account?&nbsp;<Link className="other-session-link" to="/login">Login</Link>
                 </div>
             )
+        } else {
+            return <div className="other-session">
+                Don't have an account?&nbsp;
+                <Link className="other-session-link" to="/signup">
+                  Create one
+                </Link>
+              </div>;
         }
     }
 
@@ -115,46 +123,40 @@ export class SessionForm extends React.Component {
     }
 
   render() {
-    return (
-        <div className="session-form-outer">
-            <div className="full-page-session">
-            <div className="form-type-header">{this.formTypeHeader()}</div>
-                <div className="session-form-container">
-                    <div>{this.renderErrors()}</div>
-                    <div className="session-form-input">
-                        <form onSubmit={this.handleSubmit} className="form-container">
+    return <div className="session-form-outer">
+        <div className="full-page-session">
+          <div className="form-type-header">{this.formTypeHeader()}</div>
+          <div className="session-form-container">
+            <div className="session-form-input">
+              <form onSubmit={this.handleSubmit} className="form-container">
+              {this.renderErrors()}
 
-                            <div className="username">
-                            <div className="inputs">
-                                <h2>Username</h2>
-                                <input type="text" 
-                                onChange={this.update('email')} 
-                                value={this.state.email} 
-                                placeholder="email" />
-                            </div>
-                            </div>
-
-                            {this.emailForm()}
-
-                            <div className="username">
-                                <div className="inputs">
-                                    <h2>Password</h2>
-                                    <input type="password"
-                                        onChange={this.update('password')}
-                                        value={this.state.password}
-                                        placeholder="Password" />
-                                </div>
-                            </div>
-
-                            {this.confirmPassword()}
-
-                            {this.formTypeButton()}
-                        </form>
-                    </div>
+                <div className="username">
+                  <div className="inputs">
+                    <h2>Email</h2>
+                    <input type="email" className="inputs-sess-form" required onChange={this.update("email")} value={this.state.email} placeholder="email" />
+                    <span className="help-text"></span>
+                  </div>
                 </div>
+
+                {this.nameForm()}
+
+                <div className="username">
+                  <div className="inputs">
+                    <h2>Password</h2>
+                    <input type="password" className="inputs-sess-form" required onChange={this.update("password")} value={this.state.password} placeholder="Password" />
+                  </div>
+                </div>
+
+                {this.confirmPassword()}
+
+                {this.formTypeButton()}
+              </form>
+              {this.linkToSession()}
             </div>
+          </div>
         </div>
-    )
+      </div>;
   }
 }
 export default withRouter(SessionForm);
