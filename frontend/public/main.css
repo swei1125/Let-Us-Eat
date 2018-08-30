@@ -315,6 +315,22 @@ input[type='checkbox']:checked {
   background-repeat: no-repeat;
   display: block; }
 
+.loader:empty {
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  width: 50px;
+  height: 50px;
+  border: 10px solid rgba(0, 0, 0, 0);
+  border-left: 10px solid #751b79;
+  border-radius: 50%;
+  animation: load8 1.1s infinite linear; }
+
+@keyframes load8 {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
 @media all and (max-width: 1000px) {
   .search_form {
     margin: 40px 40px; }

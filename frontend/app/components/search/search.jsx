@@ -11,7 +11,8 @@ class Search extends React.Component {
             radius: 12 * 1600,
             price: "1",
             open_now: false,
-            selected: [false, false, false, false]
+            selected: [false, false, false, false],
+            submitted: false
         }
     }
 
@@ -46,11 +47,12 @@ class Search extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        let input = {limit: 50, term: this.state.term, location: this.state.location, radius: this.state.radius, price: this.state.price}
+        let input = {limit: 50, term: this.state.term, location: this.state.location, radius: this.state.radius, price: this.state.price, open_now: this.state.open_now}
 
         this.props.fetchRestaurants(input).then(() => {
-          this.props.history.push(`/search/${this.state.term}&${this.state.location}&${this.state.radius}&${this.state.price}&0`);
+          this.props.history.push(`/search/${this.state.term}&${this.state.location}&${this.state.radius}&${this.state.price}&${this.state.open_now}&0`);
         });
+      this.setState({ submitted: true })
     }
 
     componentDidMount(){
@@ -109,7 +111,7 @@ class Search extends React.Component {
                     </div>
                   </div>
                 </div>
-                <input type="submit" value="" id="submitInput" />
+              {this.state.submitted ? <div className="loader"></div>: <input type="submit" value="" id="submitInput" />}
               </form>
             </div>
         )
