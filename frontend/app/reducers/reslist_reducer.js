@@ -5,7 +5,7 @@ const resListReducer = (state = [], action) => {
     Object.freeze(state);
     switch (action.type) {
         case RECEIVE_RESTAURANTS:
-            return action.resList.map(res => res.id);
+            return shuffle(action.resList.map(res => res.id));
         default:
             return state;
     }
