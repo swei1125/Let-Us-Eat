@@ -37,7 +37,7 @@ class Search extends React.Component {
         this.setState({selected: arr, price: str})
     }
 
-    handleSubmit(e) {  
+    handleSubmit(e) {
         e.preventDefault();
 
         let input = {limit: 50, term: this.state.term, location: this.state.location, radius: this.state.radius, price: this.state.price}
@@ -85,7 +85,9 @@ class Search extends React.Component {
                     <input required type="text" onChange={this.update.bind(this, "location")} value={this.state.location} placeholder="city, area, state or/and zip" />
                   </div>
                   <div className="slidecontainer">
-                    <input type="range" min="3200" max="38400" step="1600" className="slider" list="tickmarks" onChange={this.update.bind(this, "radius")} value={this.state.radius} />
+                    <input type="range" min="3200" max="38400" step="1600" className="slider" list="tickmarks" onChange={this.update.bind(this, "radius")} value={this.state.radius}
+                      style={{ background: `linear-gradient(to left, #ffffff, #ffffff ${100 - Math.floor(this.state.radius * 100 / 38400)}%, #ffff00 ${100 - Math.floor(this.state.radius * 100 / 38400)}%, #ff0000)`}}
+                      />
                     <datalist id="tickmarks">
                       <option value="3200" />
                       <option value="6400" />
