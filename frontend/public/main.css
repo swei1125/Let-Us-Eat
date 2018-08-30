@@ -485,17 +485,17 @@ div[class*='box-'] {
   align-items: center;
   justify-content: center; }
   .box-3 .more-info {
-    font-size: 25px; }
+    font-size: 21px; }
     .box-3 .more-info li {
       list-style: none;
       margin: 10px 0;
       cursor: auto; }
     .box-3 .more-info .address {
-      font-size: 25px;
+      font-size: 23px;
       font-weight: bold; }
     .box-3 .more-info .is-open {
       font-weight: bold;
-      font-size: 32px;
+      font-size: 30px;
       margin-top: 20px; }
 
 .map-box {
