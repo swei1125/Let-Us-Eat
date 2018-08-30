@@ -13,7 +13,16 @@ import { AuthRoute, ProtectedRoute } from "../util/route_util";
 import LoginFormContainer from './sessionForm/login_form_container';
 
 
-const App = () => (
+const App = () => {
+
+  window.onload = function () {
+    const thediv = document.getElementById("mainView");
+    const imgarray = ["../../images/search1.jpg", "../../images/search2.jpg", "../../images/search3.jpg", "../../images/search4.jpg", "../../images/search5.jpg", "../../images/search6.jpg"];  
+    const spot = Math.floor(Math.random() * imgarray.length);
+    thediv.style.background = `url(${imgarray[spot]})`;
+  }  
+
+  return (
   <div>
     <Switch>
       <Route exact path="/" component={SearchContainer} />
@@ -22,6 +31,7 @@ const App = () => (
       <AuthRoute exact path="/login" component={LoginFormContainer} />
     </Switch>
   </div>
-);
+  )
+};
 
 export default App;
