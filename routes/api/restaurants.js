@@ -3,7 +3,6 @@ const router = express.Router();
 const Restaurant = require("../../models/Restaurant");
 
 router.post('/createRes', (req, res) => {
-    console.log(req);
     
     const newRes = new Restaurant({
         yelpId: req.body.yelpId,
@@ -19,7 +18,6 @@ router.post('/createRes', (req, res) => {
         .then(rest => {
             res.json(rest)
         })
-        .catch(err => console.log(err))
 })
 
 router.get('/:id', (req, res) => {

@@ -3,10 +3,10 @@ import { withRouter, Link } from 'react-router-dom';
 import { shuffle } from "lodash";
 import MapContainer from '../map/map_container';
 import NavBar from '../navbar/navbar_container';
+import HeartContainer from './heart_container'; 
 import { css } from "react-emotion";
 import { BeatLoader } from "react-spinners";
-import { createRes, getRes } from '../../util/res_util';
-import { create } from 'domain';
+
 
 class Res extends React.Component {
     constructor(props) {
@@ -20,6 +20,7 @@ class Res extends React.Component {
     }
     componentWillMount() {
         this.props.clearCurrentRes();
+        this.props.fetchSingleRes(this.props.resIds[this.idx]);
     }
 
     componentWillUnmount() {
@@ -27,7 +28,6 @@ class Res extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchSingleRes(this.props.resIds[this.idx]);
     }
 
     componentWillReceiveProps(newProps) {
@@ -54,6 +54,8 @@ class Res extends React.Component {
         }
     }
 
+<<<<<<< HEAD
+=======
     like(e) {
         e.preventDefault();
         if (!this.props.currentUser) {
@@ -82,6 +84,7 @@ class Res extends React.Component {
         }    
     }
 
+>>>>>>> 86100fe74c3676f63da417fdb9a8606a66031351
     render() {
         if (!this.props.currentRes.hours) {
             
@@ -111,6 +114,54 @@ class Res extends React.Component {
           top: 320px;`;          
 
         return <div className="res-wrapper">
+<<<<<<< HEAD
+            <div className="res-box" >
+                <NavBar />
+                <BeatLoader
+                    className={override}
+                    sizeUnit={"px"}
+                    size={50}
+                    color={'white'}
+                    loading={this.state.loading}
+                />
+                <div className="top-bottom-wrapper" style={{ opacity: this.state.loading ? "0.15" : "1" }}>
+                    <div className="top">
+                        <div className="box-1">
+                            
+                            <div className="info-wrapper">
+                                <h1>{res.name}</h1>
+                                <div className="stars" style={{ backgroundPosition: starPx }} />
+                                <h4 className="tags">
+                                    {res.categories.map(tag => tag.title).join(", ")}
+                                </h4>
+                                <div className="price-review">
+                                    <span>{res.price}</span> | <span>{res.review_count}&nbsp;reviews</span>
+                                </div>
+                                <HeartContainer />
+                                <div className="message">
+                                    {!this.props.currentUser ? (
+                                        <Link to="/login">Like it? Sign in!</Link>
+                                    ) : null}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="box-2" >
+                            
+                            <MapContainer />
+                        </div>
+                        <div className="box-3">
+                        <div className="more-info">
+                            <li className="phone">{res.display_phone}</li>
+                            {res.location.display_address.map((el, i) => (
+                                <li className="address" key={i}>
+                                    {el}
+                                </li>
+                            ))}
+                            <li className="is-open" style={{ color: res.hours[0].is_open_now ? "#23A923" : "#cc0000" }}>
+                                {res.hours[0].is_open_now ? "Open Now" : "Close Now"}
+                            </li>
+                        </div>
+=======
             <div className="res-box">
               <NavBar />
               <BeatLoader className={override} sizeUnit={"px"} size={50} color={"#9d00ff"} loading={this.state.loading} />
@@ -139,6 +190,7 @@ class Res extends React.Component {
                           <Link to="/login">Like it? Sign in!</Link>
                         ) : null}
                       </div>
+>>>>>>> 86100fe74c3676f63da417fdb9a8606a66031351
                     </div>
                   </div>
                   <div className="box-2">
