@@ -144,7 +144,7 @@ export class SessionForm extends React.Component {
                 <div className="username">
                   <div className="inputs">
                     <h2>Password</h2>
-                    <input type="password" className="inputs-sess-form" required onChange={this.update("password")} value={this.state.password} placeholder="Password" />
+                    <input type="password" id="password" className="inputs-sess-form" required onChange={this.update("password")} value={this.state.password} placeholder="Password" />
                   </div>
                 </div>
 
