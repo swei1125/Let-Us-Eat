@@ -30,7 +30,6 @@ class Search extends React.Component {
               [field]: e.currentTarget.value
             });
         }
-        console.log(this.state);
     }
 
     handleClick(index, e) {
