@@ -5,18 +5,24 @@ class NavBar extends React.Component {
 
     render() {
         
-        const loggedIn = (<div>
+        const loggedIn = <div>
             <ul className="sessionul">
-                <li>
-                    <Link to="/">Profile</Link>
-                </li>
+              <li>
+                <Link to="/">Profile</Link>
+              </li>
+              <li>
+                <button onClick={()=>this.props.logoutUser()}>Log Out</button>
+              </li>
             </ul>
             <ul className="dropdown">
-                <li>
-                    <Link to="/">Profile</Link>
-                </li>
+              <li>
+                <Link to="/">Profile</Link>
+              </li>
+              <li>
+                <button onClick={()=>this.props.logoutUser()}>Log Out</button>
+              </li>
             </ul>
-        </div> );
+          </div>;
         const notLoggedIn = (<div>
             <ul className="sessionul">
                 <li>

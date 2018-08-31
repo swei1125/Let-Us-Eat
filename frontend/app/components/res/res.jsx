@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { shuffle } from "lodash";
 import MapContainer from '../map/map_container';
-import NavBar from '../navbar/navbar';
+import NavBar from '../navbar/navbar_container';
 import { css } from "react-emotion";
 import { BeatLoader } from "react-spinners";
 import { createRes, getRes } from '../../util/res_util';

@@ -1,7 +1,7 @@
 .navbar {
     width: 100%;
     height: 70px;
-    background-color: rgba(0,0,0, 0.5); 
+    background-color: rgba(0,0,0, 0.8); 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -24,6 +24,16 @@
     align-items: center;
 }
 
+.sessionul button {
+    margin: 20px 30px;
+    background-color: transparent;
+    padding: 5px 10px;
+    border: 1px solid white;
+    border-radius: 2px;
+    color: white;
+    font-size: 16px;
+}
+
 .dropdown {
     display: none;
 }
@@ -35,11 +45,16 @@
 }
 
 .sessionul a:hover {
-    text-decoration: underline;
+    color: #9d00ff;
+}
+
+.sessionul button:hover {
+    background: linear-gradient(to left, #9d00ff, #751b79);
 }
 
 
 @media all and (max-width: 1000px) {
+
     .sessionul{
         display: none;
     }
@@ -66,11 +81,12 @@
 
     .dropdown:hover {
         background-image: none;
-        width: 50px;
+        width: 70px;
         height: auto;
         background-color: rgba(0,0,0, 0.5);
         padding: 10px;
         margin-top: 30px;
+        margin-right: 10px;
         display: flex;
         flex-direction: column;
         align-content: space-between;    
@@ -86,6 +102,21 @@
     }
 
     .dropdown li:hover a {
-        text-decoration: underline;
+        color: #9d00ff;
     }
+
+    .dropdown button {
+    margin: 5px 0px;
+    background-color: transparent;
+    padding: 2px 4px;
+    border: 1px solid white;
+    border-radius: 3px;
+    color: white;
+    font-size: 14px;
+    }
+
+    .dropdown button:hover {
+    background: linear-gradient(to left, rgb(157, 0, 255), #751b79);
+    }
+
 }
