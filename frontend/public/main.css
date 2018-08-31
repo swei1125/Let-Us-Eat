@@ -485,7 +485,8 @@ input[type='email']:invalid + .help-text::after {
   border: 1px solid gray;
   border-radius: 4px;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
-  background-color: rgba(0, 0, 0, 0.8); }
+  background-color: rgba(0, 0, 0, 0.8);
+  position: relative; }
   .res-box .navbar {
     background-color: transparent;
     width: 93%;
@@ -552,6 +553,8 @@ div[class*='box-'] {
     .box-1 .info-wrapper .heart {
       color: #ff6666;
       font-size: 60px; }
+      .box-1 .info-wrapper .heart i {
+        cursor: pointer; }
 
 .box-3 {
   color: #e5e5e5;
