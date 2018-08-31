@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Decode token and get user info and exp
         const decoded = jwt_decode(localStorage.jwtToken);
         // Set user and isAuthenticated
-        console.log(decoded);
         
         store.store.dispatch(APIUtil.setCurrentUser(decoded));
 

@@ -29,7 +29,6 @@ export const registerUser = (userData, history) => dispatch => {
         .post('/api/users/register', userData)
         .then(res => {
             // Save to localStorage
-            console.log(res);
             
             const { token } = res.data;
             // Set token to ls
