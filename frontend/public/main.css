@@ -400,7 +400,7 @@ input[type='checkbox']:checked {
     font-size: 18px; } }
 .session-form-outer {
   width: auto;
-  margin: 70px 80px;
+  margin: 70px 225px;
   border: 1px solid #e6e6e8;
   height: 690px;
   display: flex;
@@ -420,7 +420,7 @@ input[type='checkbox']:checked {
   margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-around; }
+  justify-content: center; }
 
 .form-type-header {
   font-size: 40px;

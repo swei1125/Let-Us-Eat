@@ -1,6 +1,6 @@
 .session-form-outer {
     width: auto;
-    margin: 70px 80px;
+    margin: 70px 225px;
     border: 1px solid #e6e6e8;
     height: 690px;
     display: flex;
@@ -22,7 +22,7 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .form-type-header {
@@ -97,13 +97,6 @@
 
 .other-session-link:hover {
     color: #751b79;
-}
-
-.error-list-container {
-
-}
-
-.session-form-container {
 }
 
 input:focus:required:invalid {
