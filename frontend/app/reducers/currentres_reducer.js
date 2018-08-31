@@ -4,8 +4,7 @@ const currentResReducer = (state = {}, action) => {
     Object.freeze(state);
     switch (action.type) {
         case RECEIVE_CURRENT_RES:
-            const idx = state.idx ? state.idx : 0;
-            return Object.assign({}, action.res, {idx: idx});
+            return action.res;
         case CLEAR_CURRENT_RES:
             return {};
         default:
