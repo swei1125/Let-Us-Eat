@@ -37,7 +37,6 @@ export class SessionForm extends React.Component {
                         onChange={this.update('name')}
                         value={this.state.name}
                         placeholder="name" />
-                <span className="help-text"></span>
                 </div>
                 </div>
             )
@@ -54,13 +53,13 @@ export class SessionForm extends React.Component {
         if (this.props.formType === 'signup') {
             return (
                 <div className="inner-header-container">
-                    <div className="signup-header">Join LetsEat!</div>
+                    <div className="signup-header">Join Let's Eat!</div>
                 </div>
             )
         } else {
             return <div className="inner-header-container">
                 <div className="signup-header">
-                  Login to LetsEat
+                  Login to Let's Eat
                 </div>
               </div>;
         }
@@ -84,7 +83,6 @@ export class SessionForm extends React.Component {
                 <div className="inputs">
                   <h2>Password</h2>
                     <input type="password" className="inputs-sess-form" required onChange={this.update("password2")} value={this.state.password2} placeholder="Confirm Password" />
-            <span className="help-text"></span>
                 </div>
               </div>;
         }
@@ -107,31 +105,32 @@ export class SessionForm extends React.Component {
         }
     }
 
-    renderErrors() {
-        if (this.props.errors.length === 0) {
-            return (
-                <div></div>
-            )
-        }
-        return (
-            <ul className="error-ul">
-                {this.props.errors.map((error, i) => (
-                    <li key={`error-${i}`}>
-                        {error}
-                    </li>
-                ))}
-            </ul>
-        );
-    }
+    // renderErrors() {
+    //     if (this.props.errors.length === 0) {
+    //         return (
+    //             <div></div>
+    //         )
+    //     }
+    //     return (
+    //         <ul className="error-ul">
+    //             {this.props.errors.map((error, i) => (
+    //                 <li key={`error-${i}`}>
+    //                     {error}
+    //                 </li>
+    //             ))}
+    //         </ul>
+    //     );
+    // }
 
   render() {
+      console.log(this.props.errors);
+      
     return <div className="session-form-outer">
         <div className="full-page-session">
           <div className="form-type-header">{this.formTypeHeader()}</div>
           <div className="session-form-container">
             <div className="session-form-input">
               <form onSubmit={this.handleSubmit} className="form-container">
-              {this.renderErrors()}
 
                 <div className="username">
                   <div className="inputs">
@@ -139,6 +138,7 @@ export class SessionForm extends React.Component {
                     <input type="email" className="inputs-sess-form" required onChange={this.update("email")} value={this.state.email} placeholder="email" />
                     <span className="help-text"></span>
                   </div>
+                    {/* <div className="requirements">{this.props.errors.session.email}</div> */}
                 </div>
 
                 {this.nameForm()}
@@ -146,9 +146,10 @@ export class SessionForm extends React.Component {
                 <div className="username">
                   <div className="inputs">
                     <h2>Password</h2>
-                                <input type="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" className="inputs-sess-form" required onChange={this.update("password")} value={this.state.password} placeholder="Password" />
+                    <input type="password" id="password" className="inputs-sess-form" required onChange={this.update("password")} value={this.state.password} placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"/>
                     <span className="help-text"></span>
                   </div>
+                    {/* <div className="requirements">{this.props.errors.session.password}</div> */}
                 </div>
 
                 {this.confirmPassword()}

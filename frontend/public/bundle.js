@@ -1289,7 +1289,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStateToProps = function mapStateToProps(_ref) {
   var errors = _ref.errors;
   return {
-    errors: Object.values(errors.session),
+    errors: errors,
     formType: "login"
   };
 };
@@ -1396,8 +1396,7 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                             className: 'inputs-sess-form',
                             onChange: this.update('name'),
                             value: this.state.name,
-                            placeholder: 'name' }),
-                        _react2.default.createElement('span', { className: 'help-text' })
+                            placeholder: 'name' })
                     )
                 );
             }
@@ -1419,7 +1418,7 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'signup-header' },
-                        'Join LetsEat!'
+                        'Join Let\'s Eat!'
                     )
                 );
             } else {
@@ -1429,7 +1428,7 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'signup-header' },
-                        'Login to LetsEat'
+                        'Login to Let\'s Eat'
                     )
                 );
             }
@@ -1458,8 +1457,7 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                             null,
                             'Password'
                         ),
-                        _react2.default.createElement('input', { type: 'password', className: 'inputs-sess-form', required: true, onChange: this.update("password2"), value: this.state.password2, placeholder: 'Confirm Password' }),
-                        _react2.default.createElement('span', { className: 'help-text' })
+                        _react2.default.createElement('input', { type: 'password', className: 'inputs-sess-form', required: true, onChange: this.update("password2"), value: this.state.password2, placeholder: 'Confirm Password' })
                     )
                 );
             }
@@ -1491,27 +1489,29 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                 );
             }
         }
-    }, {
-        key: 'renderErrors',
-        value: function renderErrors() {
-            if (this.props.errors.length === 0) {
-                return _react2.default.createElement('div', null);
-            }
-            return _react2.default.createElement(
-                'ul',
-                { className: 'error-ul' },
-                this.props.errors.map(function (error, i) {
-                    return _react2.default.createElement(
-                        'li',
-                        { key: 'error-' + i },
-                        error
-                    );
-                })
-            );
-        }
+
+        // renderErrors() {
+        //     if (this.props.errors.length === 0) {
+        //         return (
+        //             <div></div>
+        //         )
+        //     }
+        //     return (
+        //         <ul className="error-ul">
+        //             {this.props.errors.map((error, i) => (
+        //                 <li key={`error-${i}`}>
+        //                     {error}
+        //                 </li>
+        //             ))}
+        //         </ul>
+        //     );
+        // }
+
     }, {
         key: 'render',
         value: function render() {
+            console.log(this.props.errors);
+
             return _react2.default.createElement(
                 'div',
                 { className: 'session-form-outer' },
@@ -1532,7 +1532,6 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                             _react2.default.createElement(
                                 'form',
                                 { onSubmit: this.handleSubmit, className: 'form-container' },
-                                this.renderErrors(),
                                 _react2.default.createElement(
                                     'div',
                                     { className: 'username' },
@@ -1560,7 +1559,7 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                                             null,
                                             'Password'
                                         ),
-                                        _react2.default.createElement('input', { type: 'password', id: 'password', pattern: '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}', className: 'inputs-sess-form', required: true, onChange: this.update("password"), value: this.state.password, placeholder: 'Password' }),
+                                        _react2.default.createElement('input', { type: 'password', id: 'password', className: 'inputs-sess-form', required: true, onChange: this.update("password"), value: this.state.password, placeholder: 'Password', pattern: '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}' }),
                                         _react2.default.createElement('span', { className: 'help-text' })
                                     )
                                 ),
