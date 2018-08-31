@@ -1,6 +1,11 @@
 .search_form {
-    width: auto;
-    margin: 70px 225px;
+    max-width: 940px;
+    position: absolute;
+    margin: auto;
+    top: 100px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     border: 1px solid white;
     border-radius: 3px;
     height: 600px;
@@ -13,7 +18,7 @@
 }
 
 .search_form2 {
-    background-color: rgba(0,0,0, 0.8);
+    background-color: rgba(0,0,0, 0.6);
     width: 100%;
     height: 100%;
     padding: 0;
@@ -230,9 +235,10 @@ input[type='checkbox']:checked {
   animation: load8 1.5s infinite linear;
 }
 
-@media all and (max-width: 1000px) {
+@media all and (max-width: 940px) {
+
     .search_form {
-    margin: 40px 40px;
+    margin-top: -50px;
     }
 
     .search_form2 h3 {

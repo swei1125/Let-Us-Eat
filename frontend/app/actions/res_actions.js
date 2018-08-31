@@ -1,4 +1,4 @@
-import keys from '../../../config/production_vars';
+import { yelpKey } from '../../../config/production_vars';
 import $ from 'jquery';
 
 
@@ -27,7 +27,7 @@ export const fetchRestaurants = (data) => dispatch => (
         url: 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search',
         data,
         headers: {
-            'Authorization': `Bearer ${ep2ZPMGFAw - UMN7N4oHAYZ51r1Z3zL - oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF - CW3Yx}`
+            'Authorization': `Bearer ${yelpKey}`
         }
     }).then(
         res => dispatch(receiveRestaurants(res.businesses)),
@@ -40,7 +40,7 @@ export const fetchSingleRes = id => dispatch => (
         method: 'get',
         url: `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${id}`,
         headers: {
-            'Authorization': `Bearer ${ep2ZPMGFAw - UMN7N4oHAYZ51r1Z3zL - oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF - CW3Yx}`
+            'Authorization': `Bearer ${yelpKey}`
         }
     }).then(
         res => dispatch(receiveCurrentRes(res)),

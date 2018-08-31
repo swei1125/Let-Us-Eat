@@ -100,14 +100,48 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json(req.user);
+  }
+);
+
+router.patch('/:id', passport.authenticate("jwt", { session: false }), (req, res) => {
+    const id = req.params.id;
+    User.findOne({"_id": id}).then(user => {
+        
+        if (req.body.action === 'add') {
+            user.likedRes.push(req.body.resId);
+            user.save();
+        }else {
+            const idx = user.likedRes.indexOf(req.body.resId);
+            user.likedRes.splice(idx, 1)
+            user.save();
+        }
+        const payload = {
+            id: user.id,
+            email: user.email,
+            naem: user.name,
+            likedRes: user.likedRes
+        }
+        jsonwebtoken.sign(
+            payload,
+            keys.secretOrKey,
+            // Key will expire in one hour
+            { expiresIn: 3600 },
+            (err, token) => {
+                res.json({
+                    success: true,
+                    token: 'Bearer ' + token,
+                    user
+                });
+            });
+     
+    })
+    // console.log(user);
     
-    res.json({
-      id: req.user.id,
-      name: req.user.name,
-      email: req.user.email,
-      likedRes: req.user.likedRes
-    });
 })
 
 router.get('/logout', (req, res) => {
