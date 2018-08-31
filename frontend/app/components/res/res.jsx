@@ -3,10 +3,10 @@ import { withRouter, Link } from 'react-router-dom';
 import { shuffle } from "lodash";
 import MapContainer from '../map/map_container';
 import NavBar from '../navbar/navbar_container';
+import HeartContainer from './heart_container'; 
 import { css } from "react-emotion";
 import { BeatLoader } from "react-spinners";
-import { createRes, getRes } from '../../util/res_util';
-import { create } from 'domain';
+
 
 class Res extends React.Component {
     constructor(props) {
@@ -20,6 +20,7 @@ class Res extends React.Component {
     }
     componentWillMount() {
         this.props.clearCurrentRes();
+        this.props.fetchSingleRes(this.props.resIds[this.idx]);
     }
 
     componentWillUnmount() {
@@ -27,7 +28,6 @@ class Res extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchSingleRes(this.props.resIds[this.idx]);
     }
 
     componentWillReceiveProps(newProps) {
@@ -52,34 +52,6 @@ class Res extends React.Component {
         } else {
             this.props.history.push(`/search/${term}&${location}&${radius}&${price}&${open_now}&${this.idx + 1}`)
         }
-    }
-
-    like(e) {
-        e.preventDefault();
-        if (!this.props.currentUser) {
-            // this.props.history.push('/login');
-        }else{
-            const res = this.props.currentRes;
-            const data = {
-                yelpId: res.id,
-                name: res.name,
-                image_url: res.image_url,
-                location: res.location.display_address,
-                price: res.price,
-                categories: res.categories.map(t => t.title),
-                rating: res.rating,
-                phone: res.display_phone
-            }
-            getRes(res.id).then(response => {
-                if (response.data) {
-                    console.log(response.data._id);
-                } else {
-                    createRes(data).then(respones => console.log(response))
-                }
-            })
-            const theheart = document.getElementById("heart");
-            theheart.style.color = `#ff6666`;
-        }    
     }
 
     render() {
@@ -110,34 +82,52 @@ class Res extends React.Component {
           top: 320px;`;          
 
         return <div className="res-wrapper">
-            <div className="res-box">
-              <NavBar />
-              <BeatLoader className={override} sizeUnit={"px"} size={30} color={"#9d00ff"} loading={this.state.loading} />
-              <div className="top-bottom-wrapper" style={{ opacity: this.state.loading ? "0.15" : "1" }}>
-                <div className="top">
-                  <div className="box-1">
-                    <div className="info-wrapper">
-                      <h1>{res.name}</h1>
-                      <div className="stars" style={{ backgroundPosition: starPx }} />
-                      <h4 className="tags">
-                        {res.categories
-                          .map(tag => tag.title)
-                          .join(", ")}
-                      </h4>
-                      <div className="price-review">
-                        <span>{res.price}</span> | <span>
-                          {res.review_count}
-                          &nbsp;reviews
-                        </span>
-                      </div>
-                      <div className="heart" id="heart">
-                        <i onClick={this.like.bind(this)} className="fas fa-heart" />
-                      </div>
-                      <div className="message">
-                        {!this.props.currentUser ? (
-                          <Link to="/login">Like it? Sign in!</Link>
-                        ) : null}
-                      </div>
+            <div className="res-box" >
+                <NavBar />
+                <BeatLoader
+                    className={override}
+                    sizeUnit={"px"}
+                    size={50}
+                    color={'white'}
+                    loading={this.state.loading}
+                />
+                <div className="top-bottom-wrapper" style={{ opacity: this.state.loading ? "0.15" : "1" }}>
+                    <div className="top">
+                        <div className="box-1">
+                            
+                            <div className="info-wrapper">
+                                <h1>{res.name}</h1>
+                                <div className="stars" style={{ backgroundPosition: starPx }} />
+                                <h4 className="tags">
+                                    {res.categories.map(tag => tag.title).join(", ")}
+                                </h4>
+                                <div className="price-review">
+                                    <span>{res.price}</span> | <span>{res.review_count}&nbsp;reviews</span>
+                                </div>
+                                <HeartContainer />
+                                <div className="message">
+                                    {!this.props.currentUser ? (
+                                        <Link to="/login">Like it? Sign in!</Link>
+                                    ) : null}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="box-2" >
+                            
+                            <MapContainer />
+                        </div>
+                        <div className="box-3">
+                        <div className="more-info">
+                            <li className="phone">{res.display_phone}</li>
+                            {res.location.display_address.map((el, i) => (
+                                <li className="address" key={i}>
+                                    {el}
+                                </li>
+                            ))}
+                            <li className="is-open" style={{ color: res.hours[0].is_open_now ? "#23A923" : "#cc0000" }}>
+                                {res.hours[0].is_open_now ? "Open Now" : "Close Now"}
+                            </li>
+                        </div>
                     </div>
                   </div>
                   <div className="box-2">

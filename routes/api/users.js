@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
 const jsonwebtoken = require('jsonwebtoken');
-const keys = require("../../config/keys");
+const keys = require("../../config/production_vars");
 const passport = require('passport');
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
@@ -100,14 +100,30 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json(req.user);
+  }
+);
+
+router.patch('/:id', (req, res) => {
+    const id = req.params.id;
+    User.findOne({"_id": id}).then(user => {
+        
+        if (req.body.action === 'add') {
+            user.likedRes.push(req.body.resId);
+            user.save();
+        }else {
+            const idx = user.likedRes.indexOf(req.body.resId);
+            user.likedRes.splice(idx, 1)
+            user.save();
+        }
+        res.json(user)
+    })
+    // console.log(user);
     
-    res.json({
-      id: req.user.id,
-      name: req.user.name,
-      email: req.user.email,
-      likedRes: req.user.likedRes
-    });
 })
 
 router.get('/logout', (req, res) => {
