@@ -111,7 +111,9 @@ class Search extends React.Component {
                     </div>
                   </div>
                 </div>
-              {this.state.submitted ? <div className="loader"></div>: <input type="submit" value="" id="submitInput" />}
+                <div className="inputDiv">
+                  {this.state.submitted ? <div className="loader"></div> : <input type="submit" value="" id="submitInput" />}
+                </div>  
               </form>
             </div>
         )

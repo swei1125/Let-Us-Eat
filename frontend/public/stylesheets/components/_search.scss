@@ -12,7 +12,7 @@
 }
 
 .search_form2 {
-    background-color: rgba(0,0,0, 0.5);
+    background-color: rgba(0,0,0, 0.8);
     width: 100%;
     height: 100%;
     padding: 0;
@@ -168,6 +168,9 @@ input[type='checkbox']:checked {
     font-size: 20px;
 }
 
+.inputDiv {
+    height: 100px;
+}
 
 .search_form input[type="submit"] {
     margin: 30px;
@@ -183,11 +186,9 @@ input[type='checkbox']:checked {
 @keyframes bounceIn {
   0% {
     transform: scale(0.8);
-    opacity: 1;
   }
   50% {
     transform: scale(1.2);
-    opacity: 1;
   }
   100% {
     transform: scale(0.8);
@@ -195,9 +196,7 @@ input[type='checkbox']:checked {
 }
 
 .search_form input[type="submit"]  {
-  animation-duration: 3.5s;
-  animation-name: bounceIn;
-  animation-iteration-count: infinite;
+  animation: bounceIn 3.5s infinite linear;
 }
 
 .search_form input[type="submit"]:hover {
@@ -208,25 +207,26 @@ input[type='checkbox']:checked {
     display: block;
 }
 
-.loader:empty {
-  position: absolute;
-  top: calc(50% - 25px);
-  left: calc(50% - 25px);
-  width: 50px;
-  height: 50px;
-  border: 10px solid rgba(0, 0, 0, 0.0);
-  border-left: 10px solid #751b79;
-  border-radius: 50%;
-  animation: load8 1.1s infinite linear;
-}
-
 @keyframes load8 {
   0% {
     transform: rotate(0deg);
   }
+  50% {
+    transform: rotate(180deg);
+  }
   100% {
     transform: rotate(360deg);
   }
+}
+
+.loader:empty {
+  margin: 30px;
+  height: 50px;
+  width: 50px;
+  border: 10px solid #6c4bba ;
+  border-left: 10px solid rgba(0,0,0, 0.1);
+  border-radius: 50%;
+  animation: load8 1.5s infinite linear;
 }
 
 @media all and (max-width: 1000px) {
