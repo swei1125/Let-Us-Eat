@@ -6,6 +6,7 @@ import Res from './res';
 const mapStateToProps = state => ({
     resIds: state.entities.resList,
     currentRes: state.entities.currentRes,
+    currentUser: state.session.id
 });
 
 const mapDispatchToProps = dispatch => ({

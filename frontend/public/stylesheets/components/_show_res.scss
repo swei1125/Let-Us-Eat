@@ -6,6 +6,7 @@
     border-radius: 4px;
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     background-color:rgba(0, 0, 0, 0.8);
+    position: relative;
     
     .navbar {
         background-color: transparent;
@@ -94,6 +95,10 @@ div[class*='box-'] {
         .heart {
             color: #ff6666;
             font-size: 60px;
+
+            i {
+                cursor: pointer;
+            }
         }
     }
 

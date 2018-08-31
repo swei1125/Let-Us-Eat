@@ -2,13 +2,17 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const RestaurantSchema = new Schema({
-  id: String,
+  yelpId: String,
   name: String,
   image_url: String,
-  url: String,
   price: String,
+  categories: [{
+    type: String
+  }],
   rating: Number,
-  location: Object,
+  location: [{
+    type: String
+  }],
   phone: String
 });
 

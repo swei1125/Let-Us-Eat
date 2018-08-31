@@ -5,6 +5,8 @@ import MapContainer from '../map/map_container';
 import NavBar from '../navbar/navbar';
 import { css } from "react-emotion";
 import { BeatLoader } from "react-spinners";
+import { createRes, getRes } from '../../util/res_util';
+import { create } from 'domain';
 
 class Res extends React.Component {
     constructor(props) {
@@ -52,6 +54,31 @@ class Res extends React.Component {
         }
     }
 
+    like(e) {
+        e.preventDefault();
+        if (!this.props.currentUser) {
+            this.props.history.push('/login');
+        }
+        const res = this.props.currentRes;
+        const data = {
+            yelpId: res.id,
+            name: res.name,
+            image_url: res.image_url,
+            location: res.location.display_address,
+            price: res.price,
+            categories: res.categories.map(t => t.title),
+            rating: res.rating,
+            phone: res.display_phone
+        }
+        getRes(res.id).then(response => {
+            if(response.data) {
+                console.log(response.data._id);
+            }else {
+                createRes(data).then(respones => console.log(response))
+            }
+        })
+    }
+
     render() {
         if (!this.props.currentRes.hours) {
             
@@ -77,8 +104,8 @@ class Res extends React.Component {
           margin: 0 auto;
           border-color: red;
           position: absolute;
-          left: 525px;
-          top: 320px;`;
+          left: 43%;
+          top: 320px;`;          
 
         return <div className="res-wrapper">
             <div className="res-box" >
@@ -104,7 +131,7 @@ class Res extends React.Component {
                                     <span>{res.price}</span> | <span>{res.review_count}&nbsp;reviews</span>
                                 </div>
                                 <div className="heart">
-                                    <i className="fas fa-heart" />
+                                    <i onClick={this.like.bind(this)} className="fas fa-heart" />
                                 </div>
                             </div>
                         </div>
