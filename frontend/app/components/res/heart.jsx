@@ -62,6 +62,8 @@ class Heart extends React.Component {
                 likeRes(this.props.currentUser.id, {resId: rest.data._id, action: "add"})
                     .then(({ data }) => this.props.updateCurrentUser(data))
             })
+            const theheart = document.getElementById("heart");
+            // theheart.style.color = `#ff6666`;
         }
     }
 

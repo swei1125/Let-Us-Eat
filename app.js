@@ -7,7 +7,7 @@ const path = require('path');
 const users = require("./routes/api/users");
 const restaurants = require("./routes/api/restaurants");
 
-const db = require('./config/keys').mongoURI;
+const db = require('./config/production_vars').mongoURI;
 mongoose
 .connect(db)
 .then(() => console.log("Connected to MongoDB successfully"))
