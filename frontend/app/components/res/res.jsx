@@ -166,7 +166,6 @@ class Res extends React.Component {
                 </button>
               </div>
             </div>
-          </div>;
     }
  
 }
