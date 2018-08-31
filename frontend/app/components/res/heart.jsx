@@ -6,20 +6,28 @@ import { getCurrentUser, likeRes } from "../../util/user_util";
 class Heart extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { dbRes: null, heart: "notLiked"};
+        this.state = { dbRes: null, heart: ""};
         this.like = this.like.bind(this);
     }
 
     componentDidMount() {
         const res = this.props.currentRes;
-        
+        const user = this.props.currentUser;
         getRes(res.id).then(response => {
-            console.log(response);
+            // console.log(response);
             
             this.setState({ dbRes: response.data })
-            console.log(this.state);
-            
+            // console.log(this.state);
         })
+        if (user.id) {
+            if (this.state.dbRes && user.likedRes.includes(this.state.dbRes._id)) {
+                this.setState({ heart: "liked" })
+            } else {
+                this.setState({heart: "notLiked"})
+            }
+        } else {
+            this.setState({heart: "notLiked"})
+        }
     
     }
     like(e) {
@@ -36,16 +44,17 @@ class Heart extends React.Component {
             // console.log("we have dbRes");
             
             if (this.state.heart === 'notLiked') {
+                this.setState({heart: "liked"})
                 likeRes(this.props.currentUser.id, { resId: this.state.dbRes, action: "add" })
-                    .then(({data}) => this.props.updateCurrentUser(data))
+               
             }else {
               this.setState({heart: "notLiked"})
                 likeRes(this.props.currentUser.id, { resId: this.state.dbRes, action: "delete" })
-                    .then(({data}) => this.props.updateCurrentUser(data))
+               
             }
         }else{
             console.log("no");
-            
+            this.setState({heart: "liked"})
             const data = {
                 yelpId: res.id,
                 name: res.name,
@@ -60,7 +69,7 @@ class Heart extends React.Component {
                 
                 this.setState({dbRes: rest.data});
                 likeRes(this.props.currentUser.id, {resId: rest.data._id, action: "add"})
-                    .then(({ data }) => this.props.updateCurrentUser(data))
+                    
             })
             const theheart = document.getElementById("heart");
             // theheart.style.color = `#ff6666`;
@@ -71,22 +80,13 @@ class Heart extends React.Component {
         if (!this.props.currentRes.hours) {
             return null;
         };
-
-        const user = this.props.currentUser;
-        let icon;
-        if (user.id) {
-            if (this.state.dbRes && user.likedRes.includes(this.state.dbRes._id)) {
-                icon = <i onClick={this.like} className="fas fa-heart" />;
-                this.setState({heart: "liked"})
-            }else {
-                icon = <i onClick={this.like} className="far fa-heart" />;
-            }
-        }else{
-            icon = <i onClick={this.like} className="far fa-heart" />;
-        }
         return(
             <div className="heart">
-                {icon}
+                {this.state.heart === "liked" ? (
+                    <i onClick={this.like} style={{color: "#ff6666"}} className="fas fa-heart" />
+            ) : (
+                    <i onClick={this.like} className="far fa-heart" />
+                )}
             </div>
         )
     }

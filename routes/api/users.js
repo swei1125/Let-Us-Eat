@@ -108,7 +108,7 @@ router.get(
   }
 );
 
-router.patch('/:id', (req, res) => {
+router.patch('/:id', passport.authenticate("jwt", { session: false }), (req, res) => {
     const id = req.params.id;
     User.findOne({"_id": id}).then(user => {
         
@@ -120,7 +120,25 @@ router.patch('/:id', (req, res) => {
             user.likedRes.splice(idx, 1)
             user.save();
         }
-        res.json(user)
+        const payload = {
+            id: user.id,
+            email: user.email,
+            naem: user.name,
+            likedRes: user.likedRes
+        }
+        jsonwebtoken.sign(
+            payload,
+            keys.secretOrKey,
+            // Key will expire in one hour
+            { expiresIn: 3600 },
+            (err, token) => {
+                res.json({
+                    success: true,
+                    token: 'Bearer ' + token,
+                    user
+                });
+            });
+     
     })
     // console.log(user);
     
