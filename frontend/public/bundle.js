@@ -100,7 +100,7 @@ module.exports = {
   mongoURI: "mongodb://wsyalways:baobeiwsy1314@ds133262.mlab.com:33262/flex_pj",
   secretOrKey: "vmdsakvdknadk",
   mapKey: "AIzaSyDIkzScchhbTJ2j4LPmVmelKOzES4Mr6lc",
-  yelpKey: "ep2ZPMGFAw-UMN7N4oHAYZ51r1Z3zL - oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF - CW3Yx"
+  yelpKey: "ep2ZPMGFAw-UMN7N4oHAYZ51r1Z3zL-oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF-CW3Yx"
 };
 
 /***/ }),
@@ -153,6 +153,8 @@ var _jquery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jque
 var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+console.log(_production_vars.yelpKey);
 
 var RECEIVE_RESTAURANTS = exports.RECEIVE_RESTAURANTS = 'RECEIVE_RESTAURANTS';
 var RECEIVE_CURRENT_RES = exports.RECEIVE_CURRENT_RES = 'RECEIVE_CURRENT_RES';
