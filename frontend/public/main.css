@@ -62,7 +62,7 @@ Body: 14px */
 .navbar {
   width: 100%;
   height: 70px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -77,17 +77,15 @@ Body: 14px */
   font-weight: 100; }
 
 .sessionul {
+  margin-right: 30px;
+  margin-bottom: 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center; }
+  align-items: center;
+  align-content: center; }
 
 .sessionul button {
-  margin: 20px 30px;
-  background-color: transparent;
-  padding: 5px 10px;
-  border: 1px solid white;
-  border-radius: 2px;
   color: white;
   font-size: 16px; }
 
@@ -99,11 +97,8 @@ Body: 14px */
   font-size: 16px;
   color: white; }
 
-.sessionul a:hover {
+.sessionul a:hover, .sessionul button:hover {
   color: #dc41f4; }
-
-.sessionul button:hover {
-  background: linear-gradient(to left, #9d00ff, #751b79); }
 
 @media all and (max-width: 1000px) {
   .sessionul {
@@ -174,7 +169,7 @@ Body: 14px */
   justify-content: center; }
 
 .search_form2 {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
   height: 100%;
   padding: 0;
@@ -557,7 +552,7 @@ input[type='email'], input[type='password'] {
     width: 93%;
     height: 50px;
     border-top: 1px solid #e5e5e5;
-    margin: 15px auto 0;
+    margin: 10px auto 0;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -571,7 +566,8 @@ input[type='email'], input[type='password'] {
       color: #dc41f4; }
     .res-box .btn img {
       height: 30px;
-      margin: 10px; }
+      margin: 10px;
+      margin-top: 15px; }
 @keyframes bounceIn {
   0% {
     transform: scale(0.6); }
