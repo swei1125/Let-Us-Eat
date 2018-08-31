@@ -57,26 +57,29 @@ class Res extends React.Component {
     like(e) {
         e.preventDefault();
         if (!this.props.currentUser) {
-            this.props.history.push('/login');
-        }
-        const res = this.props.currentRes;
-        const data = {
-            yelpId: res.id,
-            name: res.name,
-            image_url: res.image_url,
-            location: res.location.display_address,
-            price: res.price,
-            categories: res.categories.map(t => t.title),
-            rating: res.rating,
-            phone: res.display_phone
-        }
-        getRes(res.id).then(response => {
-            if(response.data) {
-                console.log(response.data._id);
-            }else {
-                createRes(data).then(respones => console.log(response))
+            // this.props.history.push('/login');
+        }else{
+            const res = this.props.currentRes;
+            const data = {
+                yelpId: res.id,
+                name: res.name,
+                image_url: res.image_url,
+                location: res.location.display_address,
+                price: res.price,
+                categories: res.categories.map(t => t.title),
+                rating: res.rating,
+                phone: res.display_phone
             }
-        })
+            getRes(res.id).then(response => {
+                if (response.data) {
+                    console.log(response.data._id);
+                } else {
+                    createRes(data).then(respones => console.log(response))
+                }
+            })
+            const theheart = document.getElementById("heart");
+            theheart.style.color = `#ff6666`;
+        }    
     }
 
     render() {
@@ -108,66 +111,71 @@ class Res extends React.Component {
           top: 320px;`;          
 
         return <div className="res-wrapper">
-            <div className="res-box" >
-                <NavBar />
-                <BeatLoader
-                    className={override}
-                    sizeUnit={"px"}
-                    size={50}
-                    color={'white'}
-                    loading={this.state.loading}
-                />
-                <div className="top-bottom-wrapper" style={{ opacity: this.state.loading ? "0.15" : "1" }}>
-                    <div className="top">
-                        <div className="box-1">
-                            
-                            <div className="info-wrapper">
-                                <h1>{res.name}</h1>
-                                <div className="stars" style={{ backgroundPosition: starPx }} />
-                                <h4 className="tags">
-                                    {res.categories.map(tag => tag.title).join(", ")}
-                                </h4>
-                                <div className="price-review">
-                                    <span>{res.price}</span> | <span>{res.review_count}&nbsp;reviews</span>
-                                </div>
-                                <div className="heart">
-                                    <i onClick={this.like.bind(this)} className="fas fa-heart" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="box-2" >
-                            
-                            <MapContainer />
-                        </div>
-                        <div className="box-3">
-                        <div className="more-info">
-                            <li className="phone">{res.display_phone}</li>
-                            {res.location.display_address.map((el, i) => (
-                                <li className="address" key={i}>
-                                    {el}
-                                </li>
-                            ))}
-                            <li className="is-open" style={{ color: res.hours[0].is_open_now ? "#23A923" : "#cc0000" }}>
-                                {res.hours[0].is_open_now ? "Open Now" : "Close Now"}
-                            </li>
-                        </div>
+            <div className="res-box">
+              <NavBar />
+              <BeatLoader className={override} sizeUnit={"px"} size={50} color={"#9d00ff"} loading={this.state.loading} />
+              <div className="top-bottom-wrapper" style={{ opacity: this.state.loading ? "0.15" : "1" }}>
+                <div className="top">
+                  <div className="box-1">
+                    <div className="info-wrapper">
+                      <h1>{res.name}</h1>
+                      <div className="stars" style={{ backgroundPosition: starPx }} />
+                      <h4 className="tags">
+                        {res.categories
+                          .map(tag => tag.title)
+                          .join(", ")}
+                      </h4>
+                      <div className="price-review">
+                        <span>{res.price}</span> | <span>
+                          {res.review_count}
+                          &nbsp;reviews
+                        </span>
+                      </div>
+                      <div className="heart" id="heart">
+                        <i onClick={this.like.bind(this)} className="fas fa-heart" />
+                      </div>
+                      <div className="message">
+                        {!this.props.currentUser ? (
+                          <Link to="/login">Like it? Sign in!</Link>
+                        ) : null}
+                      </div>
                     </div>
+                  </div>
+                  <div className="box-2">
+                    <MapContainer />
+                  </div>
+                  <div className="box-3">
+                    <div className="more-info">
+                      <li className="phone">{res.display_phone}</li>
+                      {res.location.display_address.map((el, i) => (
+                        <li className="address" key={i}>
+                          {el}
+                        </li>
+                      ))}
+                      <li className="is-open" style={{ color: res.hours[0].is_open_now ? "#cef932" : "#cc0000" }}>
+                        {res.hours[0].is_open_now ? "Open Now" : "Close Now"}
+                      </li>
                     </div>
-                    <div className="bottom">
-                    <div className="box-4 pic">
+                  </div>
+                </div>
+                <div className="bottom">
+                  <div className="box-4 pic">
                     <img className="img" src={this.props.currentRes.photos[2]} />
-                    </div>
-                    <div className="box-5 pic">
-                        <img className="img" src={this.props.currentRes.photos[0]} />
-                    </div>
-                    <div className="box-6 pic">
+                  </div>
+                  <div className="box-5 pic">
+                    <img className="img" src={this.props.currentRes.photos[0]} />
+                  </div>
+                  <div className="box-6 pic">
                     <img className="img" src={this.props.currentRes.photos[1]} />
+                  </div>
                 </div>
-                </div>
-                </div>
-                <div className='btn'>
-                    <button onClick={this.goNext.bind(this)}>Next</button>
-                </div>
+              </div>
+              <div>
+                    <button onClick={this.goNext.bind(this)} className="btn">
+                  <h2>Next</h2>
+                  <img className="nextImage" src={"../../../images/next.png"} />
+                </button>
+              </div>
             </div>
           </div>;
     }
