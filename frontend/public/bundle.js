@@ -148,8 +148,6 @@ exports.fetchSingleRes = exports.fetchRestaurants = exports.clearCurrentRes = ex
 
 var _production_vars = __webpack_require__(/*! ../../../config/production_vars */ "./config/production_vars.js");
 
-var _production_vars2 = _interopRequireDefault(_production_vars);
-
 var _jquery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 var _jquery2 = _interopRequireDefault(_jquery);
@@ -187,7 +185,7 @@ var fetchRestaurants = exports.fetchRestaurants = function fetchRestaurants(data
             url: 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search',
             data: data,
             headers: {
-                'Authorization': 'Bearer ' + (ep2ZPMGFAw - UMN7N4oHAYZ51r1Z3zL - oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF - CW3Yx)
+                'Authorization': 'Bearer ' + _production_vars.yelpKey
             }
         }).then(function (res) {
             return dispatch(receiveRestaurants(res.businesses));
@@ -203,7 +201,7 @@ var fetchSingleRes = exports.fetchSingleRes = function fetchSingleRes(id) {
             method: 'get',
             url: 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/' + id,
             headers: {
-                'Authorization': 'Bearer ' + (ep2ZPMGFAw - UMN7N4oHAYZ51r1Z3zL - oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF - CW3Yx)
+                'Authorization': 'Bearer ' + _production_vars.yelpKey
             }
         }).then(function (res) {
             return dispatch(receiveCurrentRes(res));
@@ -606,6 +604,186 @@ exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapSt
 
 /***/ }),
 
+/***/ "./frontend/app/components/res/heart.jsx":
+/*!***********************************************!*\
+  !*** ./frontend/app/components/res/heart.jsx ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+var _res_util = __webpack_require__(/*! ../../util/res_util */ "./frontend/app/util/res_util.js");
+
+var _user_util = __webpack_require__(/*! ../../util/user_util */ "./frontend/app/util/user_util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Heart = function (_React$Component) {
+    _inherits(Heart, _React$Component);
+
+    function Heart(props) {
+        _classCallCheck(this, Heart);
+
+        var _this = _possibleConstructorReturn(this, (Heart.__proto__ || Object.getPrototypeOf(Heart)).call(this, props));
+
+        _this.state = { dbRes: null, heart: "" };
+        _this.like = _this.like.bind(_this);
+        return _this;
+    }
+
+    _createClass(Heart, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            var res = this.props.currentRes;
+            var user = this.props.currentUser;
+            (0, _res_util.getRes)(res.id).then(function (response) {
+                // console.log(response);
+
+                _this2.setState({ dbRes: response.data });
+                // console.log(this.state);
+            });
+            if (user.id) {
+                if (this.state.dbRes && user.likedRes.includes(this.state.dbRes._id)) {
+                    this.setState({ heart: "liked" });
+                } else {
+                    this.setState({ heart: "notLiked" });
+                }
+            } else {
+                this.setState({ heart: "notLiked" });
+            }
+        }
+    }, {
+        key: 'like',
+        value: function like(e) {
+            var _this3 = this;
+
+            e.preventDefault();
+            if (!this.props.currentUser.id) {
+                this.props.history.push('/login');
+                return;
+            }
+            var res = this.props.currentRes;
+
+            if (this.state.dbRes) {
+                // console.log("we have dbRes");
+
+                if (this.state.heart === 'notLiked') {
+                    this.setState({ heart: "liked" });
+                    (0, _user_util.likeRes)(this.props.currentUser.id, { resId: this.state.dbRes, action: "add" });
+                } else {
+                    this.setState({ heart: "notLiked" });
+                    (0, _user_util.likeRes)(this.props.currentUser.id, { resId: this.state.dbRes, action: "delete" });
+                }
+            } else {
+                console.log("no");
+                this.setState({ heart: "liked" });
+                var data = {
+                    yelpId: res.id,
+                    name: res.name,
+                    image_url: res.image_url,
+                    location: res.location.display_address,
+                    price: res.price,
+                    categories: res.categories.map(function (t) {
+                        return t.title;
+                    }),
+                    rating: res.rating,
+                    phone: res.display_phone
+                };
+                (0, _res_util.createRes)(data).then(function (rest) {
+
+                    _this3.setState({ dbRes: rest.data });
+                    (0, _user_util.likeRes)(_this3.props.currentUser.id, { resId: rest.data._id, action: "add" });
+                });
+                var theheart = document.getElementById("heart");
+                // theheart.style.color = `#ff6666`;
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            if (!this.props.currentRes.hours) {
+                return null;
+            };
+            return _react2.default.createElement(
+                'div',
+                { className: 'heart' },
+                this.state.heart === "liked" ? _react2.default.createElement('i', { onClick: this.like, style: { color: "#ff6666" }, className: 'fas fa-heart' }) : _react2.default.createElement('i', { onClick: this.like, className: 'far fa-heart' })
+            );
+        }
+    }]);
+
+    return Heart;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(Heart);
+
+/***/ }),
+
+/***/ "./frontend/app/components/res/heart_container.js":
+/*!********************************************************!*\
+  !*** ./frontend/app/components/res/heart_container.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _heart = __webpack_require__(/*! ./heart */ "./frontend/app/components/res/heart.jsx");
+
+var _heart2 = _interopRequireDefault(_heart);
+
+var _user_util = __webpack_require__(/*! ../../util/user_util */ "./frontend/app/util/user_util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentRes: state.entities.currentRes,
+    currentUser: state.session
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    updateCurrentUser: function updateCurrentUser(user) {
+      return dispatch((0, _user_util.updateCurrentUser)(user));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_heart2.default);
+
+/***/ }),
+
 /***/ "./frontend/app/components/res/res.jsx":
 /*!*********************************************!*\
   !*** ./frontend/app/components/res/res.jsx ***!
@@ -617,7 +795,7 @@ exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapSt
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -638,13 +816,13 @@ var _navbar_container = __webpack_require__(/*! ../navbar/navbar_container */ ".
 
 var _navbar_container2 = _interopRequireDefault(_navbar_container);
 
+var _heart_container = __webpack_require__(/*! ./heart_container */ "./frontend/app/components/res/heart_container.js");
+
+var _heart_container2 = _interopRequireDefault(_heart_container);
+
 var _reactEmotion = __webpack_require__(/*! react-emotion */ "./node_modules/react-emotion/dist/index.esm.js");
 
 var _reactSpinners = __webpack_require__(/*! react-spinners */ "./node_modules/react-spinners/index.js");
-
-var _res_util = __webpack_require__(/*! ../../util/res_util */ "./frontend/app/util/res_util.js");
-
-var _domain = __webpack_require__(/*! domain */ "./node_modules/domain-browser/source/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -655,259 +833,226 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Res = function (_React$Component) {
-  _inherits(Res, _React$Component);
+    _inherits(Res, _React$Component);
 
-  function Res(props) {
-    _classCallCheck(this, Res);
+    function Res(props) {
+        _classCallCheck(this, Res);
 
-    var _this = _possibleConstructorReturn(this, (Res.__proto__ || Object.getPrototypeOf(Res)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Res.__proto__ || Object.getPrototypeOf(Res)).call(this, props));
 
-    _this.state = {
-      loading: false
-    };
-    _this.resIds = props.resIds;
-    _this.idx = +props.match.params.idx;
-
-    return _this;
-  }
-
-  _createClass(Res, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      this.props.clearCurrentRes();
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      this.props.clearCurrentRes();
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchSingleRes(this.props.resIds[this.idx]);
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(newProps) {
-      var _this2 = this;
-
-      if (+newProps.match.params.idx !== this.idx) {
-        this.idx = +newProps.match.params.idx;
-        newProps.fetchSingleRes(this.resIds[this.idx]).then(function () {
-          return _this2.setState({ loading: false });
-        });
-      }
-    }
-  }, {
-    key: 'goNext',
-    value: function goNext(e) {
-      e.preventDefault();
-      var term = this.props.match.params.term;
-      var location = this.props.match.params.location;
-      var radius = this.props.match.params.radius;
-      var price = this.props.match.params.price;
-      var open_now = this.props.match.params.open_now;
-      this.setState({ loading: true });
-      if (this.idx === this.resIds.length - 1) {
-        this.resIds = (0, _lodash.shuffle)(this.props.resIds);
-        this.props.history.push('/search/' + term + '&' + location + '&' + radius + '&' + price + '&' + open_now + '&0');
-      } else {
-        this.props.history.push('/search/' + term + '&' + location + '&' + radius + '&' + price + '&' + open_now + '&' + (this.idx + 1));
-      }
-    }
-  }, {
-    key: 'like',
-    value: function like(e) {
-      e.preventDefault();
-      if (!this.props.currentUser) {
-        // this.props.history.push('/login');
-      } else {
-        var res = this.props.currentRes;
-        var data = {
-          yelpId: res.id,
-          name: res.name,
-          image_url: res.image_url,
-          location: res.location.display_address,
-          price: res.price,
-          categories: res.categories.map(function (t) {
-            return t.title;
-          }),
-          rating: res.rating,
-          phone: res.display_phone
+        _this.state = {
+            loading: false
         };
-        (0, _res_util.getRes)(res.id).then(function (response) {
-          if (response.data) {
-            console.log(response.data._id);
-          } else {
-            (0, _res_util.createRes)(data).then(function (respones) {
-              return console.log(response);
-            });
-          }
-        });
-        var theheart = document.getElementById("heart");
-        theheart.style.color = '#ff6666';
-      }
+        _this.resIds = props.resIds;
+        _this.idx = +props.match.params.idx;
+
+        return _this;
     }
-  }, {
-    key: 'render',
-    value: function render() {
-      if (!this.props.currentRes.hours) {
 
-        return null;
-      };
-      var res = this.props.currentRes;
+    _createClass(Res, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.props.clearCurrentRes();
+            this.props.fetchSingleRes(this.props.resIds[this.idx]);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            this.props.clearCurrentRes();
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {}
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(newProps) {
+            var _this2 = this;
 
-      var starPos = {
-        0: "0 0px",
-        1: "0 -24px",
-        1.5: "0 -48px",
-        2: "0 -72px",
-        2.5: "0 -96px",
-        3: "0 -120px",
-        3.5: "0 -144px",
-        4: "0 -168px",
-        4.5: "0 -192px",
-        5: "0 -216px"
-      };
-      var starPx = starPos[res.rating];
-      var override = /*#__PURE__*/(0, _reactEmotion.css)('display:block;margin:0 auto;border-color:red;position:absolute;left:43%;top:320px;');
+            if (+newProps.match.params.idx !== this.idx) {
+                this.idx = +newProps.match.params.idx;
+                newProps.fetchSingleRes(this.resIds[this.idx]).then(function () {
+                    return _this2.setState({ loading: false });
+                });
+            }
+        }
+    }, {
+        key: 'goNext',
+        value: function goNext(e) {
+            e.preventDefault();
+            var term = this.props.match.params.term;
+            var location = this.props.match.params.location;
+            var radius = this.props.match.params.radius;
+            var price = this.props.match.params.price;
+            var open_now = this.props.match.params.open_now;
+            this.setState({ loading: true });
+            if (this.idx === this.resIds.length - 1) {
+                this.resIds = (0, _lodash.shuffle)(this.props.resIds);
+                this.props.history.push('/search/' + term + '&' + location + '&' + radius + '&' + price + '&' + open_now + '&0');
+            } else {
+                this.props.history.push('/search/' + term + '&' + location + '&' + radius + '&' + price + '&' + open_now + '&' + (this.idx + 1));
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            if (!this.props.currentRes.hours || this.props.resIds.length === 0) {
+                return _react2.default.createElement('img', { id: 'logoLoading', src: "../../../images/logoCover.png" });
+            };
+            var res = this.props.currentRes;
 
-      return _react2.default.createElement(
-        'div',
-        { className: 'res-wrapper' },
-        _react2.default.createElement(
-          'div',
-          { className: 'res-box' },
-          _react2.default.createElement(_navbar_container2.default, null),
-          _react2.default.createElement(_reactSpinners.BeatLoader, { className: override, sizeUnit: "px", size: 50, color: "#9d00ff", loading: this.state.loading }),
-          _react2.default.createElement(
-            'div',
-            { className: 'top-bottom-wrapper', style: { opacity: this.state.loading ? "0.15" : "1" } },
-            _react2.default.createElement(
-              'div',
-              { className: 'top' },
-              _react2.default.createElement(
+            var starPos = {
+                0: "0 0px",
+                1: "0 -24px",
+                1.5: "0 -48px",
+                2: "0 -72px",
+                2.5: "0 -96px",
+                3: "0 -120px",
+                3.5: "0 -144px",
+                4: "0 -168px",
+                4.5: "0 -192px",
+                5: "0 -216px"
+            };
+            var starPx = starPos[res.rating];
+            var override = /*#__PURE__*/(0, _reactEmotion.css)('display:block;margin:0 auto;border-color:red;position:absolute;left:43%;top:320px;');
+
+            return _react2.default.createElement(
                 'div',
-                { className: 'box-1' },
+                { className: 'res-wrapper' },
                 _react2.default.createElement(
-                  'div',
-                  { className: 'info-wrapper' },
-                  _react2.default.createElement(
-                    'h1',
-                    null,
-                    res.name
-                  ),
-                  _react2.default.createElement('div', { className: 'stars', style: { backgroundPosition: starPx } }),
-                  _react2.default.createElement(
-                    'h4',
-                    { className: 'tags' },
-                    res.categories.map(function (tag) {
-                      return tag.title;
-                    }).join(", ")
-                  ),
-                  _react2.default.createElement(
                     'div',
-                    { className: 'price-review' },
+                    { className: 'res-box' },
+                    _react2.default.createElement(_navbar_container2.default, null),
+                    _react2.default.createElement(_reactSpinners.BeatLoader, {
+                        className: override,
+                        sizeUnit: "px",
+                        size: 50,
+                        color: 'white',
+                        loading: this.state.loading
+                    }),
                     _react2.default.createElement(
-                      'span',
-                      null,
-                      res.price
+                        'div',
+                        { className: 'top-bottom-wrapper', style: { opacity: this.state.loading ? "0.15" : "1" } },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'top' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'box-1' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'info-wrapper' },
+                                    _react2.default.createElement(
+                                        'h1',
+                                        null,
+                                        res.name
+                                    ),
+                                    _react2.default.createElement('div', { className: 'stars', style: { backgroundPosition: starPx } }),
+                                    _react2.default.createElement(
+                                        'h4',
+                                        { className: 'tags' },
+                                        res.categories.map(function (tag) {
+                                            return tag.title;
+                                        }).join(", ")
+                                    ),
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'price-review' },
+                                        _react2.default.createElement(
+                                            'span',
+                                            null,
+                                            res.price
+                                        ),
+                                        ' | ',
+                                        _react2.default.createElement(
+                                            'span',
+                                            null,
+                                            res.review_count,
+                                            '\xA0reviews'
+                                        )
+                                    ),
+                                    _react2.default.createElement(_heart_container2.default, null),
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'message' },
+                                        !this.props.currentUser ? _react2.default.createElement(
+                                            _reactRouterDom.Link,
+                                            { to: '/login' },
+                                            'Like it? Sign in!'
+                                        ) : ""
+                                    )
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'box-2' },
+                                _react2.default.createElement(_map_container2.default, null)
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'box-3' },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'more-info' },
+                                    _react2.default.createElement(
+                                        'li',
+                                        { className: 'phone' },
+                                        res.display_phone
+                                    ),
+                                    res.location.display_address.map(function (el, i) {
+                                        return _react2.default.createElement(
+                                            'li',
+                                            { className: 'address', key: i },
+                                            el
+                                        );
+                                    }),
+                                    _react2.default.createElement(
+                                        'li',
+                                        { className: 'is-open', style: { color: res.hours[0].is_open_now ? "#23A923" : "#cc0000" } },
+                                        res.hours[0].is_open_now ? "Open Now" : "Close Now"
+                                    )
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'bottom' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'box-4 pic' },
+                                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[2] })
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'box-5 pic' },
+                                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[0] })
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'box-6 pic' },
+                                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[1] })
+                            )
+                        )
                     ),
-                    ' | ',
                     _react2.default.createElement(
-                      'span',
-                      null,
-                      res.review_count,
-                      '\xA0reviews'
+                        'div',
+                        null,
+                        _react2.default.createElement(
+                            'button',
+                            { onClick: this.goNext.bind(this), className: 'btn' },
+                            _react2.default.createElement(
+                                'h2',
+                                null,
+                                'Next'
+                            ),
+                            _react2.default.createElement('img', { className: 'nextImage', src: "../../../images/next.png" })
+                        )
                     )
-                  ),
-                  _react2.default.createElement(
-                    'div',
-                    { className: 'heart', id: 'heart' },
-                    _react2.default.createElement('i', { onClick: this.like.bind(this), className: 'fas fa-heart' })
-                  ),
-                  _react2.default.createElement(
-                    'div',
-                    { className: 'message' },
-                    !this.props.currentUser ? _react2.default.createElement(
-                      _reactRouterDom.Link,
-                      { to: '/login' },
-                      'Like it? Sign in!'
-                    ) : null
-                  )
                 )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'box-2' },
-                _react2.default.createElement(_map_container2.default, null)
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'box-3' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'more-info' },
-                  _react2.default.createElement(
-                    'li',
-                    { className: 'phone' },
-                    res.display_phone
-                  ),
-                  res.location.display_address.map(function (el, i) {
-                    return _react2.default.createElement(
-                      'li',
-                      { className: 'address', key: i },
-                      el
-                    );
-                  }),
-                  _react2.default.createElement(
-                    'li',
-                    { className: 'is-open', style: { color: res.hours[0].is_open_now ? "#cef932" : "#cc0000" } },
-                    res.hours[0].is_open_now ? "Open Now" : "Close Now"
-                  )
-                )
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'bottom' },
-              _react2.default.createElement(
-                'div',
-                { className: 'box-4 pic' },
-                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[2] })
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'box-5 pic' },
-                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[0] })
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'box-6 pic' },
-                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[1] })
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'button',
-              { onClick: this.goNext.bind(this), className: 'btn' },
-              _react2.default.createElement(
-                'h2',
-                null,
-                'Next'
-              ),
-              _react2.default.createElement('img', { className: 'nextImage', src: "../../../images/next.png" })
-            )
-          )
-        )
-      );
-    }
-  }]);
+            );
+        }
+    }]);
 
-  return Res;
+    return Res;
 }(_react2.default.Component);
 
 exports.default = (0, _reactRouterDom.withRouter)(Res);
@@ -1141,7 +1286,7 @@ var Search = function (_React$Component) {
                 null,
                 'Near'
               ),
-              _react2.default.createElement('input', { id: 'initialInput', required: true, type: 'text', onChange: this.update.bind(this, "location"), value: this.state.location, placeholder: 'city, area, state or/and zip' })
+              _react2.default.createElement('input', { id: 'initialInput', required: true, type: 'text', onChange: this.update.bind(this, "location"), value: this.state.location, placeholder: 'city, area, state or/and zip', onSubmit: this.handleSubmit.bind(this) })
             ),
             _react2.default.createElement(
               'div',
@@ -1943,6 +2088,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _session_api_util = __webpack_require__(/*! ../util/session_api_util */ "./frontend/app/util/session_api_util.js");
 
+var _user_util = __webpack_require__(/*! ../util/user_util */ "./frontend/app/util/user_util.js");
+
 var _merge2 = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 
 var _merge3 = _interopRequireDefault(_merge2);
@@ -1965,6 +2112,8 @@ var sessionReducer = function sessionReducer() {
             return { id: action.payload.id, name: action.payload.name, email: action.payload.email, likedRes: action.payload.likedRes };
         case _session_api_util.RECEIVE_CURRENT_USER:
             return (0, _merge3.default)({}, state, _defineProperty({}, action.payload.id, action.payload));
+        case _user_util.UPDATE_CURRENT_USER:
+            return action.user;
         default:
             return state;
     }
@@ -2193,13 +2342,17 @@ var loginUser = exports.loginUser = function loginUser(userData) {
         _axios2.default.post('/api/users/login', userData).then(function (res) {
             // Save to localStorage
             var token = res.data.token;
-            // Set token to ls
 
+            console.log(res.data);
+
+            // Set token to ls
             localStorage.setItem('jwtToken', token);
             // Set token to Auth header
             setAuthToken(token);
             // Decode token to get user data
             var decoded = (0, _jwtDecode2.default)(token);
+            console.log(decoded);
+
             // Set current user
             dispatch(setCurrentUser(decoded));
         }).catch(function (err) {
@@ -2229,6 +2382,77 @@ var logoutUser = exports.logoutUser = function logoutUser() {
         // Set current user to {} which will set isAuthenticated to false
         dispatch(setCurrentUser({}));
     };
+};
+
+/***/ }),
+
+/***/ "./frontend/app/util/user_util.js":
+/*!****************************************!*\
+  !*** ./frontend/app/util/user_util.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.likeRes = exports.setAuthToken = exports.getCurrentUser = exports.updateLikeRes = exports.UPDATE_LIKERES = undefined;
+
+var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _jwtDecode = __webpack_require__(/*! jwt-decode */ "./node_modules/jwt-decode/lib/index.js");
+
+var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
+
+var _session_api_util = __webpack_require__(/*! ./session_api_util */ "./frontend/app/util/session_api_util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UPDATE_LIKERES = exports.UPDATE_LIKERES = 'UPDATE_LIKERES';
+var updateLikeRes = exports.updateLikeRes = function updateLikeRes(user) {
+    return {
+        type: UPDATE_LIKERES,
+        user: user
+    };
+};
+
+var getCurrentUser = exports.getCurrentUser = function getCurrentUser() {
+    return _axios2.default.get('/api/users/current');
+};
+
+var setAuthToken = exports.setAuthToken = function setAuthToken(token) {
+    if (token) {
+        // Apply to every request
+        _axios2.default.defaults.headers.common["Authorization"] = token;
+    } else {
+        // Delete auth header
+        delete _axios2.default.defaults.headers.common["Authorization"];
+    }
+};
+
+var likeRes = exports.likeRes = function likeRes(id, data) {
+    return _axios2.default.patch("/api/users/" + id, data).then(function (res) {
+        // Save to localStorage
+        var token = res.data.token;
+
+        console.log(res.data);
+
+        // Set token to ls
+        localStorage.setItem('jwtToken', token);
+        // Set token to Auth header
+        setAuthToken(token);
+        // Decode token to get user data
+        var decoded = (0, _jwtDecode2.default)(token);
+        console.log(decoded);
+
+        // Set current user
+        dispatch((0, _session_api_util.setCurrentUser)(decoded));
+    });
 };
 
 /***/ }),
@@ -8069,88 +8293,6 @@ var W = function da(X) {
 
 /***/ }),
 
-/***/ "./node_modules/domain-browser/source/index.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/domain-browser/source/index.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// This file should be ES5 compatible
-/* eslint prefer-spread:0, no-var:0, prefer-reflect:0, no-magic-numbers:0 */
-
-
-module.exports = (function () {
-	// Import Events
-	var events = __webpack_require__(/*! events */ "./node_modules/events/events.js")
-
-	// Export Domain
-	var domain = {}
-	domain.createDomain = domain.create = function () {
-		var d = new events.EventEmitter()
-
-		function emitError (e) {
-			d.emit('error', e)
-		}
-
-		d.add = function (emitter) {
-			emitter.on('error', emitError)
-		}
-		d.remove = function (emitter) {
-			emitter.removeListener('error', emitError)
-		}
-		d.bind = function (fn) {
-			return function () {
-				var args = Array.prototype.slice.call(arguments)
-				try {
-					fn.apply(null, args)
-				}
-				catch (err) {
-					emitError(err)
-				}
-			}
-		}
-		d.intercept = function (fn) {
-			return function (err) {
-				if ( err ) {
-					emitError(err)
-				}
-				else {
-					var args = Array.prototype.slice.call(arguments, 1)
-					try {
-						fn.apply(null, args)
-					}
-					catch (err) {
-						emitError(err)
-					}
-				}
-			}
-		}
-		d.run = function (fn) {
-			try {
-				fn()
-			}
-			catch (err) {
-				emitError(err)
-			}
-			return this
-		}
-		d.dispose = function () {
-			this.removeAllListeners()
-			return this
-		}
-		d.enter = d.exit = function () {
-			return this
-		}
-		return d
-	}
-	return domain
-}).call(this)
-
-
-/***/ }),
-
 /***/ "./node_modules/emotion/dist/index.esm.js":
 /*!************************************************!*\
   !*** ./node_modules/emotion/dist/index.esm.js ***!
@@ -8190,319 +8332,6 @@ var _createEmotion = Object(create_emotion__WEBPACK_IMPORTED_MODULE_0__["default
 
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
-
-/***/ }),
-
-/***/ "./node_modules/events/events.js":
-/*!***************************************!*\
-  !*** ./node_modules/events/events.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-function EventEmitter() {
-  this._events = this._events || {};
-  this._maxListeners = this._maxListeners || undefined;
-}
-module.exports = EventEmitter;
-
-// Backwards-compat with node 0.10.x
-EventEmitter.EventEmitter = EventEmitter;
-
-EventEmitter.prototype._events = undefined;
-EventEmitter.prototype._maxListeners = undefined;
-
-// By default EventEmitters will print a warning if more than 10 listeners are
-// added to it. This is a useful default which helps finding memory leaks.
-EventEmitter.defaultMaxListeners = 10;
-
-// Obviously not all Emitters should be limited to 10. This function allows
-// that to be increased. Set to zero for unlimited.
-EventEmitter.prototype.setMaxListeners = function(n) {
-  if (!isNumber(n) || n < 0 || isNaN(n))
-    throw TypeError('n must be a positive number');
-  this._maxListeners = n;
-  return this;
-};
-
-EventEmitter.prototype.emit = function(type) {
-  var er, handler, len, args, i, listeners;
-
-  if (!this._events)
-    this._events = {};
-
-  // If there is no 'error' event listener then throw.
-  if (type === 'error') {
-    if (!this._events.error ||
-        (isObject(this._events.error) && !this._events.error.length)) {
-      er = arguments[1];
-      if (er instanceof Error) {
-        throw er; // Unhandled 'error' event
-      } else {
-        // At least give some kind of context to the user
-        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
-        err.context = er;
-        throw err;
-      }
-    }
-  }
-
-  handler = this._events[type];
-
-  if (isUndefined(handler))
-    return false;
-
-  if (isFunction(handler)) {
-    switch (arguments.length) {
-      // fast cases
-      case 1:
-        handler.call(this);
-        break;
-      case 2:
-        handler.call(this, arguments[1]);
-        break;
-      case 3:
-        handler.call(this, arguments[1], arguments[2]);
-        break;
-      // slower
-      default:
-        args = Array.prototype.slice.call(arguments, 1);
-        handler.apply(this, args);
-    }
-  } else if (isObject(handler)) {
-    args = Array.prototype.slice.call(arguments, 1);
-    listeners = handler.slice();
-    len = listeners.length;
-    for (i = 0; i < len; i++)
-      listeners[i].apply(this, args);
-  }
-
-  return true;
-};
-
-EventEmitter.prototype.addListener = function(type, listener) {
-  var m;
-
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  if (!this._events)
-    this._events = {};
-
-  // To avoid recursion in the case that type === "newListener"! Before
-  // adding it to the listeners, first emit "newListener".
-  if (this._events.newListener)
-    this.emit('newListener', type,
-              isFunction(listener.listener) ?
-              listener.listener : listener);
-
-  if (!this._events[type])
-    // Optimize the case of one listener. Don't need the extra array object.
-    this._events[type] = listener;
-  else if (isObject(this._events[type]))
-    // If we've already got an array, just append.
-    this._events[type].push(listener);
-  else
-    // Adding the second element, need to change to array.
-    this._events[type] = [this._events[type], listener];
-
-  // Check for listener leak
-  if (isObject(this._events[type]) && !this._events[type].warned) {
-    if (!isUndefined(this._maxListeners)) {
-      m = this._maxListeners;
-    } else {
-      m = EventEmitter.defaultMaxListeners;
-    }
-
-    if (m && m > 0 && this._events[type].length > m) {
-      this._events[type].warned = true;
-      console.error('(node) warning: possible EventEmitter memory ' +
-                    'leak detected. %d listeners added. ' +
-                    'Use emitter.setMaxListeners() to increase limit.',
-                    this._events[type].length);
-      if (typeof console.trace === 'function') {
-        // not supported in IE 10
-        console.trace();
-      }
-    }
-  }
-
-  return this;
-};
-
-EventEmitter.prototype.on = EventEmitter.prototype.addListener;
-
-EventEmitter.prototype.once = function(type, listener) {
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  var fired = false;
-
-  function g() {
-    this.removeListener(type, g);
-
-    if (!fired) {
-      fired = true;
-      listener.apply(this, arguments);
-    }
-  }
-
-  g.listener = listener;
-  this.on(type, g);
-
-  return this;
-};
-
-// emits a 'removeListener' event iff the listener was removed
-EventEmitter.prototype.removeListener = function(type, listener) {
-  var list, position, length, i;
-
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  if (!this._events || !this._events[type])
-    return this;
-
-  list = this._events[type];
-  length = list.length;
-  position = -1;
-
-  if (list === listener ||
-      (isFunction(list.listener) && list.listener === listener)) {
-    delete this._events[type];
-    if (this._events.removeListener)
-      this.emit('removeListener', type, listener);
-
-  } else if (isObject(list)) {
-    for (i = length; i-- > 0;) {
-      if (list[i] === listener ||
-          (list[i].listener && list[i].listener === listener)) {
-        position = i;
-        break;
-      }
-    }
-
-    if (position < 0)
-      return this;
-
-    if (list.length === 1) {
-      list.length = 0;
-      delete this._events[type];
-    } else {
-      list.splice(position, 1);
-    }
-
-    if (this._events.removeListener)
-      this.emit('removeListener', type, listener);
-  }
-
-  return this;
-};
-
-EventEmitter.prototype.removeAllListeners = function(type) {
-  var key, listeners;
-
-  if (!this._events)
-    return this;
-
-  // not listening for removeListener, no need to emit
-  if (!this._events.removeListener) {
-    if (arguments.length === 0)
-      this._events = {};
-    else if (this._events[type])
-      delete this._events[type];
-    return this;
-  }
-
-  // emit removeListener for all listeners on all events
-  if (arguments.length === 0) {
-    for (key in this._events) {
-      if (key === 'removeListener') continue;
-      this.removeAllListeners(key);
-    }
-    this.removeAllListeners('removeListener');
-    this._events = {};
-    return this;
-  }
-
-  listeners = this._events[type];
-
-  if (isFunction(listeners)) {
-    this.removeListener(type, listeners);
-  } else if (listeners) {
-    // LIFO order
-    while (listeners.length)
-      this.removeListener(type, listeners[listeners.length - 1]);
-  }
-  delete this._events[type];
-
-  return this;
-};
-
-EventEmitter.prototype.listeners = function(type) {
-  var ret;
-  if (!this._events || !this._events[type])
-    ret = [];
-  else if (isFunction(this._events[type]))
-    ret = [this._events[type]];
-  else
-    ret = this._events[type].slice();
-  return ret;
-};
-
-EventEmitter.prototype.listenerCount = function(type) {
-  if (this._events) {
-    var evlistener = this._events[type];
-
-    if (isFunction(evlistener))
-      return 1;
-    else if (evlistener)
-      return evlistener.length;
-  }
-  return 0;
-};
-
-EventEmitter.listenerCount = function(emitter, type) {
-  return emitter.listenerCount(type);
-};
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-
 
 /***/ }),
 
