@@ -20,6 +20,7 @@ class Res extends React.Component {
     }
     componentWillMount() {
         this.props.clearCurrentRes();
+        this.props.fetchSingleRes(this.props.resIds[this.idx]);
     }
 
     componentWillUnmount() {
@@ -27,7 +28,6 @@ class Res extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchSingleRes(this.props.resIds[this.idx]);
     }
 
     componentWillReceiveProps(newProps) {

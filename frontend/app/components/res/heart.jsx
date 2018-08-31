@@ -7,32 +7,45 @@ class Heart extends React.Component {
     constructor(props) {
         super(props);
         this.state = { dbRes: null, heart: "notLiked"};
+        this.like = this.like.bind(this);
     }
 
-    componentWillReceiveProps(newProps) {
-        if (newProps.currentRes !== this.state.dbRes) {
-            const res = newProps.currentRes;
-            getRes(res.id).then(response => {
-                this.setState({ dbRes: response.data })
-            })
-        }
+    componentDidMount() {
+        const res = this.props.currentRes;
+        
+        getRes(res.id).then(response => {
+            console.log(response);
+            
+            this.setState({ dbRes: response.data })
+            console.log(this.state);
+            
+        })
+    
     }
     like(e) {
+        
         e.preventDefault();
         if (!this.props.currentUser.id) {
             this.props.history.push('/login');
             return
         }
         const res = this.props.currentRes;
+
         
         if (this.state.dbRes) {
+            // console.log("we have dbRes");
+            
             if (this.state.heart === 'notLiked') {
-                likeRes(this.props.currentUser.id, {resId: this.state.dbRes._id, action:"add"})
+                likeRes(this.props.currentUser.id, { resId: this.state.dbRes, action: "add" })
+                    .then(({data}) => this.props.updateCurrentUser(data))
             }else {
               this.setState({heart: "notLiked"})
-              likeRes(this.props.currentUser.id, {resId: this.state.dbRes, action: "delete"})
+                likeRes(this.props.currentUser.id, { resId: this.state.dbRes, action: "delete" })
+                    .then(({data}) => this.props.updateCurrentUser(data))
             }
         }else{
+            console.log("no");
+            
             const data = {
                 yelpId: res.id,
                 name: res.name,
@@ -44,20 +57,12 @@ class Heart extends React.Component {
                 phone: res.display_phone
             }
             createRes(data).then(rest => {
-                this.setState({dbRes: rest});
-                likeRes(this.props.currentUser.id, {resId: rest._id, action: "add"})
+                
+                this.setState({dbRes: rest.data});
+                likeRes(this.props.currentUser.id, {resId: rest.data._id, action: "add"})
+                    .then(({ data }) => this.props.updateCurrentUser(data))
             })
         }
-
-        getRes(res.id).then(response => {
-            
-            if (response.data) {
-                getCurrentUser()
-
-            } else {
-                createRes(data).then(respones => console.log(response))
-            }
-        })
     }
 
     render() {
@@ -69,13 +74,13 @@ class Heart extends React.Component {
         let icon;
         if (user.id) {
             if (this.state.dbRes && user.likedRes.includes(this.state.dbRes._id)) {
-                icon = <i onClick={this.like.bind(this)} className="fas fa-heart" />;
+                icon = <i onClick={this.like} className="fas fa-heart" />;
                 this.setState({heart: "liked"})
             }else {
-                icon = <i onClick={this.like.bind(this)} className="far fa-heart" />;
+                icon = <i onClick={this.like} className="far fa-heart" />;
             }
         }else{
-            icon = <i onClick={this.like.bind(this)} className="far fa-heart" />;
+            icon = <i onClick={this.like} className="far fa-heart" />;
         }
         return(
             <div className="heart">

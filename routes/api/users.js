@@ -108,16 +108,22 @@ router.get(
   }
 );
 
-router.patch("/:id", (req, res) => {
+router.patch('/:id', (req, res) => {
     const id = req.params.id;
-    const user = User.findById(id);
-    if (req.body.action === 'add') {
-        user.likedRes.push(req.body.resId);
-    }else {
-        const idx = user.likedRes.indexOf(req.body.resId);
-        user.likedRes.splice(idx, 1)
-    }
-    res.json(user)
+    User.findOne({"_id": id}).then(user => {
+        
+        if (req.body.action === 'add') {
+            user.likedRes.push(req.body.resId);
+            user.save();
+        }else {
+            const idx = user.likedRes.indexOf(req.body.resId);
+            user.likedRes.splice(idx, 1)
+            user.save();
+        }
+        res.json(user)
+    })
+    // console.log(user);
+    
 })
 
 router.get('/logout', (req, res) => {
