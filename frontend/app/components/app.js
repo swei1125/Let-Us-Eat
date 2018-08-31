@@ -29,6 +29,7 @@ const App = () => {
       <Route exact path="/search/:term&:location&:radius&:price&:open_now&:idx" component={ResContainer}/>
       <AuthRoute exact path="/signup" component={SignUpFormContainer} />
       <AuthRoute exact path="/login" component={LoginFormContainer} />
+      <Route path="/" render={() => <Redirect to="/" />} />
     </Switch>
   </div>
   )
