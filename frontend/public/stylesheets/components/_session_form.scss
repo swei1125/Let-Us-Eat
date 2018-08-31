@@ -1,12 +1,27 @@
 .session-form-outer {
-    width: auto;
-    margin: 70px 225px;
+    max-width: 940px;
+    position: absolute;
+    margin: auto;
+    top: 100px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     border: 1px solid #e6e6e8;
     height: 690px;
     display: flex;
     flex-direction: column;
     align-items: center;
     align-content: center;
+}
+
+@media all and (max-width: 940px) {
+    .session-form-outer {
+        margin-top: -50px;
+    }
+
+    .signup-header {
+        font-size: 20px;
+    }
 }
 
 .form-container {
@@ -161,6 +176,16 @@ input[type='email'], input[type='password']{
     background-repeat: no-repeat;
     background-position: right center;
     background-size: 0.75rem; 
+}
+
+.requirements {
+    position: relative;
+    color: red;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 40px;
 }
 
 
