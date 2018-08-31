@@ -35,6 +35,24 @@ button, li, a,
 input[type="submit"] {
   cursor: pointer; }
 
+#logoLoading {
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; }
+
+@keyframes antiClockwiseSpin {
+  0% {
+    transform: rotate(360deg); }
+  100% {
+    transform: rotate(0deg); } }
+#logoLoading {
+  animation: antiClockwiseSpin 3.5s infinite; }
+
 /* Colors
 Texts and Icons:
 Dark Grey: #2F2F2F
@@ -86,6 +104,7 @@ Body: 14px */
   align-content: center; }
 
 .sessionul button {
+  margin-left: 30px;
   color: white;
   font-size: 16px; }
 
@@ -93,7 +112,7 @@ Body: 14px */
   display: none; }
 
 .sessionul a {
-  margin: 20px 30px;
+  margin-left: 30px;
   font-size: 16px;
   color: white; }
 
@@ -611,8 +630,9 @@ div[class*='box-'] {
     align-items: center; }
     .box-1 .info-wrapper h1 {
       font-family: 'Josefin Sans', sans-serif;
-      font-size: 32px;
-      line-height: 40px; }
+      font-size: 25px;
+      line-height: 40px;
+      font-weight: 400; }
     .box-1 .info-wrapper .tags {
       margin: 10px 0;
       color: #e5e5e5;

@@ -37,6 +37,26 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+#logoLoading {
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+@keyframes antiClockwiseSpin {
+	0%  {transform: rotate(360deg);}
+	100% {transform: rotate(0deg);}	
+}
+
+#logoLoading  {
+  animation: antiClockwiseSpin 3.5s infinite;
+}
+
 /* Colors
 Texts and Icons:
 Dark Grey: #2F2F2F

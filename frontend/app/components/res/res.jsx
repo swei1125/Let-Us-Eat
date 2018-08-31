@@ -83,9 +83,8 @@ class Res extends React.Component {
     }
 
     render() {
-        if (!this.props.currentRes.hours) {
-            
-            return null;
+        if (!this.props.currentRes.hours || this.props.resIds.length === 0) {
+            return <img id="logoLoading" src={"../../../images/logoWhite.png"} />;
         };
         const res = this.props.currentRes;
         
@@ -113,7 +112,7 @@ class Res extends React.Component {
         return <div className="res-wrapper">
             <div className="res-box">
               <NavBar />
-              <BeatLoader className={override} sizeUnit={"px"} size={50} color={"#9d00ff"} loading={this.state.loading} />
+              <BeatLoader className={override} sizeUnit={"px"} size={30} color={"#9d00ff"} loading={this.state.loading} />
               <div className="top-bottom-wrapper" style={{ opacity: this.state.loading ? "0.15" : "1" }}>
                 <div className="top">
                   <div className="box-1">
@@ -153,7 +152,7 @@ class Res extends React.Component {
                         </li>
                       ))}
                       <li className="is-open" style={{ color: res.hours[0].is_open_now ? "#cef932" : "#cc0000" }}>
-                        {res.hours[0].is_open_now ? "Open Now" : "Close Now"}
+                        {res.hours[0].is_open_now ? "Open Now" : "Closed Now"}
                       </li>
                     </div>
                   </div>
