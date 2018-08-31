@@ -1,6 +1,4 @@
 import { yelpKey } from '../../../config/production_vars';
-console.log(yelpKey);
-
 import $ from 'jquery';
 
 
