@@ -21,15 +21,43 @@
         height: 50px;
         border-top: 1px solid #e5e5e5;
         margin: 15px auto 0;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         color: white;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        color: white;
         
-         button {
+         h2 {
+             margin: 0;
+             padding: 0;
              font-size: 25px;
          }
+
+         h2:hover {
+             color: #dc41f4;
+         }
+
+         img {
+            height: 30px;
+            margin: 10px;
+         }
     }
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.6);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0.6);
+  }
+}
+
+.nextImage  {
+  animation: bounceIn 3.5s infinite linear;
+}
 
 }
 div[class*='box-'] {
@@ -69,6 +97,8 @@ div[class*='box-'] {
     .info-wrapper {
         width: 100%;
         height: auto;
+        display: flex;
+        flex-direction: column;
         align-items: center;
         
         h1 {
@@ -93,12 +123,33 @@ div[class*='box-'] {
             font-family: 'Josefin Sans', sans-serif;
         }
         .heart {
-            color: #ff6666;
+            width: 60px;
+            color: rgba(250, 250, 250, 0.4);
             font-size: 60px;
 
             i {
                 cursor: pointer;
             }
+        }
+
+        .message {
+            height: 15px;
+
+            a {
+                font-size: 13px;
+                margin-top: -10px;
+                font-family: 'Open Sans', sans-serif;
+                color: #e5e5e5;
+            }
+
+            a:hover {
+                color: #dc41f4;
+            }
+        }
+
+
+        .heart:hover {
+            color: #ff6666;
         }
     }
 
@@ -115,15 +166,16 @@ div[class*='box-'] {
         li {
             font-family: 'Josefin Sans', sans-serif;
             list-style: none;
+            font-weight: 300;
             margin: 10px 0;
             cursor: auto;
         }
         .address {
             font-size: 23px;
-            font-weight: bold;
+            font-weight: 400;
         }
         .is-open {
-            font-weight: bold;
+            font-weight: 400;
             font-size: 30px;
             margin-top: 20px;
         }
@@ -134,8 +186,8 @@ div[class*='box-'] {
     width: 280px;
     height: 280px;
     border-radius: 4px;
-    
 }
+
 @media only screen and (max-width: 920px) {
     .res-box {
         width: 100%;
@@ -161,6 +213,7 @@ div[class*='box-'] {
         justify-content: space-between;
         margin-bottom: 20px;
     }
+
 }
 @media only screen and (max-width: 675px) {
     .res-box {
