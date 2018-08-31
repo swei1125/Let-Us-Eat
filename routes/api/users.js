@@ -100,14 +100,24 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
-    
-    res.json({
-      id: req.user.id,
-      name: req.user.name,
-      email: req.user.email,
-      likedRes: req.user.likedRes
-    });
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json(req.user);
+  }
+);
+
+router.patch("/:id", (req, res) => {
+    const id = req.params.id;
+    const user = User.findById(id);
+    if (req.body.action === 'add') {
+        user.likedRes.push(req.body.resId);
+    }else {
+        const idx = user.likedRes.indexOf(req.body.resId);
+        user.likedRes.splice(idx, 1)
+    }
+    res.json(user)
 })
 
 router.get('/logout', (req, res) => {

@@ -3,10 +3,10 @@ import { withRouter, Link } from 'react-router-dom';
 import { shuffle } from "lodash";
 import MapContainer from '../map/map_container';
 import NavBar from '../navbar/navbar_container';
+import HeartContainer from './heart_container'; 
 import { css } from "react-emotion";
 import { BeatLoader } from "react-spinners";
-import { createRes, getRes } from '../../util/res_util';
-import { create } from 'domain';
+
 
 class Res extends React.Component {
     constructor(props) {
@@ -52,31 +52,6 @@ class Res extends React.Component {
         } else {
             this.props.history.push(`/search/${term}&${location}&${radius}&${price}&${open_now}&${this.idx + 1}`)
         }
-    }
-
-    like(e) {
-        e.preventDefault();
-        if (!this.props.currentUser) {
-            this.props.history.push('/login');
-        }
-        const res = this.props.currentRes;
-        const data = {
-            yelpId: res.id,
-            name: res.name,
-            image_url: res.image_url,
-            location: res.location.display_address,
-            price: res.price,
-            categories: res.categories.map(t => t.title),
-            rating: res.rating,
-            phone: res.display_phone
-        }
-        getRes(res.id).then(response => {
-            if(response.data) {
-                console.log(response.data._id);
-            }else {
-                createRes(data).then(respones => console.log(response))
-            }
-        })
     }
 
     render() {
@@ -130,9 +105,7 @@ class Res extends React.Component {
                                 <div className="price-review">
                                     <span>{res.price}</span> | <span>{res.review_count}&nbsp;reviews</span>
                                 </div>
-                                <div className="heart">
-                                    <i onClick={this.like.bind(this)} className="fas fa-heart" />
-                                </div>
+                                <HeartContainer />
                             </div>
                         </div>
                         <div className="box-2" >
