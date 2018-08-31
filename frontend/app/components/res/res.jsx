@@ -55,9 +55,8 @@ class Res extends React.Component {
     }
 
     render() {
-        if (!this.props.currentRes.hours) {
-            
-            return null;
+        if (!this.props.currentRes.hours || this.props.resIds.length === 0) {
+            return <img id="logoLoading" src={"../../../images/logoCover.png"} />;
         };
         const res = this.props.currentRes;
         
