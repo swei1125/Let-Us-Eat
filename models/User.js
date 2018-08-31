@@ -19,7 +19,7 @@ const UserSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    likedRestaurants: [{
+    likedRes: [{
         type: Schema.Types.ObjectId,
         ref: 'restaurants'
     }]
