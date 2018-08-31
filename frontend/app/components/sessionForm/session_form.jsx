@@ -37,6 +37,7 @@ export class SessionForm extends React.Component {
                         onChange={this.update('name')}
                         value={this.state.name}
                         placeholder="name" />
+                <span className="help-text"></span>
                 </div>
                 </div>
             )
@@ -83,6 +84,7 @@ export class SessionForm extends React.Component {
                 <div className="inputs">
                   <h2>Password</h2>
                     <input type="password" className="inputs-sess-form" required onChange={this.update("password2")} value={this.state.password2} placeholder="Confirm Password" />
+            <span className="help-text"></span>
                 </div>
               </div>;
         }
@@ -144,7 +146,8 @@ export class SessionForm extends React.Component {
                 <div className="username">
                   <div className="inputs">
                     <h2>Password</h2>
-                    <input type="password" id="password" className="inputs-sess-form" required onChange={this.update("password")} value={this.state.password} placeholder="Password" />
+                                <input type="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" className="inputs-sess-form" required onChange={this.update("password")} value={this.state.password} placeholder="Password" />
+                    <span className="help-text"></span>
                   </div>
                 </div>
 
