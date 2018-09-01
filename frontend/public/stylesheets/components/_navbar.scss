@@ -76,12 +76,12 @@
 
     .dropdown:hover {
         background-image: none;
-        width: 70px;
+        width: auto;
         height: auto;
         background-color: rgba(0,0,0, 0.5);
         padding: 10px;
         margin-top: 30px;
-        margin-right: 10px;
+        margin-right: 30px;
         display: flex;
         flex-direction: column;
         align-content: space-between;    
@@ -101,17 +101,7 @@
     }
 
     .dropdown button {
-    margin: 5px 0px;
-    background-color: transparent;
-    padding: 2px 4px;
-    border: 1px solid white;
-    border-radius: 3px;
-    color: white;
     font-size: 14px;
-    }
-
-    .dropdown button:hover {
-    background: linear-gradient(to left, #9e56ca, #751b79);
     }
 
 }

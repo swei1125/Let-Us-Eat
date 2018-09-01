@@ -240,6 +240,10 @@ var _res_container = __webpack_require__(/*! ./res/res_container */ "./frontend/
 
 var _res_container2 = _interopRequireDefault(_res_container);
 
+var _user_profile_container = __webpack_require__(/*! ./profile/user_profile_container */ "./frontend/app/components/profile/user_profile_container.js");
+
+var _user_profile_container2 = _interopRequireDefault(_user_profile_container);
+
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
 var _signup_form_container = __webpack_require__(/*! ./sessionForm/signup_form_container */ "./frontend/app/components/sessionForm/signup_form_container.jsx");
@@ -271,6 +275,7 @@ var App = function App() {
       null,
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _search_container2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/search/:term&:location&:radius&:price&:open_now&:idx', component: _res_container2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profile', component: _user_profile_container2.default }),
       _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/signup', component: _signup_form_container2.default }),
       _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/login', component: _login_form_container2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { path: '/', render: function render() {
@@ -403,7 +408,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(_map2.default);
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -423,141 +428,151 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var NavBar = function (_React$Component) {
-    _inherits(NavBar, _React$Component);
+  _inherits(NavBar, _React$Component);
 
-    function NavBar() {
-        _classCallCheck(this, NavBar);
+  function NavBar() {
+    _classCallCheck(this, NavBar);
 
-        return _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).apply(this, arguments));
+  }
+
+  _createClass(NavBar, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var path = window.location.pathname;
+
+      var loggedIn = _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'ul',
+          { className: 'sessionul' },
+          _react2.default.createElement(
+            'li',
+            null,
+            this.props.location.pathname === "/profile" ? _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/' },
+              'Search'
+            ) : _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/profile' },
+              'Profile'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'button',
+              { onClick: function onClick() {
+                  return _this2.props.logoutUser();
+                } },
+              'Log Out'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'ul',
+          { className: 'dropdown' },
+          _react2.default.createElement(
+            'li',
+            null,
+            this.props.location.pathname === "/profile" ? _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/' },
+              'Search'
+            ) : _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/profile' },
+              'Profile'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'button',
+              { onClick: function onClick() {
+                  return _this2.props.logoutUser();
+                } },
+              'Log Out'
+            )
+          )
+        )
+      );
+      var notLoggedIn = _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'ul',
+          { className: 'sessionul' },
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/login' },
+              'Sign in'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/signup' },
+              'Sign up'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'ul',
+          { className: 'dropdown' },
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/login' },
+              'Sign in'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/signup' },
+              'Sign up'
+            )
+          )
+        )
+      );
+      return _react2.default.createElement(
+        'div',
+        { className: 'navbar' },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'LET\'S EAT'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'session' },
+          this.props.session ? loggedIn : notLoggedIn
+        )
+      );
     }
+  }]);
 
-    _createClass(NavBar, [{
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            var loggedIn = _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'sessionul' },
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/' },
-                            'Profile'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            'button',
-                            { onClick: function onClick() {
-                                    return _this2.props.logoutUser();
-                                } },
-                            'Log Out'
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'dropdown' },
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/' },
-                            'Profile'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            'button',
-                            { onClick: function onClick() {
-                                    return _this2.props.logoutUser();
-                                } },
-                            'Log Out'
-                        )
-                    )
-                )
-            );
-            var notLoggedIn = _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'sessionul' },
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/login' },
-                            'Sign in'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/signup' },
-                            'Sign up'
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'dropdown' },
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/login' },
-                            'Sign in'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/signup' },
-                            'Sign up'
-                        )
-                    )
-                )
-            );
-            return _react2.default.createElement(
-                'div',
-                { className: 'navbar' },
-                _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/' },
-                    _react2.default.createElement(
-                        'h1',
-                        null,
-                        'LET\'S EAT'
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'session' },
-                    this.props.session ? loggedIn : notLoggedIn
-                )
-            );
-        }
-    }]);
-
-    return NavBar;
+  return NavBar;
 }(_react2.default.Component);
 
 exports.default = NavBar;
@@ -605,6 +620,191 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_navbar2.default));
+
+/***/ }),
+
+/***/ "./frontend/app/components/profile/resbox.jsx":
+/*!****************************************************!*\
+  !*** ./frontend/app/components/profile/resbox.jsx ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ResBox = function ResBox(props) {
+  _react2.default.createElement(
+    "p",
+    null,
+    "props.resId"
+  );
+};
+
+exports.default = ResBox;
+
+/***/ }),
+
+/***/ "./frontend/app/components/profile/user_profile.jsx":
+/*!**********************************************************!*\
+  !*** ./frontend/app/components/profile/user_profile.jsx ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+
+var _navbar_container = __webpack_require__(/*! ../navbar/navbar_container */ "./frontend/app/components/navbar/navbar_container.js");
+
+var _navbar_container2 = _interopRequireDefault(_navbar_container);
+
+var _resbox = __webpack_require__(/*! ./resbox */ "./frontend/app/components/profile/resbox.jsx");
+
+var _resbox2 = _interopRequireDefault(_resbox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var userProfile = function (_React$Component) {
+  _inherits(userProfile, _React$Component);
+
+  function userProfile(props) {
+    _classCallCheck(this, userProfile);
+
+    return _possibleConstructorReturn(this, (userProfile.__proto__ || Object.getPrototypeOf(userProfile)).call(this, props));
+  }
+
+  // <button onClick={this.handleDelete.bind(this)}><img src={"../../../images/garbage.png"}/></button>
+
+  _createClass(userProfile, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      console.log(this.props.likedRes);
+      return _react2.default.createElement(
+        'div',
+        { className: 'profile' },
+        _react2.default.createElement(_navbar_container2.default, null),
+        _react2.default.createElement(
+          'div',
+          { className: 'profileContent' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Hello, ',
+            this.props.currentUser
+          ),
+          this.props.likedRes.length === 0 ? _react2.default.createElement(
+            'div',
+            { className: 'defaultContent' },
+            _react2.default.createElement(
+              'h1',
+              null,
+              'You haven\'t liked any restaurants yet!'
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/' },
+              'Click here to search a restaurant.'
+            ),
+            _react2.default.createElement('img', { id: 'logoProfile', src: "../../../images/logoCover.png" })
+          ) : _react2.default.createElement(
+            'ul',
+            null,
+            this.props.likedRes.map(function (el) {
+              _react2.default.createElement(
+                'li',
+                { key: el },
+                _react2.default.createElement(_resbox2.default, { resId: el, fetchSingleRes: _this2.props.fetchSingleRes })
+              );
+            })
+          )
+        )
+      );
+    }
+  }]);
+
+  return userProfile;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(userProfile);
+
+/***/ }),
+
+/***/ "./frontend/app/components/profile/user_profile_container.js":
+/*!*******************************************************************!*\
+  !*** ./frontend/app/components/profile/user_profile_container.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _res_actions = __webpack_require__(/*! ../../actions/res_actions */ "./frontend/app/actions/res_actions.js");
+
+var _user_profile = __webpack_require__(/*! ./user_profile */ "./frontend/app/components/profile/user_profile.jsx");
+
+var _user_profile2 = _interopRequireDefault(_user_profile);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentUser: state.session.name,
+    likedRes: state.session.likedResYelpIds
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchSingleRes: function fetchSingleRes(id) {
+      return dispatch((0, _res_actions.fetchSingleRes)(id));
+    },
+    deleteRes: function deleteRes(id, data) {
+      return dispatch(likeRes(id, data));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_user_profile2.default);
 
 /***/ }),
 
@@ -670,7 +870,7 @@ var Heart = function (_React$Component) {
             });
 
             if (user.id) {
-                if (user.likedResYelpIds.includes(res.id)) {
+                if (user.likedResYelpIds && user.likedResYelpIds.includes(res.id)) {
                     this.heart = "liked";
                 } else {
                     this.heart = "notLiked";
@@ -690,7 +890,7 @@ var Heart = function (_React$Component) {
                 _this3.res = response.data;
             });
             if (user.id) {
-                if (user.likedResYelpIds.includes(res.id)) {
+                if (user.likedResYelpIds && user.likedResYelpIds.includes(res.id)) {
                     this.heart = "liked";
                 } else {
                     this.heart = "notLiked";
@@ -821,8 +1021,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n          display: block;\n          margin: 0 auto;\n          border-color: red;\n          position: absolute;\n          left: 43%;\n          top: 320px;'], ['\n          display: block;\n          margin: 0 auto;\n          border-color: red;\n          position: absolute;\n          left: 43%;\n          top: 320px;']);
-
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -848,8 +1046,6 @@ var _reactEmotion = __webpack_require__(/*! react-emotion */ "./node_modules/rea
 var _reactSpinners = __webpack_require__(/*! react-spinners */ "./node_modules/react-spinners/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -930,7 +1126,7 @@ var Res = function (_React$Component) {
         5: "0 -216px"
       };
       var starPx = starPos[res.rating];
-      var override = (0, _reactEmotion.css)(_templateObject);
+      var override = /*#__PURE__*/(0, _reactEmotion.css)('display:block;margin:0 auto;border-color:red;position:absolute;left:43%;top:320px;');
 
       return _react2.default.createElement(
         'div',
@@ -1289,7 +1485,7 @@ var Search = function (_React$Component) {
           _react2.default.createElement(
             'h3',
             null,
-            'Leave the simple things in life to us'
+            'Don\'t worry, we\'ll pick a restaurant for you!'
           ),
           _react2.default.createElement(
             'div',

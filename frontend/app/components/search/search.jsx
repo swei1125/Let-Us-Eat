@@ -64,7 +64,7 @@ class Search extends React.Component {
           <div className="search_form" >
               <NavBar />
               <form onSubmit={this.handleSubmit.bind(this)} className="search_form2">
-                <h3>Leave the simple things in life to us</h3>
+                <h3>Don't worry, we'll pick a restaurant for you!</h3>
                 <div className="where">
                   <div className="inputs">
                     <h2>Near</h2>
