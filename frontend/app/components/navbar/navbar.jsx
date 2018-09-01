@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 class NavBar extends React.Component {
     render() {
         var path = window.location.pathname;
-        console.log(path)
         
         const loggedIn = <div>
             <ul className="sessionul">
