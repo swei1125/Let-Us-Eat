@@ -116,9 +116,35 @@ router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.json(req.user);
+      User.findOne({email: req.user.email})
+        .populate('likedResIds')
+        .exec(function(err, user) {
+            console.log(JSON.stringify(user, null, "\t"))
+            const payload = {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                likedResYelpIds: user.likedResYelpIds,
+                likedResIds: user.likedResIds
+            }
+            jsonwebtoken.sign(
+                payload,
+                keys.secretOrKey,
+                // Key will expire in one hour
+                { expiresIn: 3600 },
+                (err, token) => {
+                    res.json({
+                        success: true,
+                        token: 'Bearer ' + token,
+                        user
+                    });
+                });
+            
+      })
+      
   }
 );
+
 
 router.patch('/:id', passport.authenticate("jwt", { session: false }), (req, res) => {
     const id = req.params.id;
@@ -138,7 +164,7 @@ router.patch('/:id', passport.authenticate("jwt", { session: false }), (req, res
         const payload = {
             id: user.id,
             email: user.email,
-            naem: user.name,
+            name: user.name,
             likedResYelpIds: user.likedResYelpIds,
             likedResIds: user.likedResIds
         }

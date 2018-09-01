@@ -662,7 +662,7 @@ div[class*='box-'] {
   left: 0;
   right: 0;
   border: 1px solid white;
-  height: 600px;
+  height: auto;
   display: block;
   display: flex;
   flex-direction: column;
@@ -673,7 +673,7 @@ div[class*='box-'] {
 .profileContent {
   background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
-  height: 100%;
+  height: 1000px;
   padding: 0;
   margin: 0;
   display: flex;
@@ -692,12 +692,8 @@ div[class*='box-'] {
   flex-direction: column;
   align-items: center;
   align-content: center;
-  justify-content: space-between; }
-  .defaultContent h2 {
-    color: white;
-    font-weight: 400;
-    margin: 22px;
-    text-align: center; }
+  justify-content: space-between;
+  color: white; }
   .defaultContent .img {
     width: 150px;
     height: 150px;

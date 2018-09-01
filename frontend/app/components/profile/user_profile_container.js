@@ -1,15 +1,14 @@
 import { connect } from 'react-redux';
-import { fetchSingleRes, deleteSingleRes } from "../../actions/res_actions";
+import { updateUserLikeRes, getCurrentUser } from '../../util/user_util';
 import userProfile from "./user_profile";
 
 const mapStateToProps = state => ({
-  currentUser: state.session.name,
-  likedRes: state.session.likedResYelpIds
+  currentUser: state.session,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchSingleRes: (id) => dispatch(fetchSingleRes(id)),
-  deleteRes: (id, data) => dispatch(likeRes(id, data))
+  getCurrentUser: () => dispatch(getCurrentUser()),
+  deleteRes: (id, data) => dispatch(updateUserLikeRes(id, data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(userProfile);
