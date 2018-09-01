@@ -50,15 +50,42 @@
     text-align: center;
   }
 
-  img {
+  .img {
     width: 150px;
     height: 150px;
     margin: 60px;
+    background-image: url("../../images/logoWhite.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
   }
 
-  img:hover {
+  .img:hover {
     cursor: pointer;
+    background-image: url("../../images/logoCover.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
   }
+
+  @keyframes bounceImg {
+    0% {
+      transform: scale(0.9);
+    }
+    50% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0.9);
+    }
+  }
+
+  .img  {
+    animation: bounceImg 3.5s infinite linear;
+  }
+
 }
 
 @media all and (max-width: 940px) {

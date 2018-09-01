@@ -22,7 +22,7 @@ class userProfile extends React.Component {
         {this.props.likedRes.length === 0 ?
           <div className="defaultContent">
             <h2>You haven't liked any restaurants yet!</h2>
-              <Link to="/"><img id="logoProfile" src={"../../../images/logoCover.png"} /></Link>
+              <Link to="/"><div className="img"></div>/></Link>
           </div>    
           :
           <ul>

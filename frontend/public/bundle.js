@@ -779,7 +779,8 @@ var userProfile = function (_React$Component) {
             _react2.default.createElement(
               _reactRouterDom.Link,
               { to: '/' },
-              _react2.default.createElement('img', { id: 'logoProfile', src: "../../../images/logoCover.png" })
+              _react2.default.createElement('div', { className: 'img' }),
+              '/>'
             )
           ) : _react2.default.createElement(
             'ul',
