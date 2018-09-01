@@ -2,12 +2,6 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { setCurrentUser } from './session_api_util';
 
-export const UPDATE_LIKERES = 'UPDATE_LIKERES';
-export const updateLikeRes = user => ({
-    type: UPDATE_LIKERES,
-    user
-})
-
 export const getCurrentUser = () => (
     axios.get('/api/users/current')
 )

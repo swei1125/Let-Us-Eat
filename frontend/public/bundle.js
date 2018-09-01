@@ -648,7 +648,6 @@ var Heart = function (_React$Component) {
     function Heart(props) {
         _classCallCheck(this, Heart);
 
-        // this.state = { heart: ""};
         var _this = _possibleConstructorReturn(this, (Heart.__proto__ || Object.getPrototypeOf(Heart)).call(this, props));
 
         _this.res = null;
@@ -660,65 +659,50 @@ var Heart = function (_React$Component) {
     _createClass(Heart, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
+            var _this2 = this;
+
             var res = this.props.currentRes;
             var user = this.props.currentUser;
 
+            (0, _res_util.getRes)(res.id).then(function (response) {
+
+                _this2.res = response.data;
+            });
+
             if (user.id) {
-                if (user.likedRes.includes(res.id)) {
-                    // this.setState({ heart: "liked" })
+                if (user.likedResYelpIds.includes(res.id)) {
                     this.heart = "liked";
-                    console.log("updated");
                 } else {
-                    // this.setState({ heart: "notLiked" })
                     this.heart = "notLiked";
-                    console.log("no dbRes");
                 }
             } else {
-                // this.setState({ heart: "notLiked" })
                 this.heart = "notLiked";
-                console.log("no user");
             }
         }
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(newProps) {
-            var _this2 = this;
+            var _this3 = this;
 
             var res = newProps.currentRes;
             var user = newProps.currentUser;
             (0, _res_util.getRes)(newProps.currentRes.id).then(function (response) {
-                // console.log(response);
-
-                _this2.res = response.data;
-                // this.setState({db})
+                _this3.res = response.data;
             });
-
             if (user.id) {
-                if (user.likedRes.includes(res.id)) {
-                    // this.setState({ heart: "liked" })
+                if (user.likedResYelpIds.includes(res.id)) {
                     this.heart = "liked";
-                    console.log("new", "updated");
                 } else {
-                    // this.setState({ heart: "notLiked" }) 
                     this.heart = "notLiked";
-                    console.log("new", "no dbRes");
                 }
             } else {
-                // this.setState({ heart: "notLiked" })
                 this.heart = "notLiked";
-                console.log("new", "no user");
             }
-        }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            // localStorage.setItem("res", this.props.currentRes.id)
-            // localStorage.setItem("heart", this.heart)
         }
     }, {
         key: 'like',
         value: function like(e) {
-            var _this3 = this;
+            var _this4 = this;
 
             e.preventDefault();
             if (!this.props.currentUser.id) {
@@ -726,22 +710,16 @@ var Heart = function (_React$Component) {
                 return;
             }
             var res = this.props.currentRes;
-
             if (this.res) {
-                console.log("we have dbRes");
 
                 if (this.heart === 'notLiked') {
-                    // this.setState({heart: "liked"})
                     this.heart = "liked";
-                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { resId: res.id, action: "add" });
+                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "add" });
                 } else {
-                    //   this.setState({heart: "notLiked"})
                     this.heart = "notLiked";
-                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { resId: res.id, action: "delete" });
+                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "delete" });
                 }
             } else {
-                console.log("no");
-                // this.setState({heart: "liked"})
                 this.heart = "liked";
                 var data = {
                     yelpId: res.id,
@@ -757,10 +735,9 @@ var Heart = function (_React$Component) {
                 };
                 (0, _res_util.createRes)(data).then(function (rest) {
 
-                    _this3.res = rest.data;
-                    // this.setState({dbRes: rest.data})
+                    _this4.res = rest.data;
+                    (0, _user_util.updateUserLikeRes)(_this4.props.currentUser.id, { yelpId: res.id, resId: rest._id, action: "add" });
                 });
-                (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { resId: res.id, action: "add" });
             }
         }
     }, {
@@ -769,8 +746,6 @@ var Heart = function (_React$Component) {
             if (!this.props.currentRes.hours) {
                 return null;
             };
-
-            console.log(this.heart);
 
             return _react2.default.createElement(
                 'div',
@@ -2129,8 +2104,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _session_api_util = __webpack_require__(/*! ../util/session_api_util */ "./frontend/app/util/session_api_util.js");
 
-var _user_util = __webpack_require__(/*! ../util/user_util */ "./frontend/app/util/user_util.js");
-
 var _merge2 = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 
 var _merge3 = _interopRequireDefault(_merge2);
@@ -2150,11 +2123,9 @@ var sessionReducer = function sessionReducer() {
     Object.freeze(state);
     switch (action.type) {
         case _session_api_util.SET_CURRENT_USER:
-            return { id: action.payload.id, name: action.payload.name, email: action.payload.email, likedRes: action.payload.likedRes };
+            return { id: action.payload.id, name: action.payload.name, email: action.payload.email, likedResYelpIds: action.payload.likedResYelpIds, likedResIds: action.payload.likedResIds };
         case _session_api_util.RECEIVE_CURRENT_USER:
             return (0, _merge3.default)({}, state, _defineProperty({}, action.payload.id, action.payload));
-        case _user_util.UPDATE_CURRENT_USER:
-            return action.user;
         default:
             return state;
     }
@@ -2440,7 +2411,7 @@ var logoutUser = exports.logoutUser = function logoutUser() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.updateUserLikeRes = exports.setAuthToken = exports.getCurrentUser = exports.updateLikeRes = exports.UPDATE_LIKERES = undefined;
+exports.updateUserLikeRes = exports.setAuthToken = exports.getCurrentUser = undefined;
 
 var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
@@ -2453,14 +2424,6 @@ var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
 var _session_api_util = __webpack_require__(/*! ./session_api_util */ "./frontend/app/util/session_api_util.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var UPDATE_LIKERES = exports.UPDATE_LIKERES = 'UPDATE_LIKERES';
-var updateLikeRes = exports.updateLikeRes = function updateLikeRes(user) {
-    return {
-        type: UPDATE_LIKERES,
-        user: user
-    };
-};
 
 var getCurrentUser = exports.getCurrentUser = function getCurrentUser() {
     return _axios2.default.get('/api/users/current');
