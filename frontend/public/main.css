@@ -774,5 +774,23 @@ div[class*='box-'] {
 
   .box-6 {
     margin-bottom: 20px; } }
+.profile {
+  max-width: 940px;
+  position: absolute;
+  margin: auto;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 1px solid white;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 600px;
+  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  color: white; }
 
 /*# sourceMappingURL=main.css.map */

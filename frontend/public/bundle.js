@@ -442,6 +442,9 @@ var NavBar = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            var path = window.location.pathname;
+            console.log(path);
+
             var loggedIn = _react2.default.createElement(
                 'div',
                 null,
@@ -700,7 +703,8 @@ var userProfile = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'Profile' },
+        { className: 'profile' },
+        _react2.default.createElement(_navbar_container2.default, null),
         _react2.default.createElement(
           'h1',
           null,
@@ -815,35 +819,72 @@ var Heart = function (_React$Component) {
     function Heart(props) {
         _classCallCheck(this, Heart);
 
+        // this.state = { heart: ""};
         var _this = _possibleConstructorReturn(this, (Heart.__proto__ || Object.getPrototypeOf(Heart)).call(this, props));
 
-        _this.state = { dbRes: null, heart: "" };
+        _this.res = null;
+        _this.heart = "";
         _this.like = _this.like.bind(_this);
         return _this;
     }
 
     _createClass(Heart, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this2 = this;
-
+        key: 'componentWillMount',
+        value: function componentWillMount() {
             var res = this.props.currentRes;
             var user = this.props.currentUser;
-            (0, _res_util.getRes)(res.id).then(function (response) {
-                // console.log(response);
 
-                _this2.setState({ dbRes: response.data });
-                // console.log(this.state);
-            });
             if (user.id) {
-                if (this.state.dbRes && user.likedRes.includes(this.state.dbRes._id)) {
-                    this.setState({ heart: "liked" });
+                if (user.likedRes.includes(res.id)) {
+                    // this.setState({ heart: "liked" })
+                    this.heart = "liked";
+                    console.log("updated");
                 } else {
-                    this.setState({ heart: "notLiked" });
+                    // this.setState({ heart: "notLiked" })
+                    this.heart = "notLiked";
+                    console.log("no dbRes");
                 }
             } else {
-                this.setState({ heart: "notLiked" });
+                // this.setState({ heart: "notLiked" })
+                this.heart = "notLiked";
+                console.log("no user");
             }
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(newProps) {
+            var _this2 = this;
+
+            var res = newProps.currentRes;
+            var user = newProps.currentUser;
+            (0, _res_util.getRes)(newProps.currentRes.id).then(function (response) {
+                // console.log(response);
+
+                _this2.res = response.data;
+                // this.setState({db})
+            });
+
+            if (user.id) {
+                if (user.likedRes.includes(res.id)) {
+                    // this.setState({ heart: "liked" })
+                    this.heart = "liked";
+                    console.log("new", "updated");
+                } else {
+                    // this.setState({ heart: "notLiked" }) 
+                    this.heart = "notLiked";
+                    console.log("new", "no dbRes");
+                }
+            } else {
+                // this.setState({ heart: "notLiked" })
+                this.heart = "notLiked";
+                console.log("new", "no user");
+            }
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            // localStorage.setItem("res", this.props.currentRes.id)
+            // localStorage.setItem("heart", this.heart)
         }
     }, {
         key: 'like',
@@ -857,19 +898,22 @@ var Heart = function (_React$Component) {
             }
             var res = this.props.currentRes;
 
-            if (this.state.dbRes) {
-                // console.log("we have dbRes");
+            if (this.res) {
+                console.log("we have dbRes");
 
-                if (this.state.heart === 'notLiked') {
-                    this.setState({ heart: "liked" });
-                    (0, _user_util.likeRes)(this.props.currentUser.id, { resId: this.state.dbRes, action: "add" });
+                if (this.heart === 'notLiked') {
+                    // this.setState({heart: "liked"})
+                    this.heart = "liked";
+                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { resId: res.id, action: "add" });
                 } else {
-                    this.setState({ heart: "notLiked" });
-                    (0, _user_util.likeRes)(this.props.currentUser.id, { resId: this.state.dbRes, action: "delete" });
+                    //   this.setState({heart: "notLiked"})
+                    this.heart = "notLiked";
+                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { resId: res.id, action: "delete" });
                 }
             } else {
                 console.log("no");
-                this.setState({ heart: "liked" });
+                // this.setState({heart: "liked"})
+                this.heart = "liked";
                 var data = {
                     yelpId: res.id,
                     name: res.name,
@@ -884,11 +928,10 @@ var Heart = function (_React$Component) {
                 };
                 (0, _res_util.createRes)(data).then(function (rest) {
 
-                    _this3.setState({ dbRes: rest.data });
-                    (0, _user_util.likeRes)(_this3.props.currentUser.id, { resId: rest.data._id, action: "add" });
+                    _this3.res = rest.data;
+                    // this.setState({dbRes: rest.data})
                 });
-                var theheart = document.getElementById("heart");
-                // theheart.style.color = `#ff6666`;
+                (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { resId: res.id, action: "add" });
             }
         }
     }, {
@@ -897,10 +940,13 @@ var Heart = function (_React$Component) {
             if (!this.props.currentRes.hours) {
                 return null;
             };
+
+            console.log(this.heart);
+
             return _react2.default.createElement(
                 'div',
                 { className: 'heart' },
-                this.state.heart === "liked" ? _react2.default.createElement('i', { onClick: this.like, style: { color: "#ff6666" }, className: 'fas fa-heart' }) : _react2.default.createElement('i', { onClick: this.like, className: 'far fa-heart' })
+                this.heart === "liked" ? _react2.default.createElement('i', { onClick: this.like, style: { color: "#ff6666" }, className: 'fas fa-heart' }) : _react2.default.createElement('i', { onClick: this.like, className: 'far fa-heart' })
             );
         }
     }]);
@@ -1026,11 +1072,11 @@ var Res = function (_React$Component) {
             this.props.clearCurrentRes();
             this.props.fetchSingleRes(this.props.resIds[this.idx]);
         }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            this.props.clearCurrentRes();
-        }
+
+        // componentWillUnmount() {
+        //     this.props.clearCurrentRes();
+        // }
+
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {}
@@ -2570,7 +2616,7 @@ var logoutUser = exports.logoutUser = function logoutUser() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.likeRes = exports.setAuthToken = exports.getCurrentUser = exports.updateLikeRes = exports.UPDATE_LIKERES = undefined;
+exports.updateUserLikeRes = exports.setAuthToken = exports.getCurrentUser = exports.updateLikeRes = exports.UPDATE_LIKERES = undefined;
 
 var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
@@ -2606,20 +2652,18 @@ var setAuthToken = exports.setAuthToken = function setAuthToken(token) {
     }
 };
 
-var likeRes = exports.likeRes = function likeRes(id, data) {
+var updateUserLikeRes = exports.updateUserLikeRes = function updateUserLikeRes(id, data) {
     return _axios2.default.patch("/api/users/" + id, data).then(function (res) {
         // Save to localStorage
         var token = res.data.token;
 
-        console.log(res.data);
-
         // Set token to ls
+
         localStorage.setItem('jwtToken', token);
         // Set token to Auth header
         setAuthToken(token);
         // Decode token to get user data
         var decoded = (0, _jwtDecode2.default)(token);
-        console.log(decoded);
 
         // Set current user
         dispatch((0, _session_api_util.setCurrentUser)(decoded));

@@ -13,17 +13,16 @@ class userProfile extends React.Component {
 
 
   render(){
-    return (
-      <div className="Profile">
+    return <div className="profile">
+        <NavBar />
         <h1>Hello, {this.props.currentUser}</h1>
 
         <ul>
           {this.props.likedRes.map(el => <li key={el}>
-            <ResBox resId={el} />
-          </li>)}
+              <ResBox resId={el} />
+            </li>)}
         </ul>
-      </div>
-    )   
+      </div>;   
   }
 }
 
