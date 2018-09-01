@@ -164,16 +164,7 @@ Body: 14px */
     color: #dc41f4; }
 
   .dropdown button {
-    margin: 5px 0px;
-    background-color: transparent;
-    padding: 2px 4px;
-    border: 1px solid white;
-    border-radius: 3px;
-    color: white;
-    font-size: 14px; }
-
-  .dropdown button:hover {
-    background: linear-gradient(to left, #9e56ca, #751b79); } }
+    font-size: 14px; } }
 .search_form {
   max-width: 940px;
   position: absolute;
