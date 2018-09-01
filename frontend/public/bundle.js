@@ -99,7 +99,7 @@
 module.exports = {
   mongoURI: "mongodb://wsyalways:baobeiwsy1314@ds133262.mlab.com:33262/flex_pj",
   secretOrKey: "secret",
-  mapKey: "AIzaSyDIkzScchhbTJ2j4LPmVmelKOzES4Mr6lc",
+  mapKey: 'AIzaSyDIkzScchhbTJ2j4LPmVmelKOzES4Mr6lc',
   yelpKey: "ep2ZPMGFAw-UMN7N4oHAYZ51r1Z3zL-oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF-CW3Yx"
   //Make sure this is your own unique string
 };
@@ -648,35 +648,72 @@ var Heart = function (_React$Component) {
     function Heart(props) {
         _classCallCheck(this, Heart);
 
+        // this.state = { heart: ""};
         var _this = _possibleConstructorReturn(this, (Heart.__proto__ || Object.getPrototypeOf(Heart)).call(this, props));
 
-        _this.state = { dbRes: null, heart: "" };
+        _this.res = null;
+        _this.heart = "";
         _this.like = _this.like.bind(_this);
         return _this;
     }
 
     _createClass(Heart, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this2 = this;
-
+        key: 'componentWillMount',
+        value: function componentWillMount() {
             var res = this.props.currentRes;
             var user = this.props.currentUser;
-            (0, _res_util.getRes)(res.id).then(function (response) {
-                // console.log(response);
 
-                _this2.setState({ dbRes: response.data });
-                // console.log(this.state);
-            });
             if (user.id) {
-                if (this.state.dbRes && user.likedRes.includes(this.state.dbRes._id)) {
-                    this.setState({ heart: "liked" });
+                if (user.likedRes.includes(res.id)) {
+                    // this.setState({ heart: "liked" })
+                    this.heart = "liked";
+                    console.log("updated");
                 } else {
-                    this.setState({ heart: "notLiked" });
+                    // this.setState({ heart: "notLiked" })
+                    this.heart = "notLiked";
+                    console.log("no dbRes");
                 }
             } else {
-                this.setState({ heart: "notLiked" });
+                // this.setState({ heart: "notLiked" })
+                this.heart = "notLiked";
+                console.log("no user");
             }
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(newProps) {
+            var _this2 = this;
+
+            var res = newProps.currentRes;
+            var user = newProps.currentUser;
+            (0, _res_util.getRes)(newProps.currentRes.id).then(function (response) {
+                // console.log(response);
+
+                _this2.res = response.data;
+                // this.setState({db})
+            });
+
+            if (user.id) {
+                if (user.likedRes.includes(res.id)) {
+                    // this.setState({ heart: "liked" })
+                    this.heart = "liked";
+                    console.log("new", "updated");
+                } else {
+                    // this.setState({ heart: "notLiked" }) 
+                    this.heart = "notLiked";
+                    console.log("new", "no dbRes");
+                }
+            } else {
+                // this.setState({ heart: "notLiked" })
+                this.heart = "notLiked";
+                console.log("new", "no user");
+            }
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            // localStorage.setItem("res", this.props.currentRes.id)
+            // localStorage.setItem("heart", this.heart)
         }
     }, {
         key: 'like',
@@ -690,19 +727,22 @@ var Heart = function (_React$Component) {
             }
             var res = this.props.currentRes;
 
-            if (this.state.dbRes) {
-                // console.log("we have dbRes");
+            if (this.res) {
+                console.log("we have dbRes");
 
-                if (this.state.heart === 'notLiked') {
-                    this.setState({ heart: "liked" });
-                    (0, _user_util.likeRes)(this.props.currentUser.id, { resId: this.state.dbRes, action: "add" });
+                if (this.heart === 'notLiked') {
+                    // this.setState({heart: "liked"})
+                    this.heart = "liked";
+                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { resId: res.id, action: "add" });
                 } else {
-                    this.setState({ heart: "notLiked" });
-                    (0, _user_util.likeRes)(this.props.currentUser.id, { resId: this.state.dbRes, action: "delete" });
+                    //   this.setState({heart: "notLiked"})
+                    this.heart = "notLiked";
+                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { resId: res.id, action: "delete" });
                 }
             } else {
                 console.log("no");
-                this.setState({ heart: "liked" });
+                // this.setState({heart: "liked"})
+                this.heart = "liked";
                 var data = {
                     yelpId: res.id,
                     name: res.name,
@@ -717,11 +757,10 @@ var Heart = function (_React$Component) {
                 };
                 (0, _res_util.createRes)(data).then(function (rest) {
 
-                    _this3.setState({ dbRes: rest.data });
-                    (0, _user_util.likeRes)(_this3.props.currentUser.id, { resId: rest.data._id, action: "add" });
+                    _this3.res = rest.data;
+                    // this.setState({dbRes: rest.data})
                 });
-                var theheart = document.getElementById("heart");
-                // theheart.style.color = `#ff6666`;
+                (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { resId: res.id, action: "add" });
             }
         }
     }, {
@@ -730,10 +769,13 @@ var Heart = function (_React$Component) {
             if (!this.props.currentRes.hours) {
                 return null;
             };
+
+            console.log(this.heart);
+
             return _react2.default.createElement(
                 'div',
                 { className: 'heart' },
-                this.state.heart === "liked" ? _react2.default.createElement('i', { onClick: this.like, style: { color: "#ff6666" }, className: 'fas fa-heart' }) : _react2.default.createElement('i', { onClick: this.like, className: 'far fa-heart' })
+                this.heart === "liked" ? _react2.default.createElement('i', { onClick: this.like, style: { color: "#ff6666" }, className: 'fas fa-heart' }) : _react2.default.createElement('i', { onClick: this.like, className: 'far fa-heart' })
             );
         }
     }]);
@@ -799,10 +841,12 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _templateObject = _taggedTemplateLiteral(['\n          display: block;\n          margin: 0 auto;\n          border-color: red;\n          position: absolute;\n          left: 43%;\n          top: 320px;'], ['\n          display: block;\n          margin: 0 auto;\n          border-color: red;\n          position: absolute;\n          left: 43%;\n          top: 320px;']);
 
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
@@ -830,6 +874,8 @@ var _reactSpinners = __webpack_require__(/*! react-spinners */ "./node_modules/r
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -837,226 +883,217 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Res = function (_React$Component) {
-    _inherits(Res, _React$Component);
+  _inherits(Res, _React$Component);
 
-    function Res(props) {
-        _classCallCheck(this, Res);
+  function Res(props) {
+    _classCallCheck(this, Res);
 
-        var _this = _possibleConstructorReturn(this, (Res.__proto__ || Object.getPrototypeOf(Res)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Res.__proto__ || Object.getPrototypeOf(Res)).call(this, props));
 
-        _this.state = {
-            loading: false
-        };
-        _this.resIds = props.resIds;
-        _this.idx = +props.match.params.idx;
+    _this.state = {
+      loading: false
+    };
+    _this.resIds = props.resIds;
+    _this.idx = +props.match.params.idx;
 
-        return _this;
+    return _this;
+  }
+
+  _createClass(Res, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.clearCurrentRes();
+      this.props.fetchSingleRes(this.props.resIds[this.idx]);
     }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(newProps) {
+      var _this2 = this;
 
-    _createClass(Res, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            this.props.clearCurrentRes();
-            this.props.fetchSingleRes(this.props.resIds[this.idx]);
-        }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            this.props.clearCurrentRes();
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {}
-    }, {
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(newProps) {
-            var _this2 = this;
+      if (+newProps.match.params.idx !== this.idx) {
+        this.idx = +newProps.match.params.idx;
+        newProps.fetchSingleRes(this.resIds[this.idx]).then(function () {
+          return _this2.setState({ loading: false });
+        });
+      }
+    }
+  }, {
+    key: 'goNext',
+    value: function goNext(e) {
+      e.preventDefault();
+      this.setState({ loading: true });
+      var term = this.props.match.params.term;
+      var location = this.props.match.params.location;
+      var radius = this.props.match.params.radius;
+      var price = this.props.match.params.price;
+      var open_now = this.props.match.params.open_now;
+      if (this.idx === this.resIds.length - 1) {
+        this.resIds = (0, _lodash.shuffle)(this.props.resIds);
+        this.props.history.push('/search/' + term + '&' + location + '&' + radius + '&' + price + '&' + open_now + '&0');
+      } else {
+        this.props.history.push('/search/' + term + '&' + location + '&' + radius + '&' + price + '&' + open_now + '&' + (this.idx + 1));
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      if (!this.props.currentRes.hours || this.props.resIds.length === 0) {
+        return _react2.default.createElement('img', { id: 'logoLoading', src: "../../../images/logoCover.png" });
+      };
+      var res = this.props.currentRes;
 
-            if (+newProps.match.params.idx !== this.idx) {
-                this.idx = +newProps.match.params.idx;
-                newProps.fetchSingleRes(this.resIds[this.idx]).then(function () {
-                    return _this2.setState({ loading: false });
-                });
-            }
-        }
-    }, {
-        key: 'goNext',
-        value: function goNext(e) {
-            e.preventDefault();
-            var term = this.props.match.params.term;
-            var location = this.props.match.params.location;
-            var radius = this.props.match.params.radius;
-            var price = this.props.match.params.price;
-            var open_now = this.props.match.params.open_now;
-            this.setState({ loading: true });
-            if (this.idx === this.resIds.length - 1) {
-                this.resIds = (0, _lodash.shuffle)(this.props.resIds);
-                this.props.history.push('/search/' + term + '&' + location + '&' + radius + '&' + price + '&' + open_now + '&0');
-            } else {
-                this.props.history.push('/search/' + term + '&' + location + '&' + radius + '&' + price + '&' + open_now + '&' + (this.idx + 1));
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            if (!this.props.currentRes.hours || this.props.resIds.length === 0) {
-                return _react2.default.createElement('img', { id: 'logoLoading', src: "../../../images/logoCover.png" });
-            };
-            var res = this.props.currentRes;
+      var starPos = {
+        0: "0 0px",
+        1: "0 -24px",
+        1.5: "0 -48px",
+        2: "0 -72px",
+        2.5: "0 -96px",
+        3: "0 -120px",
+        3.5: "0 -144px",
+        4: "0 -168px",
+        4.5: "0 -192px",
+        5: "0 -216px"
+      };
+      var starPx = starPos[res.rating];
+      var override = (0, _reactEmotion.css)(_templateObject);
 
-            var starPos = {
-                0: "0 0px",
-                1: "0 -24px",
-                1.5: "0 -48px",
-                2: "0 -72px",
-                2.5: "0 -96px",
-                3: "0 -120px",
-                3.5: "0 -144px",
-                4: "0 -168px",
-                4.5: "0 -192px",
-                5: "0 -216px"
-            };
-            var starPx = starPos[res.rating];
-            var override = /*#__PURE__*/(0, _reactEmotion.css)('display:block;margin:0 auto;border-color:red;position:absolute;left:43%;top:320px;');
-
-            return _react2.default.createElement(
+      return _react2.default.createElement(
+        'div',
+        { className: 'res-wrapper' },
+        _react2.default.createElement(
+          'div',
+          { className: 'res-box' },
+          _react2.default.createElement(_navbar_container2.default, null),
+          _react2.default.createElement(_reactSpinners.BeatLoader, { className: override, sizeUnit: "px", size: 50, color: "#dc41f4", loading: this.state.loading }),
+          _react2.default.createElement(
+            'div',
+            { className: 'top-bottom-wrapper', style: { opacity: this.state.loading ? "0.15" : "1" } },
+            _react2.default.createElement(
+              'div',
+              { className: 'top' },
+              _react2.default.createElement(
                 'div',
-                { className: 'res-wrapper' },
+                { className: 'box-1' },
                 _react2.default.createElement(
+                  'div',
+                  { className: 'info-wrapper' },
+                  _react2.default.createElement(
+                    'h1',
+                    null,
+                    res.name
+                  ),
+                  _react2.default.createElement('div', { className: 'stars', style: { backgroundPosition: starPx } }),
+                  _react2.default.createElement(
+                    'h4',
+                    { className: 'tags' },
+                    res.categories.map(function (tag) {
+                      return tag.title;
+                    }).join(", ")
+                  ),
+                  _react2.default.createElement(
                     'div',
-                    { className: 'res-box' },
-                    _react2.default.createElement(_navbar_container2.default, null),
-                    _react2.default.createElement(_reactSpinners.BeatLoader, {
-                        className: override,
-                        sizeUnit: "px",
-                        size: 50,
-                        color: 'white',
-                        loading: this.state.loading
-                    }),
+                    { className: 'price-review' },
                     _react2.default.createElement(
-                        'div',
-                        { className: 'top-bottom-wrapper', style: { opacity: this.state.loading ? "0.15" : "1" } },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'top' },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'box-1' },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'info-wrapper' },
-                                    _react2.default.createElement(
-                                        'h1',
-                                        null,
-                                        res.name
-                                    ),
-                                    _react2.default.createElement('div', { className: 'stars', style: { backgroundPosition: starPx } }),
-                                    _react2.default.createElement(
-                                        'h4',
-                                        { className: 'tags' },
-                                        res.categories.map(function (tag) {
-                                            return tag.title;
-                                        }).join(", ")
-                                    ),
-                                    _react2.default.createElement(
-                                        'div',
-                                        { className: 'price-review' },
-                                        _react2.default.createElement(
-                                            'span',
-                                            null,
-                                            res.price
-                                        ),
-                                        ' | ',
-                                        _react2.default.createElement(
-                                            'span',
-                                            null,
-                                            res.review_count,
-                                            '\xA0reviews'
-                                        )
-                                    ),
-                                    _react2.default.createElement(_heart_container2.default, null),
-                                    _react2.default.createElement(
-                                        'div',
-                                        { className: 'message' },
-                                        !this.props.currentUser ? _react2.default.createElement(
-                                            _reactRouterDom.Link,
-                                            { to: '/login' },
-                                            'Like it? Sign in!'
-                                        ) : ""
-                                    )
-                                )
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'box-2' },
-                                _react2.default.createElement(_map_container2.default, null)
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'box-3' },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'more-info' },
-                                    _react2.default.createElement(
-                                        'li',
-                                        { className: 'phone' },
-                                        res.display_phone
-                                    ),
-                                    res.location.display_address.map(function (el, i) {
-                                        return _react2.default.createElement(
-                                            'li',
-                                            { className: 'address', key: i },
-                                            el
-                                        );
-                                    }),
-                                    _react2.default.createElement(
-                                        'li',
-                                        { className: 'is-open', style: { color: res.hours[0].is_open_now ? "#23A923" : "#cc0000" } },
-                                        res.hours[0].is_open_now ? "Open Now" : "Close Now"
-                                    )
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'bottom' },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'box-4 pic' },
-                                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[2] })
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'box-5 pic' },
-                                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[0] })
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'box-6 pic' },
-                                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[1] })
-                            )
-                        )
+                      'span',
+                      null,
+                      res.price
                     ),
+                    ' | ',
                     _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            'button',
-                            { onClick: this.goNext.bind(this), className: 'btn' },
-                            _react2.default.createElement(
-                                'h2',
-                                null,
-                                'Next'
-                            ),
-                            _react2.default.createElement('img', { className: 'nextImage', src: "../../../images/next.png" })
-                        )
+                      'span',
+                      null,
+                      res.review_count,
+                      '\xA0reviews'
                     )
+                  ),
+                  _react2.default.createElement(_heart_container2.default, null),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'message' },
+                    !this.props.currentUser ? _react2.default.createElement(
+                      _reactRouterDom.Link,
+                      { to: '/login' },
+                      'Like it? Sign in!'
+                    ) : ""
+                  )
                 )
-            );
-        }
-    }]);
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'box-2' },
+                _react2.default.createElement(_map_container2.default, null)
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'box-3' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'more-info' },
+                  _react2.default.createElement(
+                    'li',
+                    { className: 'phone' },
+                    res.display_phone
+                  ),
+                  res.location.display_address.map(function (el, i) {
+                    return _react2.default.createElement(
+                      'li',
+                      { className: 'address', key: i },
+                      el
+                    );
+                  }),
+                  _react2.default.createElement(
+                    'li',
+                    { className: 'is-open', style: { color: res.hours[0].is_open_now ? "#23A923" : "#cc0000" } },
+                    res.hours[0].is_open_now ? "Open Now" : "Close Now"
+                  )
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'bottom' },
+              _react2.default.createElement(
+                'div',
+                { className: 'box-4 pic' },
+                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[2] })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'box-5 pic' },
+                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[0] })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'box-6 pic' },
+                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[1] })
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'button',
+              {
+                disabled: this.state.loading ? "true" : "",
+                onClick: this.goNext.bind(this),
+                className: 'btn',
+                style: { color: this.state.loading ? "gray" : "white" }
+              },
+              _react2.default.createElement(
+                'h2',
+                null,
+                'Next'
+              ),
+              _react2.default.createElement('img', { className: 'nextImage', src: "../../../images/next.png" })
+            )
+          )
+        )
+      );
+    }
+  }]);
 
-    return Res;
+  return Res;
 }(_react2.default.Component);
 
 exports.default = (0, _reactRouterDom.withRouter)(Res);
@@ -2403,7 +2440,7 @@ var logoutUser = exports.logoutUser = function logoutUser() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.likeRes = exports.setAuthToken = exports.getCurrentUser = exports.updateLikeRes = exports.UPDATE_LIKERES = undefined;
+exports.updateUserLikeRes = exports.setAuthToken = exports.getCurrentUser = exports.updateLikeRes = exports.UPDATE_LIKERES = undefined;
 
 var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
@@ -2439,20 +2476,18 @@ var setAuthToken = exports.setAuthToken = function setAuthToken(token) {
     }
 };
 
-var likeRes = exports.likeRes = function likeRes(id, data) {
+var updateUserLikeRes = exports.updateUserLikeRes = function updateUserLikeRes(id, data) {
     return _axios2.default.patch("/api/users/" + id, data).then(function (res) {
         // Save to localStorage
         var token = res.data.token;
 
-        console.log(res.data);
-
         // Set token to ls
+
         localStorage.setItem('jwtToken', token);
         // Set token to Auth header
         setAuthToken(token);
         // Decode token to get user data
         var decoded = (0, _jwtDecode2.default)(token);
-        console.log(decoded);
 
         // Set current user
         dispatch((0, _session_api_util.setCurrentUser)(decoded));
