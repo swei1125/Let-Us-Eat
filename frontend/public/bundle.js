@@ -431,19 +431,30 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var NavBar = function (_React$Component) {
   _inherits(NavBar, _React$Component);
 
-  function NavBar() {
+  function NavBar(props) {
     _classCallCheck(this, NavBar);
 
-    return _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+
+    _this.state = { clickMenu: false };
+    return _this;
   }
 
   _createClass(NavBar, [{
-    key: 'render',
-    value: function render() {
+    key: 'handleClick',
+    value: function handleClick(e) {
       var _this2 = this;
 
-      var path = window.location.pathname;
-      console.log(path);
+      e.preventDefault();
+      this.setState({ clickMenu: true });
+      setTimeout(function () {
+        return _this2.setState({ clickMenu: false });
+      }, 3000);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
 
       var loggedIn = _react2.default.createElement(
         'div',
@@ -470,39 +481,43 @@ var NavBar = function (_React$Component) {
             _react2.default.createElement(
               'button',
               { onClick: function onClick() {
-                  return _this2.props.logoutUser();
+                  return _this3.props.logoutUser();
                 } },
               'Log Out'
             )
           )
         ),
         _react2.default.createElement(
-          'ul',
-          { className: 'dropdown' },
-          _react2.default.createElement(
-            'li',
-            null,
-            this.props.location.pathname === "/profile" ? _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/' },
-              'Search'
-            ) : _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/profile' },
-              'Profile'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
+          'div',
+          { className: 'dropdown', onClick: this.handleClick.bind(this) },
+          this.state.clickMenu ? _react2.default.createElement(
+            'ul',
+            { className: 'menuList' },
             _react2.default.createElement(
-              'button',
-              { onClick: function onClick() {
-                  return _this2.props.logoutUser();
-                } },
-              'Log Out'
+              'li',
+              null,
+              this.props.location.pathname === "/profile" ? _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/' },
+                'Search'
+              ) : _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/profile' },
+                'Profile'
+              )
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              _react2.default.createElement(
+                'button',
+                { onClick: function onClick() {
+                    return _this3.props.logoutUser();
+                  } },
+                'Log Out'
+              )
             )
-          )
+          ) : null
         )
       );
       var notLoggedIn = _react2.default.createElement(
@@ -531,26 +546,30 @@ var NavBar = function (_React$Component) {
           )
         ),
         _react2.default.createElement(
-          'ul',
-          { className: 'dropdown' },
-          _react2.default.createElement(
-            'li',
-            null,
+          'div',
+          { className: 'dropdown', onClick: this.handleClick.bind(this) },
+          this.state.clickMenu ? _react2.default.createElement(
+            'ul',
+            { className: 'menuList' },
             _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/login' },
-              'Sign in'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/login' },
+                'Sign in'
+              )
+            ),
             _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/signup' },
-              'Sign up'
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/signup' },
+                'Sign up'
+              )
             )
-          )
+          ) : null
         )
       );
       return _react2.default.createElement(
@@ -723,22 +742,22 @@ var userProfile = function (_React$Component) {
             'h1',
             null,
             'Hello, ',
-            this.props.currentUser
+            this.props.currentUser,
+            '!'
           ),
           this.props.likedRes.length === 0 ? _react2.default.createElement(
             'div',
             { className: 'defaultContent' },
             _react2.default.createElement(
-              'h1',
+              'h2',
               null,
               'You haven\'t liked any restaurants yet!'
             ),
             _react2.default.createElement(
               _reactRouterDom.Link,
               { to: '/' },
-              'Click here to search a restaurant.'
-            ),
-            _react2.default.createElement('img', { id: 'logoProfile', src: "../../../images/logoCover.png" })
+              _react2.default.createElement('img', { id: 'logoProfile', src: "../../../images/logoCover.png" })
+            )
           ) : _react2.default.createElement(
             'ul',
             null,

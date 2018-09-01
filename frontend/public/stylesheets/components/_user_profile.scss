@@ -26,5 +26,63 @@
     flex-direction: column;
     align-items: center;
     align-content: center;
-    justify-content: center;
+    justify-content: space-evenly;
+
+    h1 {
+      color:white;
+      font-weight: 400;
+      text-transform: capitalize;
+      font-size: 25px;
+    }
+  }
+
+.defaultContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+
+  h2 {
+    color: white;
+    font-weight: 400;
+    margin: 22px;
+    text-align: center;
+  }
+
+  img {
+    width: 150px;
+    height: 150px;
+    margin: 60px;
+  }
+
+  img:hover {
+    cursor: pointer;
+  }
 }
+
+@media all and (max-width: 940px) {
+  .profile {
+    margin-top: -50px;
+  }
+
+  .profileContent h1 {
+    color:white;
+    font-weight: 300;
+    font-size: 22px;
+  }
+
+  .defaultContent h2 {
+    font-weight: 200;
+    font-size: 18px;
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+    margin: 40px;
+  }
+}
+
+
+

@@ -17,13 +17,12 @@ class userProfile extends React.Component {
     return (
     <div className="profile">
       <NavBar /> 
-      <div className="profileContent">
-        <h1>Hello, {this.props.currentUser}</h1>
+        <div className="profileContent">
+        <h1>Hello, {this.props.currentUser}!</h1>
         {this.props.likedRes.length === 0 ?
           <div className="defaultContent">
-            <h1>You haven't liked any restaurants yet!</h1>
-            <Link to="/">Click here to search a restaurant.</Link>
-            <img id="logoProfile" src={"../../../images/logoCover.png"} />
+            <h2>You haven't liked any restaurants yet!</h2>
+              <Link to="/"><img id="logoProfile" src={"../../../images/logoCover.png"} /></Link>
           </div>    
           :
           <ul>
