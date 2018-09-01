@@ -1,12 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { createRes, getRes } from "../../util/res_util";
-import { getCurrentUser, updateUserLikeRes } from "../../util/user_util";
+import { updateUserLikeRes } from "../../util/user_util";
 
 class Heart extends React.Component {
     constructor(props) {
         super(props);
-        // this.state = { heart: ""};
         this.res = null;
         this.heart = "";
         this.like = this.like.bind(this);
@@ -15,71 +14,40 @@ class Heart extends React.Component {
     componentWillMount() {
         const res = this.props.currentRes;
         const user = this.props.currentUser;
-      
+        
+        getRes(res.id).then(response => {
 
-            if (user.id) {
-                if (user.likedRes.includes(res.id)) {
-                    // this.setState({ heart: "liked" })
-                    this.heart = "liked"
-                    console.log("updated");
+            this.res = response.data;
+        })
+        
+        if (user.id) {
+            if (user.likedResYelpIds.includes(res.id)) {
+                this.heart = "liked";
 
-                } else {
-                    // this.setState({ heart: "notLiked" })
-                    this.heart = "notLiked"
-                    console.log("no dbRes");
-
-                }
             } else {
-                // this.setState({ heart: "notLiked" })
-                this.heart = "notLiked"
-                console.log("no user");
-
+                this.heart = "notLiked";
             }
-           
-           
-    
-    
+        } else {
+            this.heart = "notLiked";
+        }
     }
     componentWillReceiveProps(newProps) {
         const res = newProps.currentRes;
         const user = newProps.currentUser;
         getRes(newProps.currentRes.id).then(response => {
-            // console.log(response);
-
             this.res = response.data;
-            // this.setState({db})
-            
         })
-        
-            
-            if (user.id) {
-                if (user.likedRes.includes(res.id)) {
-                    // this.setState({ heart: "liked" })
-                    this.heart = "liked"
-                    console.log("new","updated");
-                    
-                } else {
-                    // this.setState({ heart: "notLiked" }) 
-                    this.heart = "notLiked"
-                    console.log("new","no dbRes");
-                    
-                }
+        if (user.id) {
+            if (user.likedResYelpIds.includes(res.id)) {
+                this.heart = "liked";
             } else {
-                // this.setState({ heart: "notLiked" })
                 this.heart = "notLiked";
-                console.log("new","no user");
-                
             }
-            
-            
-        
-        
-        
+        } else {
+            this.heart = "notLiked";
+        }
     }
-    componentWillUnmount() {
-        // localStorage.setItem("res", this.props.currentRes.id)
-        // localStorage.setItem("heart", this.heart)
-    }
+ 
     like(e) {
         
         e.preventDefault();
@@ -88,25 +56,18 @@ class Heart extends React.Component {
             return
         }
         const res = this.props.currentRes;
-
-        
         if (this.res) {
-            console.log("we have dbRes");
             
             if (this.heart === 'notLiked') {
-                // this.setState({heart: "liked"})
                 this.heart = "liked";
-                updateUserLikeRes(this.props.currentUser.id, { resId: res.id, action: "add" })
+                updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id,resId: this.res._id, action: "add" })
                
             }else {
-            //   this.setState({heart: "notLiked"})
                 this.heart = "notLiked";
-                updateUserLikeRes(this.props.currentUser.id, { resId: res.id, action: "delete" })
+                updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "delete" })
                
             }
         }else{
-            console.log("no");
-            // this.setState({heart: "liked"})
             this.heart = "liked";
             const data = {
                 yelpId: res.id,
@@ -120,12 +81,9 @@ class Heart extends React.Component {
             }
             createRes(data).then(rest => {
                 
-                this.res = rest.data;
-                // this.setState({dbRes: rest.data})
-                
-            })
-            updateUserLikeRes(this.props.currentUser.id, {resId: res.id, action: "add"})
-            
+                this.res = rest.data;                
+                updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: rest._id, action: "add"})
+            })            
         }
     }
 
@@ -133,9 +91,7 @@ class Heart extends React.Component {
         if (!this.props.currentRes.hours) {
             return null;
         };
-        
-        console.log(this.heart);
-        
+                
         return(
             <div className="heart">
                 {this.heart === "liked" ? (
