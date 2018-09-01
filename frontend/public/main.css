@@ -53,35 +53,11 @@ input[type="submit"] {
 #logoLoading {
   animation: antiClockwiseSpin 3.5s infinite; }
 
-/* Colors
-Texts and Icons:
-Dark Grey: #2F2F2F
-White: #FFFFFF
-Grey: #666666
-Light Grey: #CCCCCC
-
-WebPage:
-Blue: #A1C3D1
-Purple: #B39BC8
-Very Light Purple: #F0EBF4
-Yellow: #FBE8A6
-Pink: #F172A1
-Lighter Pink: #E64398
-
-Font and Sizes 
-Font: Open Sans
-Weight: 400
-Line Height: 1.5
-Sizes: 
-Heading:  20px
-Title: 18px
-Subtitle: 16 px
-Body: 14px */
 .search_form {
   max-width: 940px;
   position: absolute;
   margin: auto;
-  top: 50px;
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
@@ -681,7 +657,7 @@ div[class*='box-'] {
   max-width: 940px;
   position: absolute;
   margin: auto;
-  top: 50px;
+  top: 0px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -820,5 +796,26 @@ div[class*='box-'] {
       color: #dc41f4; }
     .menuList button {
       font-size: 14px; } }
+.authors {
+  width: 100%;
+  padding: 10px;
+  position: absolute;
+  margin: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; }
+  .authors img {
+    width: 5px;
+    height: 5px;
+    margin: 5px; }
+  .authors a:hover {
+    color: #dc41f4; }
 
 /*# sourceMappingURL=main.css.map */

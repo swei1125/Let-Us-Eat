@@ -282,6 +282,29 @@ var App = function App() {
       _react2.default.createElement(_reactRouterDom.Route, { path: '/', render: function render() {
           return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
         } })
+    ),
+    _react2.default.createElement(
+      'footer',
+      { className: 'authors' },
+      _react2.default.createElement('img', { src: './images/split.png' }),
+      _react2.default.createElement(
+        'a',
+        { href: 'https://www.linkedin.com/in/jose-martinez-517a29149/' },
+        'Jose Martinez'
+      ),
+      _react2.default.createElement('img', { src: './images/split.png' }),
+      _react2.default.createElement(
+        'a',
+        { href: 'https://www.linkedin.com/in/nmenares/?locale=en_US' },
+        'Nataly Menares'
+      ),
+      _react2.default.createElement('img', { src: './images/split.png' }),
+      _react2.default.createElement(
+        'a',
+        { href: 'https://www.linkedin.com/in/shiyuwei1125' },
+        'Natasha Wei'
+      ),
+      _react2.default.createElement('img', { src: './images/split.png' })
     )
   );
 };
