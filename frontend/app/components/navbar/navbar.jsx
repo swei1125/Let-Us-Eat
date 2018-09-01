@@ -8,7 +8,7 @@ class NavBar extends React.Component {
         const loggedIn = <div>
             <ul className="sessionul">
               <li>
-                <Link to="/">Profile</Link>
+                <Link to="/profile">Profile</Link>
               </li>
               <li>
                 <button onClick={()=>this.props.logoutUser()}>Log Out</button>

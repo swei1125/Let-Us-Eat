@@ -98,7 +98,7 @@
 
 module.exports = {
   mongoURI: "mongodb://wsyalways:baobeiwsy1314@ds133262.mlab.com:33262/flex_pj",
-  secretOrKey: "secret",
+  secretOrKey: "jdijsmnfkj998",
   mapKey: "AIzaSyDIkzScchhbTJ2j4LPmVmelKOzES4Mr6lc",
   yelpKey: "ep2ZPMGFAw-UMN7N4oHAYZ51r1Z3zL-oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF-CW3Yx"
   //Make sure this is your own unique string
@@ -155,6 +155,7 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+console.log(_production_vars.yelpKey);
 var RECEIVE_RESTAURANTS = exports.RECEIVE_RESTAURANTS = 'RECEIVE_RESTAURANTS';
 var RECEIVE_CURRENT_RES = exports.RECEIVE_CURRENT_RES = 'RECEIVE_CURRENT_RES';
 var CLEAR_CURRENT_RES = exports.CLEAR_CURRENT_RES = 'CLEAR_CURRENT_RES';
@@ -240,6 +241,10 @@ var _res_container = __webpack_require__(/*! ./res/res_container */ "./frontend/
 
 var _res_container2 = _interopRequireDefault(_res_container);
 
+var _user_profile_container = __webpack_require__(/*! ./profile/user_profile_container */ "./frontend/app/components/profile/user_profile_container.js");
+
+var _user_profile_container2 = _interopRequireDefault(_user_profile_container);
+
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
 var _signup_form_container = __webpack_require__(/*! ./sessionForm/signup_form_container */ "./frontend/app/components/sessionForm/signup_form_container.jsx");
@@ -271,6 +276,7 @@ var App = function App() {
       null,
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _search_container2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/search/:term&:location&:radius&:price&:open_now&:idx', component: _res_container2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profile', component: _user_profile_container2.default }),
       _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/signup', component: _signup_form_container2.default }),
       _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/login', component: _login_form_container2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { path: '/', render: function render() {
@@ -447,7 +453,7 @@ var NavBar = function (_React$Component) {
                         null,
                         _react2.default.createElement(
                             _reactRouterDom.Link,
-                            { to: '/' },
+                            { to: '/profile' },
                             'Profile'
                         )
                     ),
@@ -605,6 +611,167 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_navbar2.default));
+
+/***/ }),
+
+/***/ "./frontend/app/components/profile/resbox.jsx":
+/*!****************************************************!*\
+  !*** ./frontend/app/components/profile/resbox.jsx ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ResBox = function ResBox(props) {
+  _react2.default.createElement(
+    "p",
+    null,
+    "props.resId"
+  );
+};
+
+exports.default = ResBox;
+
+/***/ }),
+
+/***/ "./frontend/app/components/profile/user_profile.jsx":
+/*!**********************************************************!*\
+  !*** ./frontend/app/components/profile/user_profile.jsx ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+
+var _navbar_container = __webpack_require__(/*! ../navbar/navbar_container */ "./frontend/app/components/navbar/navbar_container.js");
+
+var _navbar_container2 = _interopRequireDefault(_navbar_container);
+
+var _resbox = __webpack_require__(/*! ./resbox */ "./frontend/app/components/profile/resbox.jsx");
+
+var _resbox2 = _interopRequireDefault(_resbox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var userProfile = function (_React$Component) {
+  _inherits(userProfile, _React$Component);
+
+  function userProfile(props) {
+    _classCallCheck(this, userProfile);
+
+    return _possibleConstructorReturn(this, (userProfile.__proto__ || Object.getPrototypeOf(userProfile)).call(this, props));
+  }
+
+  _createClass(userProfile, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'Profile' },
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Hello, ',
+          this.props.currentUser
+        ),
+        _react2.default.createElement(
+          'ul',
+          null,
+          this.props.likedRes.map(function (el) {
+            return _react2.default.createElement(
+              'li',
+              { key: el },
+              _react2.default.createElement(_resbox2.default, { resId: el })
+            );
+          })
+        )
+      );
+    }
+  }]);
+
+  return userProfile;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(userProfile);
+
+/***/ }),
+
+/***/ "./frontend/app/components/profile/user_profile_container.js":
+/*!*******************************************************************!*\
+  !*** ./frontend/app/components/profile/user_profile_container.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _res_actions = __webpack_require__(/*! ../../actions/res_actions */ "./frontend/app/actions/res_actions.js");
+
+var _user_profile = __webpack_require__(/*! ./user_profile */ "./frontend/app/components/profile/user_profile.jsx");
+
+var _user_profile2 = _interopRequireDefault(_user_profile);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentUser: state.session.name,
+    likedRes: state.session.likedRes
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchSingleRes: function fetchSingleRes(id) {
+      return dispatch((0, _res_actions.fetchSingleRes)(id));
+    },
+    deleteRes: function deleteRes(id, data) {
+      return dispatch(likeRes(id, data));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_user_profile2.default);
 
 /***/ }),
 
