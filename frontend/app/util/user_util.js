@@ -22,13 +22,13 @@ export const setAuthToken = token => {
   }
 };
 
-export const likeRes = (id, data) => (
+export const updateUserLikeRes = (id, data) => (
     axios
     .patch(`/api/users/${id}`, data)
         .then(res => {
             // Save to localStorage
             const { token } = res.data;
-            console.log(res.data);
+            
 
             // Set token to ls
             localStorage.setItem('jwtToken', token);
@@ -36,7 +36,7 @@ export const likeRes = (id, data) => (
             setAuthToken(token);
             // Decode token to get user data
             const decoded = jwt_decode(token);
-            console.log(decoded);
+           
 
             // Set current user
             dispatch(setCurrentUser(decoded));
