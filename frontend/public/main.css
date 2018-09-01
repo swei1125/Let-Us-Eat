@@ -767,14 +767,9 @@ div[class*='box-'] {
     margin-bottom: 20px; } }
 .profile {
   max-width: 940px;
-  position: absolute;
-  margin: auto;
-  top: 50px;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  margin: 50px auto;
   border: 1px solid white;
-  height: 600px;
+  height: auto;
   display: block;
   display: flex;
   flex-direction: column;
@@ -785,13 +780,13 @@ div[class*='box-'] {
 .profileContent {
   background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
-  height: 100%;
+  height: 1000px;
   padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
-  justify-content: center; }
+  margin: 0 auto;
+  text-align: center;
+  color: white; }
+
+.defaultContent {
+  color: white; }
 
 /*# sourceMappingURL=main.css.map */

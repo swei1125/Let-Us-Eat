@@ -637,19 +637,38 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ResBox = function ResBox(props) {
-  _react2.default.createElement(
-    "p",
-    null,
-    "props.resId"
-  );
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ResBox = function (_React$Component) {
+  _inherits(ResBox, _React$Component);
+
+  function ResBox() {
+    _classCallCheck(this, ResBox);
+
+    return _possibleConstructorReturn(this, (ResBox.__proto__ || Object.getPrototypeOf(ResBox)).apply(this, arguments));
+  }
+
+  _createClass(ResBox, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement("div", { className: "outer-wrapper" });
+    }
+  }]);
+
+  return ResBox;
+}(_react2.default.Component);
 
 exports.default = ResBox;
 
@@ -698,20 +717,55 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var userProfile = function (_React$Component) {
   _inherits(userProfile, _React$Component);
 
-  function userProfile(props) {
+  function userProfile() {
     _classCallCheck(this, userProfile);
 
-    return _possibleConstructorReturn(this, (userProfile.__proto__ || Object.getPrototypeOf(userProfile)).call(this, props));
+    return _possibleConstructorReturn(this, (userProfile.__proto__ || Object.getPrototypeOf(userProfile)).apply(this, arguments));
   }
 
-  // <button onClick={this.handleDelete.bind(this)}><img src={"../../../images/garbage.png"}/></button>
-
   _createClass(userProfile, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.getCurrentUser();
+    }
+
+    // <button onClick={this.handleDelete.bind(this)}><img src={"../../../images/garbage.png"}/></button>
+
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      console.log(this.props.likedRes);
+      var list = this.props.currentUser.likedResIds;
+      var defaultContent = list.length === 0 ? _react2.default.createElement(
+        'div',
+        { className: 'defaultContent' },
+        _react2.default.createElement(
+          'h1',
+          null,
+          'You haven\'t liked any restaurants yet!'
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/' },
+          'Click here to search a restaurant.'
+        )
+      ) : _react2.default.createElement(
+        'div',
+        { className: 'defaultContent' },
+        _react2.default.createElement(
+          'h1',
+          null,
+          'You liked ',
+          list.length,
+          ' restaurants'
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/' },
+          'Click here to search more.'
+        )
+      );
       return _react2.default.createElement(
         'div',
         { className: 'profile' },
@@ -723,31 +777,14 @@ var userProfile = function (_React$Component) {
             'h1',
             null,
             'Hello, ',
-            this.props.currentUser
+            this.props.currentUser.name
           ),
-          this.props.likedRes.length === 0 ? _react2.default.createElement(
-            'div',
-            { className: 'defaultContent' },
-            _react2.default.createElement(
-              'h1',
-              null,
-              'You haven\'t liked any restaurants yet!'
-            ),
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/' },
-              'Click here to search a restaurant.'
-            ),
-            _react2.default.createElement('img', { id: 'logoProfile', src: "../../../images/logoCover.png" })
-          ) : _react2.default.createElement(
+          defaultContent,
+          _react2.default.createElement(
             'ul',
             null,
-            this.props.likedRes.map(function (el) {
-              _react2.default.createElement(
-                'li',
-                { key: el },
-                _react2.default.createElement(_resbox2.default, { resId: el, fetchSingleRes: _this2.props.fetchSingleRes })
-              );
+            list.map(function (res) {
+              return _react2.default.createElement(_resbox2.default, { 'delete': _this2.props.deleteRes, key: res.name });
             })
           )
         )
@@ -778,7 +815,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
-var _res_actions = __webpack_require__(/*! ../../actions/res_actions */ "./frontend/app/actions/res_actions.js");
+var _user_util = __webpack_require__(/*! ../../util/user_util */ "./frontend/app/util/user_util.js");
 
 var _user_profile = __webpack_require__(/*! ./user_profile */ "./frontend/app/components/profile/user_profile.jsx");
 
@@ -788,18 +825,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    currentUser: state.session.name,
-    likedRes: state.session.likedResYelpIds
+    currentUser: state.session
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    fetchSingleRes: function fetchSingleRes(id) {
-      return dispatch((0, _res_actions.fetchSingleRes)(id));
+    getCurrentUser: function getCurrentUser() {
+      return dispatch((0, _user_util.getCurrentUser)());
     },
     deleteRes: function deleteRes(id, data) {
-      return dispatch(likeRes(id, data));
+      return dispatch((0, _user_util.updateUserLikeRes)(id, data));
     }
   };
 };
@@ -2605,7 +2641,7 @@ var logoutUser = exports.logoutUser = function logoutUser() {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.updateUserLikeRes = exports.setAuthToken = exports.getCurrentUser = undefined;
 
@@ -2622,35 +2658,51 @@ var _session_api_util = __webpack_require__(/*! ./session_api_util */ "./fronten
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var getCurrentUser = exports.getCurrentUser = function getCurrentUser() {
-    return _axios2.default.get('/api/users/current');
+  return function (dispatch) {
+    return _axios2.default.get('/api/users/current').then(function (res) {
+      // Save to localStorage
+      var token = res.data.token;
+
+      // Set token to ls
+
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      var decoded = (0, _jwtDecode2.default)(token);
+
+      // Set current user
+      dispatch((0, _session_api_util.setCurrentUser)(decoded));
+    });
+  };
 };
 
 var setAuthToken = exports.setAuthToken = function setAuthToken(token) {
-    if (token) {
-        // Apply to every request
-        _axios2.default.defaults.headers.common["Authorization"] = token;
-    } else {
-        // Delete auth header
-        delete _axios2.default.defaults.headers.common["Authorization"];
-    }
+  if (token) {
+    // Apply to every request
+    _axios2.default.defaults.headers.common["Authorization"] = token;
+  } else {
+    // Delete auth header
+    delete _axios2.default.defaults.headers.common["Authorization"];
+  }
 };
 
 var updateUserLikeRes = exports.updateUserLikeRes = function updateUserLikeRes(id, data) {
-    return _axios2.default.patch("/api/users/" + id, data).then(function (res) {
-        // Save to localStorage
-        var token = res.data.token;
+  return _axios2.default.patch("/api/users/" + id, data).then(function (res) {
+    // Save to localStorage
+    var token = res.data.token;
 
-        // Set token to ls
+    // Set token to ls
 
-        localStorage.setItem('jwtToken', token);
-        // Set token to Auth header
-        setAuthToken(token);
-        // Decode token to get user data
-        var decoded = (0, _jwtDecode2.default)(token);
+    localStorage.setItem('jwtToken', token);
+    // Set token to Auth header
+    setAuthToken(token);
+    // Decode token to get user data
+    var decoded = (0, _jwtDecode2.default)(token);
 
-        // Set current user
-        dispatch((0, _session_api_util.setCurrentUser)(decoded));
-    });
+    // Set current user
+    dispatch((0, _session_api_util.setCurrentUser)(decoded));
+  });
 };
 
 /***/ }),

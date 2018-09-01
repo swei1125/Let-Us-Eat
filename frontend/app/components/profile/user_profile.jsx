@@ -6,35 +6,35 @@ import ResBox from './resbox'
 
 
 class userProfile extends React.Component {
-  constructor(props){
-    super(props);
-    
+  
+  componentDidMount() {
+    this.props.getCurrentUser();
   }
 
   // <button onClick={this.handleDelete.bind(this)}><img src={"../../../images/garbage.png"}/></button>
 
   render(){
-    console.log(this.props.likedRes);
+    const list = this.props.currentUser.likedResIds;
+    const defaultContent = list.length === 0 ? (
+      <div className="defaultContent">
+        <h1>You haven't liked any restaurants yet!</h1>
+        <Link to="/">Click here to search a restaurant.</Link>
+      </div>  
+    ) : (
+      <div className='defaultContent'>
+        <h1>You liked {list.length} restaurants</h1>
+        <Link to="/">Click here to search more.</Link>
+      </div>
+    );
     return (
     <div className="profile">
       <NavBar /> 
       <div className="profileContent">
-        <h1>Hello, {this.props.currentUser}</h1>
-        {this.props.likedRes.length === 0 ?
-          <div className="defaultContent">
-            <h1>You haven't liked any restaurants yet!</h1>
-            <Link to="/">Click here to search a restaurant.</Link>
-            <img id="logoProfile" src={"../../../images/logoCover.png"} />
-          </div>    
-          :
-          <ul>
-            {this.props.likedRes.map(el => {
-              <li key={el}>
-                <ResBox resId={el} fetchSingleRes={this.props.fetchSingleRes}/>
-              </li>})
-            }
-          </ul>
-        }
+        <h1>Hello, {this.props.currentUser.name}</h1>
+        {defaultContent}
+        <ul>
+          {list.map(res => <ResBox delete={this.props.deleteRes} key={res.name}/>)}
+        </ul>
       </div>     
     </div>
     ) 

@@ -123,7 +123,7 @@ router.get(
             const payload = {
                 id: user.id,
                 email: user.email,
-                naem: user.name,
+                name: user.name,
                 likedResYelpIds: user.likedResYelpIds,
                 likedResIds: user.likedResIds
             }
@@ -164,7 +164,7 @@ router.patch('/:id', passport.authenticate("jwt", { session: false }), (req, res
         const payload = {
             id: user.id,
             email: user.email,
-            naem: user.name,
+            name: user.name,
             likedResYelpIds: user.likedResYelpIds,
             likedResIds: user.likedResIds
         }
