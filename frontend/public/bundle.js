@@ -709,26 +709,52 @@ var userProfile = function (_React$Component) {
   _createClass(userProfile, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      console.log(this.props.likedRes);
       return _react2.default.createElement(
         'div',
         { className: 'profile' },
         _react2.default.createElement(_navbar_container2.default, null),
         _react2.default.createElement(
-          'h1',
-          null,
-          'Hello, ',
-          this.props.currentUser
-        ),
-        _react2.default.createElement(
-          'ul',
-          null,
-          this.props.likedRes.map(function (el) {
-            return _react2.default.createElement(
-              'li',
-              { key: el },
-              _react2.default.createElement(_resbox2.default, { resId: el })
-            );
-          })
+          'div',
+          { className: 'profileContent' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Hello, ',
+            this.props.currentUser
+          ),
+          this.props.likedRes.length === 0 ? _react2.default.createElement(
+            'div',
+            { className: 'defaultContent' },
+            _react2.default.createElement(
+              'h1',
+              null,
+              'You haven\'t liked any restaurants yet!'
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/' },
+              'Click here to search a restaurant.'
+            ),
+            _react2.default.createElement('img', { id: 'logoProfile', src: "../../../images/logoCover.png" })
+          ) : _react2.default.createElement(
+            'ul',
+            null,
+            this.props.likedRes.map(function (el) {
+              _react2.default.createElement(
+                'li',
+                { key: el },
+                _react2.default.createElement(_resbox2.default, { resId: el, fetchSingleRes: _this2.props.fetchSingleRes }),
+                _react2.default.createElement(
+                  'button',
+                  { onClick: _this2.handleDelete.bind(_this2) },
+                  _react2.default.createElement('img', { src: "../../../images/garbage.png" })
+                )
+              );
+            })
+          )
         )
       );
     }
@@ -768,7 +794,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentUser: state.session.name,
-    likedRes: state.session.likedRes
+    likedRes: state.session.likedResYelpIds
   };
 };
 

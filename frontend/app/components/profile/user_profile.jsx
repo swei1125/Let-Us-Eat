@@ -13,16 +13,31 @@ class userProfile extends React.Component {
 
 
   render(){
-    return <div className="profile">
-        <NavBar />
+    console.log(this.props.likedRes);
+    return (
+    <div className="profile">
+      <NavBar /> 
+      <div className="profileContent">
         <h1>Hello, {this.props.currentUser}</h1>
-
-        <ul>
-          {this.props.likedRes.map(el => <li key={el}>
-              <ResBox resId={el} />
-            </li>)}
-        </ul>
-      </div>;   
+        {this.props.likedRes.length === 0 ?
+          <div className="defaultContent">
+            <h1>You haven't liked any restaurants yet!</h1>
+            <Link to="/">Click here to search a restaurant.</Link>
+            <img id="logoProfile" src={"../../../images/logoCover.png"} />
+          </div>    
+          :
+          <ul>
+            {this.props.likedRes.map(el => {
+              <li key={el}>
+                <ResBox resId={el} fetchSingleRes={this.props.fetchSingleRes}/>
+                <button onClick={this.handleDelete.bind(this)}><img src={"../../../images/garbage.png"}/></button>
+              </li>})
+            }
+          </ul>
+        }
+      </div>     
+    </div>
+    ) 
   }
 }
 
