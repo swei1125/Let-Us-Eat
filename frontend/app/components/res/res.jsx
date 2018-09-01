@@ -23,9 +23,9 @@ class Res extends React.Component {
         this.props.fetchSingleRes(this.props.resIds[this.idx]);
     }
 
-    componentWillUnmount() {
-        this.props.clearCurrentRes();
-    }
+    // componentWillUnmount() {
+    //     this.props.clearCurrentRes();
+    // }
 
     componentDidMount() {
     }
