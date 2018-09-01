@@ -21,11 +21,10 @@ class Heart extends React.Component {
         })
         
         if (user.id) {
-            if (user.likedResYelpIds.includes(res.id)) {
-                this.heart = "liked";
-
+            if (user.likedResYelpIds && user.likedResYelpIds.includes(res.id)) {
+              this.heart = "liked";
             } else {
-                this.heart = "notLiked";
+              this.heart = "notLiked";
             }
         } else {
             this.heart = "notLiked";
@@ -38,10 +37,10 @@ class Heart extends React.Component {
             this.res = response.data;
         })
         if (user.id) {
-            if (user.likedResYelpIds.includes(res.id)) {
-                this.heart = "liked";
+            if (user.likedResYelpIds && user.likedResYelpIds.includes(res.id)) {
+              this.heart = "liked";
             } else {
-                this.heart = "notLiked";
+              this.heart = "notLiked";
             }
         } else {
             this.heart = "notLiked";
