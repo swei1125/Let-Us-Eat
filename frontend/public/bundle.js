@@ -1418,7 +1418,7 @@ var Res = function (_React$Component) {
                   }),
                   _react2.default.createElement(
                     'li',
-                    { className: 'is-open', style: { color: res.hours[0].is_open_now ? "#23A923" : "#69E781" } },
+                    { className: 'is-open', style: { color: res.hours[0].is_open_now ? "#69E781" : "#cc0000" } },
                     res.hours[0].is_open_now ? "Open Now" : "Closed Now"
                   )
                 )
