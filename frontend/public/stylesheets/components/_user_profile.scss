@@ -1,0 +1,220 @@
+.profile {
+    max-width: 940px;
+    margin: 50px auto;
+    top: 40px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 1px solid white;
+    height: auto;
+    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    background-color: rgba(0,0,0, 0.6);
+
+
+    .navbar {
+        width: 95%;
+        border-bottom: 1px solid white;
+        background-color: transparent;
+        height: 60px;
+        margin-bottom: 15px;
+    }
+}
+
+.profileContent {
+    width: 100%;
+    min-height: 500px;
+    height: auto;
+    padding: 0;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+
+    h1 {
+      color:white;
+      font-weight: 400;
+      text-transform: capitalize;
+      font-size: 25px;
+      margin: 30px 20px;
+    }
+
+    .res-list {
+        width: 100%;
+        height: 100%;
+        margin-bottom: 50px;
+    }
+}
+
+
+.defaultContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  color: white;
+  h1 {
+      margin: 0;
+  }
+
+  .img {
+    width: 150px;
+    height: 150px;
+    margin: 60px;
+    background-image: url("../../images/logoWhite.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+  }
+
+  .img:hover {
+    cursor: pointer;
+    background-image: url("../../images/logoCover.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+  }
+
+  @keyframes bounceImg {
+    0% {
+      transform: scale(0.9);
+    }
+    50% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0.9);
+    }
+  }
+
+  .img  {
+    animation: bounceImg 3.5s infinite linear;
+  }
+
+}
+
+.res-outer-wrapper {
+    width: 65%;
+    height: 300px;
+    margin: 15px auto 0;
+    border-bottom: 1px solid gray;
+    
+    .header {
+        width: 95%;
+        height: 50px;
+        margin: 0 auto;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        border-bottom: 1px solid white;
+        font-size: 14px;
+        h1 {
+            margin: 0;
+        }
+        button {
+            font-size: 18px;
+        }
+    }
+    
+    .content {
+        width:95%;
+        height: 240px;
+        display: flex;
+        margin: 0 auto;
+        justify-content: space-between;
+        align-items: center;
+
+        .image-box {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+        }
+        .info-box {
+            width: 320px;
+            height: 100%;
+            text-align: left;
+            margin-top: 35px;
+
+            .stars {
+                height: 24px;
+                width: 132px;
+                background-image: url("../../images/stars.png");
+                margin: 5px 0;
+            }
+            .price{
+                display: flex;
+                justify-content: flex-start;
+            }
+        
+
+            .tags {
+                color: white;
+                font-size: 14px;
+                margin: 0;
+            }
+            .phone {
+                margin: 10px 0;
+            }
+            .address {
+                list-style: none;
+                font-size: 20px;
+            }
+        }
+    }
+}
+@media all and (max-width: 860px) {
+  .profile {
+    margin-top: 50px;
+  }
+
+  .profileContent h1 {
+    color:white;
+    font-weight: 300;
+    font-size: 22px;
+  }
+
+  .defaultContent h2 {
+    font-weight: 200;
+    font-size: 18px;
+  }
+  .res-outer-wrapper {
+      height: auto;
+      .content {
+        flex-direction: column;
+        height: auto;
+        margin: 30px auto;
+        .info-box {
+            text-align: center;
+            margin-top: 10px;
+            .stars {
+                margin: 5px auto;
+            }
+            .price{
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+        }
+      }
+  }
+//   img {
+//     width: 100px;
+//     height: 100px;
+//     margin: 40px;
+//   }
+}
+
+
+

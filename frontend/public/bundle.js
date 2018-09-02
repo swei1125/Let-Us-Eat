@@ -239,6 +239,10 @@ var _res_container = __webpack_require__(/*! ./res/res_container */ "./frontend/
 
 var _res_container2 = _interopRequireDefault(_res_container);
 
+var _user_profile_container = __webpack_require__(/*! ./profile/user_profile_container */ "./frontend/app/components/profile/user_profile_container.js");
+
+var _user_profile_container2 = _interopRequireDefault(_user_profile_container);
+
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
 var _signup_form_container = __webpack_require__(/*! ./sessionForm/signup_form_container */ "./frontend/app/components/sessionForm/signup_form_container.jsx");
@@ -270,6 +274,7 @@ var App = function App() {
       null,
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _search_container2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/search/:term&:location&:radius&:price&:open_now&:idx', component: _res_container2.default }),
+      _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/profile', component: _user_profile_container2.default }),
       _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/signup', component: _signup_form_container2.default }),
       _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/login', component: _login_form_container2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { path: '/', render: function render() {
@@ -402,7 +407,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(_map2.default);
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -422,144 +427,176 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var NavBar = function (_React$Component) {
-    _inherits(NavBar, _React$Component);
+  _inherits(NavBar, _React$Component);
 
-    function NavBar() {
-        _classCallCheck(this, NavBar);
+  function NavBar(props) {
+    _classCallCheck(this, NavBar);
 
-        return _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+
+    _this.state = { clickMenu: false };
+    return _this;
+  }
+
+  _createClass(NavBar, [{
+    key: 'handleClick',
+    value: function handleClick(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      this.setState({ clickMenu: true });
+      setTimeout(function () {
+        return _this2.setState({ clickMenu: false });
+      }, 3000);
     }
+    //
 
-    _createClass(NavBar, [{
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
 
-            var loggedIn = _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'sessionul' },
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/' },
-                            'Profile'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            'button',
-                            { onClick: function onClick() {
-                                    return _this2.props.logoutUser();
-                                } },
-                            'Log Out'
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'dropdown' },
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/' },
-                            'Profile'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            'button',
-                            { onClick: function onClick() {
-                                    return _this2.props.logoutUser();
-                                } },
-                            'Log Out'
-                        )
-                    )
-                )
-            );
-            var notLoggedIn = _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'sessionul' },
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/login' },
-                            'Sign in'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/signup' },
-                            'Sign up'
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'dropdown' },
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/login' },
-                            'Sign in'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        _react2.default.createElement(
-                            _reactRouterDom.Link,
-                            { to: '/signup' },
-                            'Sign up'
-                        )
-                    )
-                )
-            );
-            return _react2.default.createElement(
-                'div',
-                { className: 'navbar' },
-                _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/' },
-                    _react2.default.createElement(
-                        'h1',
-                        null,
-                        'LET\'S EAT'
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'session' },
-                    this.props.session ? loggedIn : notLoggedIn
-                )
-            );
-        }
-    }]);
+      var loggedIn = _react2.default.createElement(
+        'div',
+        { className: 'nav-right' },
+        _react2.default.createElement(
+          'ul',
+          { className: 'sessionul' },
+          _react2.default.createElement(
+            'li',
+            null,
+            this.props.location.pathname === "/profile" ? _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/' },
+              'Search'
+            ) : _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/profile' },
+              'Profile'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'button',
+              { onClick: function onClick() {
+                  return _this3.props.logoutUser();
+                } },
+              'Log Out'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'dropdown', onClick: this.handleClick.bind(this) },
+          this.state.clickMenu ? _react2.default.createElement(
+            'ul',
+            { className: 'menuList' },
+            _react2.default.createElement(
+              'li',
+              null,
+              this.props.location.pathname === "/profile" ? _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/' },
+                'Search'
+              ) : _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/profile' },
+                'Profile'
+              )
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              _react2.default.createElement(
+                'button',
+                { onClick: function onClick() {
+                    return _this3.props.logoutUser();
+                  } },
+                'Log Out'
+              )
+            )
+          ) : null
+        )
+      );
+      var notLoggedIn = _react2.default.createElement(
+        'div',
+        { className: 'nav-right' },
+        _react2.default.createElement(
+          'ul',
+          { className: 'sessionul' },
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/login' },
+              'Sign in'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/signup' },
+              'Sign up'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'dropdown', onClick: this.handleClick.bind(this) },
+          this.state.clickMenu ? _react2.default.createElement(
+            'ul',
+            { className: 'menuList' },
+            _react2.default.createElement(
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/login' },
+                'Sign in'
+              )
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/signup' },
+                'Sign up'
+              )
+            )
+          ) : null
+        )
+      );
+      return _react2.default.createElement(
+        'div',
+        { className: 'navbar' },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'LET\'S EAT'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'session' },
+          this.props.session ? loggedIn : notLoggedIn
+        )
+      );
+    }
+  }]);
 
-    return NavBar;
+  return NavBar;
 }(_react2.default.Component);
 
-exports.default = NavBar;
+exports.default = (0, _reactRouterDom.withRouter)(NavBar);
 
 /***/ }),
 
@@ -607,6 +644,365 @@ exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapSt
 
 /***/ }),
 
+/***/ "./frontend/app/components/profile/resbox.jsx":
+/*!****************************************************!*\
+  !*** ./frontend/app/components/profile/resbox.jsx ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _user_util = __webpack_require__(/*! ../../util/user_util */ "./frontend/app/util/user_util.js");
+
+var _reactEmotion = __webpack_require__(/*! react-emotion */ "./node_modules/react-emotion/dist/index.esm.js");
+
+var _reactSpinners = __webpack_require__(/*! react-spinners */ "./node_modules/react-spinners/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ResBox = function (_React$Component) {
+  _inherits(ResBox, _React$Component);
+
+  function ResBox(props) {
+    _classCallCheck(this, ResBox);
+
+    return _possibleConstructorReturn(this, (ResBox.__proto__ || Object.getPrototypeOf(ResBox)).call(this, props));
+  }
+
+  _createClass(ResBox, [{
+    key: "delete",
+    value: function _delete(id, yelpId) {
+      var _this2 = this;
+
+      return function (e) {
+        e.preventDefault();
+
+        var user = _this2.props.currentUser;
+        console.log(user);
+        console.log(id);
+        console.log(yelpId);
+
+        (0, _user_util.deleteRes)({ userId: user.id, resId: id, yelpId: yelpId });
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      var list = this.props.currentUser.likedResIds;
+      if (list.length !== 0 && !list[0].name) {
+        return null;
+      }
+      console.log(this.props);
+
+      return _react2.default.createElement(
+        "div",
+        { className: "res-list" },
+        list.map(function (res) {
+          var name = res.name,
+              phone = res.phone,
+              location = res.location,
+              categories = res.categories,
+              price = res.price,
+              image_url = res.image_url,
+              rating = res.rating;
+
+          var starPos = { 0: "0 0px", 1: "0 -24px", 1.5: "0 -48px", 2: "0 -72px", 2.5: "0 -96px", 3: "0 -120px", 3.5: "0 -144px", 4: "0 -168px", 4.5: "0 -192px", 5: "0 -216px" };
+          var starPx = starPos[rating];
+          return _react2.default.createElement(
+            "div",
+            { className: "res-outer-wrapper", key: name },
+            _react2.default.createElement(
+              "div",
+              { className: "header" },
+              _react2.default.createElement(
+                "h1",
+                null,
+                name
+              ),
+              _react2.default.createElement(
+                "button",
+                { onClick: _this3.delete.bind(_this3)(res._id, res.yelpId) },
+                _react2.default.createElement("i", { className: "fas fa-trash-alt" })
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "content" },
+              _react2.default.createElement(
+                "div",
+                { className: "image-box" },
+                _react2.default.createElement("img", { src: image_url })
+              ),
+              _react2.default.createElement(
+                "div",
+                { className: "info-box" },
+                _react2.default.createElement(
+                  "h4",
+                  { className: "tags" },
+                  categories.join(", ")
+                ),
+                _react2.default.createElement("div", { className: "stars", style: { backgroundPosition: starPx } }),
+                _react2.default.createElement(
+                  "div",
+                  { className: "price" },
+                  price
+                ),
+                _react2.default.createElement(
+                  "h4",
+                  { className: "phone" },
+                  phone
+                ),
+                location.map(function (el, i) {
+                  return _react2.default.createElement(
+                    "li",
+                    { className: "address", key: i },
+                    el
+                  );
+                })
+              )
+            )
+          );
+        })
+      );
+    }
+  }]);
+
+  return ResBox;
+}(_react2.default.Component);
+
+exports.default = ResBox;
+
+/***/ }),
+
+/***/ "./frontend/app/components/profile/resbox_container.js":
+/*!*************************************************************!*\
+  !*** ./frontend/app/components/profile/resbox_container.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _user_util = __webpack_require__(/*! ../../util/user_util */ "./frontend/app/util/user_util.js");
+
+var _resbox = __webpack_require__(/*! ./resbox */ "./frontend/app/components/profile/resbox.jsx");
+
+var _resbox2 = _interopRequireDefault(_resbox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        currentUser: state.session
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        getCurrentUser: function getCurrentUser() {
+            return dispatch((0, _user_util.getCurrentUser)());
+        }
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_resbox2.default);
+
+/***/ }),
+
+/***/ "./frontend/app/components/profile/user_profile.jsx":
+/*!**********************************************************!*\
+  !*** ./frontend/app/components/profile/user_profile.jsx ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+var _lodash = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+
+var _navbar_container = __webpack_require__(/*! ../navbar/navbar_container */ "./frontend/app/components/navbar/navbar_container.js");
+
+var _navbar_container2 = _interopRequireDefault(_navbar_container);
+
+var _resbox_container = __webpack_require__(/*! ./resbox_container */ "./frontend/app/components/profile/resbox_container.js");
+
+var _resbox_container2 = _interopRequireDefault(_resbox_container);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var userProfile = function (_React$Component) {
+  _inherits(userProfile, _React$Component);
+
+  function userProfile() {
+    _classCallCheck(this, userProfile);
+
+    return _possibleConstructorReturn(this, (userProfile.__proto__ || Object.getPrototypeOf(userProfile)).apply(this, arguments));
+  }
+
+  _createClass(userProfile, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.getCurrentUser();
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(newProps) {
+      if (newProps.currentUser.likedResYelpIds.length !== this.props.currentUser.likedResYelpIds.length) {
+        this.props.getCurrentUser();
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var list = this.props.currentUser.likedResIds;
+
+      var defaultContent = list.length === 0 ? _react2.default.createElement(
+        'div',
+        { className: 'defaultContent' },
+        _react2.default.createElement(
+          'h1',
+          null,
+          'You haven\'t liked any restaurants yet!'
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/' },
+          _react2.default.createElement('div', { className: 'img' })
+        )
+      ) : _react2.default.createElement(
+        'div',
+        { className: 'defaultContent' },
+        _react2.default.createElement(
+          'h1',
+          null,
+          'You liked ',
+          list.length,
+          ' restaurants'
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/' },
+          'Click here to search more.'
+        )
+      );
+      return _react2.default.createElement(
+        'div',
+        { className: 'profile' },
+        _react2.default.createElement(_navbar_container2.default, null),
+        _react2.default.createElement(
+          'div',
+          { className: 'profileContent' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Hello, ',
+            this.props.currentUser.name
+          ),
+          defaultContent,
+          _react2.default.createElement(_resbox_container2.default, null)
+        )
+      );
+    }
+  }]);
+
+  return userProfile;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(userProfile);
+
+/***/ }),
+
+/***/ "./frontend/app/components/profile/user_profile_container.js":
+/*!*******************************************************************!*\
+  !*** ./frontend/app/components/profile/user_profile_container.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _user_util = __webpack_require__(/*! ../../util/user_util */ "./frontend/app/util/user_util.js");
+
+var _user_profile = __webpack_require__(/*! ./user_profile */ "./frontend/app/components/profile/user_profile.jsx");
+
+var _user_profile2 = _interopRequireDefault(_user_profile);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentUser: state.session
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    getCurrentUser: function getCurrentUser() {
+      return dispatch((0, _user_util.getCurrentUser)());
+    },
+    deleteRes: function deleteRes(id, data) {
+      return dispatch((0, _user_util.updateUserLikeRes)(id, data));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_user_profile2.default);
+
+/***/ }),
+
 /***/ "./frontend/app/components/res/heart.jsx":
 /*!***********************************************!*\
   !*** ./frontend/app/components/res/heart.jsx ***!
@@ -649,38 +1045,61 @@ var Heart = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Heart.__proto__ || Object.getPrototypeOf(Heart)).call(this, props));
 
-        _this.state = { dbRes: null, heart: "" };
+        _this.res = null;
+        _this.heart = "";
         _this.like = _this.like.bind(_this);
         return _this;
     }
 
     _createClass(Heart, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
             var _this2 = this;
 
             var res = this.props.currentRes;
             var user = this.props.currentUser;
-            (0, _res_util.getRes)(res.id).then(function (response) {
-                // console.log(response);
 
-                _this2.setState({ dbRes: response.data });
-                // console.log(this.state);
+            (0, _res_util.getRes)(res.id).then(function (response) {
+
+                _this2.res = response.data;
             });
+
             if (user.id) {
-                if (this.state.dbRes && user.likedRes.includes(this.state.dbRes._id)) {
-                    this.setState({ heart: "liked" });
+                if (user.likedResYelpIds && user.likedResYelpIds.includes(res.id)) {
+                    this.heart = "liked";
                 } else {
-                    this.setState({ heart: "notLiked" });
+                    this.heart = "notLiked";
                 }
             } else {
-                this.setState({ heart: "notLiked" });
+                this.heart = "notLiked";
             }
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(newProps) {
+            var _this3 = this;
+
+            var res = newProps.currentRes;
+            var user = newProps.currentUser;
+            this.res = null;
+            (0, _res_util.getRes)(newProps.currentRes.id).then(function (response) {
+                _this3.res = response.data;
+            });
+            if (user.id) {
+                if (user.likedResYelpIds && user.likedResYelpIds.includes(res.id)) {
+                    this.heart = "liked";
+                } else {
+                    this.heart = "notLiked";
+                }
+            } else {
+                this.heart = "notLiked";
+            }
+            console.log(this.res);
         }
     }, {
         key: 'like',
         value: function like(e) {
-            var _this3 = this;
+            var _this4 = this;
 
             e.preventDefault();
             if (!this.props.currentUser.id) {
@@ -688,20 +1107,17 @@ var Heart = function (_React$Component) {
                 return;
             }
             var res = this.props.currentRes;
+            if (this.res) {
 
-            if (this.state.dbRes) {
-                // console.log("we have dbRes");
-
-                if (this.state.heart === 'notLiked') {
-                    this.setState({ heart: "liked" });
-                    (0, _user_util.likeRes)(this.props.currentUser.id, { resId: this.state.dbRes, action: "add" });
+                if (this.heart === 'notLiked') {
+                    this.heart = "liked";
+                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "add" });
                 } else {
-                    this.setState({ heart: "notLiked" });
-                    (0, _user_util.likeRes)(this.props.currentUser.id, { resId: this.state.dbRes, action: "delete" });
+                    this.heart = "notLiked";
+                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "delete" });
                 }
             } else {
-                console.log("no");
-                this.setState({ heart: "liked" });
+                this.heart = "liked";
                 var data = {
                     yelpId: res.id,
                     name: res.name,
@@ -716,11 +1132,10 @@ var Heart = function (_React$Component) {
                 };
                 (0, _res_util.createRes)(data).then(function (rest) {
 
-                    _this3.setState({ dbRes: rest.data });
-                    (0, _user_util.likeRes)(_this3.props.currentUser.id, { resId: rest.data._id, action: "add" });
+                    _this4.res = rest.data;
+                    (0, _user_util.updateUserLikeRes)(_this4.props.currentUser.id, { yelpId: res.id, resId: rest.data._id, action: "add" });
+                    console.log(rest);
                 });
-                var theheart = document.getElementById("heart");
-                // theheart.style.color = `#ff6666`;
             }
         }
     }, {
@@ -729,10 +1144,11 @@ var Heart = function (_React$Component) {
             if (!this.props.currentRes.hours) {
                 return null;
             };
+
             return _react2.default.createElement(
                 'div',
                 { className: 'heart' },
-                this.state.heart === "liked" ? _react2.default.createElement('i', { onClick: this.like, style: { color: "#ff6666" }, className: 'fas fa-heart' }) : _react2.default.createElement('i', { onClick: this.like, className: 'far fa-heart' })
+                this.heart === "liked" ? _react2.default.createElement('i', { onClick: this.like, style: { color: "#ff6666" }, className: 'fas fa-heart' }) : _react2.default.createElement('i', { onClick: this.like, className: 'far fa-heart' })
             );
         }
     }]);
@@ -798,7 +1214,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -836,226 +1252,221 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Res = function (_React$Component) {
-    _inherits(Res, _React$Component);
+  _inherits(Res, _React$Component);
 
-    function Res(props) {
-        _classCallCheck(this, Res);
+  function Res(props) {
+    _classCallCheck(this, Res);
 
-        var _this = _possibleConstructorReturn(this, (Res.__proto__ || Object.getPrototypeOf(Res)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Res.__proto__ || Object.getPrototypeOf(Res)).call(this, props));
 
-        _this.state = {
-            loading: false
-        };
-        _this.resIds = props.resIds;
-        _this.idx = +props.match.params.idx;
+    _this.state = {
+      loading: false
+    };
+    _this.resIds = props.resIds;
+    _this.idx = +props.match.params.idx;
 
-        return _this;
+    return _this;
+  }
+
+  _createClass(Res, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.clearCurrentRes();
+      this.props.fetchSingleRes(this.props.resIds[this.idx]);
     }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(newProps) {
+      var _this2 = this;
 
-    _createClass(Res, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            this.props.clearCurrentRes();
-            this.props.fetchSingleRes(this.props.resIds[this.idx]);
-        }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            this.props.clearCurrentRes();
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {}
-    }, {
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(newProps) {
-            var _this2 = this;
+      if (+newProps.match.params.idx !== this.idx) {
+        this.idx = +newProps.match.params.idx;
+        newProps.fetchSingleRes(this.resIds[this.idx]).then(function () {
+          return _this2.setState({ loading: false });
+        });
+      }
+    }
+  }, {
+    key: 'goNext',
+    value: function goNext(e) {
+      e.preventDefault();
+      this.setState({ loading: true });
+      var term = this.props.match.params.term;
+      var location = this.props.match.params.location;
+      var radius = this.props.match.params.radius;
+      var price = this.props.match.params.price;
+      var open_now = this.props.match.params.open_now;
+      if (this.idx === this.resIds.length - 1) {
+        this.resIds = (0, _lodash.shuffle)(this.props.resIds);
+        this.props.history.push('/search/' + term + '&' + location + '&' + radius + '&' + price + '&' + open_now + '&0');
+      } else {
+        this.props.history.push('/search/' + term + '&' + location + '&' + radius + '&' + price + '&' + open_now + '&' + (this.idx + 1));
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      if (!this.props.currentRes.hours || this.props.resIds.length === 0) {
+        return _react2.default.createElement('img', { id: 'logoLoading', src: "../../../images/logoCover.png" });
+      };
+      var res = this.props.currentRes;
 
-            if (+newProps.match.params.idx !== this.idx) {
-                this.idx = +newProps.match.params.idx;
-                newProps.fetchSingleRes(this.resIds[this.idx]).then(function () {
-                    return _this2.setState({ loading: false });
-                });
-            }
-        }
-    }, {
-        key: 'goNext',
-        value: function goNext(e) {
-            e.preventDefault();
-            var term = this.props.match.params.term;
-            var location = this.props.match.params.location;
-            var radius = this.props.match.params.radius;
-            var price = this.props.match.params.price;
-            var open_now = this.props.match.params.open_now;
-            this.setState({ loading: true });
-            if (this.idx === this.resIds.length - 1) {
-                this.resIds = (0, _lodash.shuffle)(this.props.resIds);
-                this.props.history.push('/search/' + term + '&' + location + '&' + radius + '&' + price + '&' + open_now + '&0');
-            } else {
-                this.props.history.push('/search/' + term + '&' + location + '&' + radius + '&' + price + '&' + open_now + '&' + (this.idx + 1));
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            if (!this.props.currentRes.hours || this.props.resIds.length === 0) {
-                return _react2.default.createElement('img', { id: 'logoLoading', src: "../../../images/logoCover.png" });
-            };
-            var res = this.props.currentRes;
+      var starPos = {
+        0: "0 0px",
+        1: "0 -24px",
+        1.5: "0 -48px",
+        2: "0 -72px",
+        2.5: "0 -96px",
+        3: "0 -120px",
+        3.5: "0 -144px",
+        4: "0 -168px",
+        4.5: "0 -192px",
+        5: "0 -216px"
+      };
+      var starPx = starPos[res.rating];
+      var override = /*#__PURE__*/(0, _reactEmotion.css)('display:block;margin:0 auto;border-color:red;position:absolute;left:43%;top:320px;');
 
-            var starPos = {
-                0: "0 0px",
-                1: "0 -24px",
-                1.5: "0 -48px",
-                2: "0 -72px",
-                2.5: "0 -96px",
-                3: "0 -120px",
-                3.5: "0 -144px",
-                4: "0 -168px",
-                4.5: "0 -192px",
-                5: "0 -216px"
-            };
-            var starPx = starPos[res.rating];
-            var override = /*#__PURE__*/(0, _reactEmotion.css)('display:block;margin:0 auto;border-color:red;position:absolute;left:43%;top:320px;');
-
-            return _react2.default.createElement(
+      return _react2.default.createElement(
+        'div',
+        { className: 'res-wrapper' },
+        _react2.default.createElement(
+          'div',
+          { className: 'res-box' },
+          _react2.default.createElement(_navbar_container2.default, null),
+          _react2.default.createElement(_reactSpinners.BeatLoader, { className: override, sizeUnit: "px", size: 50, color: "#dc41f4", loading: this.state.loading }),
+          _react2.default.createElement(
+            'div',
+            { className: 'top-bottom-wrapper', style: { opacity: this.state.loading ? "0.15" : "1" } },
+            _react2.default.createElement(
+              'div',
+              { className: 'top' },
+              _react2.default.createElement(
                 'div',
-                { className: 'res-wrapper' },
+                { className: 'box-1' },
                 _react2.default.createElement(
+                  'div',
+                  { className: 'info-wrapper' },
+                  _react2.default.createElement(
+                    'h1',
+                    null,
+                    res.name
+                  ),
+                  _react2.default.createElement('div', { className: 'stars', style: { backgroundPosition: starPx } }),
+                  _react2.default.createElement(
+                    'h4',
+                    { className: 'tags' },
+                    res.categories.map(function (tag) {
+                      return tag.title;
+                    }).join(", ")
+                  ),
+                  _react2.default.createElement(
                     'div',
-                    { className: 'res-box' },
-                    _react2.default.createElement(_navbar_container2.default, null),
-                    _react2.default.createElement(_reactSpinners.BeatLoader, {
-                        className: override,
-                        sizeUnit: "px",
-                        size: 50,
-                        color: 'white',
-                        loading: this.state.loading
-                    }),
+                    { className: 'price-review' },
                     _react2.default.createElement(
-                        'div',
-                        { className: 'top-bottom-wrapper', style: { opacity: this.state.loading ? "0.15" : "1" } },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'top' },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'box-1' },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'info-wrapper' },
-                                    _react2.default.createElement(
-                                        'h1',
-                                        null,
-                                        res.name
-                                    ),
-                                    _react2.default.createElement('div', { className: 'stars', style: { backgroundPosition: starPx } }),
-                                    _react2.default.createElement(
-                                        'h4',
-                                        { className: 'tags' },
-                                        res.categories.map(function (tag) {
-                                            return tag.title;
-                                        }).join(", ")
-                                    ),
-                                    _react2.default.createElement(
-                                        'div',
-                                        { className: 'price-review' },
-                                        _react2.default.createElement(
-                                            'span',
-                                            null,
-                                            res.price
-                                        ),
-                                        ' | ',
-                                        _react2.default.createElement(
-                                            'span',
-                                            null,
-                                            res.review_count,
-                                            '\xA0reviews'
-                                        )
-                                    ),
-                                    _react2.default.createElement(_heart_container2.default, null),
-                                    _react2.default.createElement(
-                                        'div',
-                                        { className: 'message' },
-                                        !this.props.currentUser ? _react2.default.createElement(
-                                            _reactRouterDom.Link,
-                                            { to: '/login' },
-                                            'Like it? Sign in!'
-                                        ) : ""
-                                    )
-                                )
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'box-2' },
-                                _react2.default.createElement(_map_container2.default, null)
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'box-3' },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'more-info' },
-                                    _react2.default.createElement(
-                                        'li',
-                                        { className: 'phone' },
-                                        res.display_phone
-                                    ),
-                                    res.location.display_address.map(function (el, i) {
-                                        return _react2.default.createElement(
-                                            'li',
-                                            { className: 'address', key: i },
-                                            el
-                                        );
-                                    }),
-                                    _react2.default.createElement(
-                                        'li',
-                                        { className: 'is-open', style: { color: res.hours[0].is_open_now ? "#23A923" : "#cc0000" } },
-                                        res.hours[0].is_open_now ? "Open Now" : "Close Now"
-                                    )
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'bottom' },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'box-4 pic' },
-                                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[2] })
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'box-5 pic' },
-                                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[0] })
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'box-6 pic' },
-                                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[1] })
-                            )
-                        )
+                      'span',
+                      null,
+                      res.price
                     ),
+                    ' | ',
                     _react2.default.createElement(
-                        'div',
-                        null,
-                        _react2.default.createElement(
-                            'button',
-                            { onClick: this.goNext.bind(this), className: 'btn' },
-                            _react2.default.createElement(
-                                'h2',
-                                null,
-                                'Next'
-                            ),
-                            _react2.default.createElement('img', { className: 'nextImage', src: "../../../images/next.png" })
-                        )
+                      'span',
+                      null,
+                      res.review_count,
+                      '\xA0reviews'
                     )
+                  ),
+                  _react2.default.createElement(_heart_container2.default, null),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'message' },
+                    !this.props.currentUser ? _react2.default.createElement(
+                      _reactRouterDom.Link,
+                      { to: '/login' },
+                      'Like it? Sign in!'
+                    ) : ""
+                  )
                 )
-            );
-        }
-    }]);
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'box-2' },
+                _react2.default.createElement(_map_container2.default, null)
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'box-3' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'more-info' },
+                  _react2.default.createElement(
+                    'li',
+                    { className: 'phone' },
+                    res.display_phone
+                  ),
+                  res.location.display_address.map(function (el, i) {
+                    return _react2.default.createElement(
+                      'li',
+                      { className: 'address', key: i },
+                      el
+                    );
+                  }),
+                  _react2.default.createElement(
+                    'li',
+                    { className: 'is-open', style: { color: res.hours[0].is_open_now ? "#23A923" : "#cc0000" } },
+                    res.hours[0].is_open_now ? "Open Now" : "Close Now"
+                  )
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'bottom' },
+              _react2.default.createElement(
+                'div',
+                { className: 'box-4 pic' },
+                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[2] })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'box-5 pic' },
+                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[0] })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'box-6 pic' },
+                _react2.default.createElement('img', { className: 'img', src: this.props.currentRes.photos[1] })
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'button',
+            {
+              disabled: this.state.loading ? "true" : "",
+              onClick: this.goNext.bind(this),
+              className: 'btn',
+              style: { color: this.state.loading ? "gray" : "white" }
+            },
+            _react2.default.createElement(
+              'div',
+              { className: 'button' },
+              _react2.default.createElement(
+                'div',
+                { className: 'btn-content' },
+                _react2.default.createElement(
+                  'h2',
+                  null,
+                  'Next'
+                ),
+                _react2.default.createElement('img', { className: 'nextImage', src: "../../../images/next.png" })
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
 
-    return Res;
+  return Res;
 }(_react2.default.Component);
 
 exports.default = (0, _reactRouterDom.withRouter)(Res);
@@ -1276,7 +1687,7 @@ var Search = function (_React$Component) {
           _react2.default.createElement(
             'h3',
             null,
-            'Leave the simple things in life to us'
+            'Don\'t worry, we\'ll pick a restaurant for you!'
           ),
           _react2.default.createElement(
             'div',
@@ -2095,8 +2506,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _session_api_util = __webpack_require__(/*! ../util/session_api_util */ "./frontend/app/util/session_api_util.js");
 
-var _user_util = __webpack_require__(/*! ../util/user_util */ "./frontend/app/util/user_util.js");
-
 var _merge2 = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 
 var _merge3 = _interopRequireDefault(_merge2);
@@ -2116,11 +2525,9 @@ var sessionReducer = function sessionReducer() {
     Object.freeze(state);
     switch (action.type) {
         case _session_api_util.SET_CURRENT_USER:
-            return { id: action.payload.id, name: action.payload.name, email: action.payload.email, likedRes: action.payload.likedRes };
+            return { id: action.payload.id, name: action.payload.name, email: action.payload.email, likedResYelpIds: action.payload.likedResYelpIds, likedResIds: action.payload.likedResIds };
         case _session_api_util.RECEIVE_CURRENT_USER:
             return (0, _merge3.default)({}, state, _defineProperty({}, action.payload.id, action.payload));
-        case _user_util.UPDATE_CURRENT_USER:
-            return action.user;
         default:
             return state;
     }
@@ -2404,9 +2811,9 @@ var logoutUser = exports.logoutUser = function logoutUser() {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
-exports.likeRes = exports.setAuthToken = exports.getCurrentUser = exports.updateLikeRes = exports.UPDATE_LIKERES = undefined;
+exports.deleteRes = exports.updateUserLikeRes = exports.setAuthToken = exports.getCurrentUser = undefined;
 
 var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
@@ -2420,46 +2827,70 @@ var _session_api_util = __webpack_require__(/*! ./session_api_util */ "./fronten
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var UPDATE_LIKERES = exports.UPDATE_LIKERES = 'UPDATE_LIKERES';
-var updateLikeRes = exports.updateLikeRes = function updateLikeRes(user) {
-    return {
-        type: UPDATE_LIKERES,
-        user: user
-    };
-};
-
 var getCurrentUser = exports.getCurrentUser = function getCurrentUser() {
-    return _axios2.default.get('/api/users/current');
+  return function (dispatch) {
+    return _axios2.default.get('/api/users/current').then(function (res) {
+      // Save to localStorage
+      var token = res.data.token;
+
+      // Set token to ls
+
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      var decoded = (0, _jwtDecode2.default)(token);
+
+      // Set current user
+      dispatch((0, _session_api_util.setCurrentUser)(decoded));
+    });
+  };
 };
 
 var setAuthToken = exports.setAuthToken = function setAuthToken(token) {
-    if (token) {
-        // Apply to every request
-        _axios2.default.defaults.headers.common["Authorization"] = token;
-    } else {
-        // Delete auth header
-        delete _axios2.default.defaults.headers.common["Authorization"];
-    }
+  if (token) {
+    // Apply to every request
+    _axios2.default.defaults.headers.common["Authorization"] = token;
+  } else {
+    // Delete auth header
+    delete _axios2.default.defaults.headers.common["Authorization"];
+  }
 };
 
-var likeRes = exports.likeRes = function likeRes(id, data) {
-    return _axios2.default.patch("/api/users/" + id, data).then(function (res) {
-        // Save to localStorage
-        var token = res.data.token;
+var updateUserLikeRes = exports.updateUserLikeRes = function updateUserLikeRes(id, data) {
+  return _axios2.default.patch("/api/users/" + id, data).then(function (res) {
+    // Save to localStorage
+    var token = res.data.token;
 
-        console.log(res.data);
+    // Set token to ls
 
-        // Set token to ls
-        localStorage.setItem('jwtToken', token);
-        // Set token to Auth header
-        setAuthToken(token);
-        // Decode token to get user data
-        var decoded = (0, _jwtDecode2.default)(token);
-        console.log(decoded);
+    localStorage.setItem('jwtToken', token);
+    // Set token to Auth header
+    setAuthToken(token);
+    // Decode token to get user data
+    var decoded = (0, _jwtDecode2.default)(token);
 
-        // Set current user
-        dispatch((0, _session_api_util.setCurrentUser)(decoded));
-    });
+    // Set current user
+    dispatch((0, _session_api_util.setCurrentUser)(decoded));
+  });
+};
+
+var deleteRes = exports.deleteRes = function deleteRes(data) {
+  return _axios2.default.patch("/api/users/deleteRes", data).then(function (res) {
+    // Save to localStorage
+    var token = res.data.token;
+
+    // Set token to ls
+
+    localStorage.setItem('jwtToken', token);
+    // Set token to Auth header
+    setAuthToken(token);
+    // Decode token to get user data
+    var decoded = (0, _jwtDecode2.default)(token);
+
+    // Set current user
+    dispatch((0, _session_api_util.setCurrentUser)(decoded));
+  });
 };
 
 /***/ }),

@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchContainer from "./search/search_container";
 import ResContainer from './res/res_container';
+import ProfileContainer from './profile/user_profile_container'
 import {
     Route,
     Redirect,
@@ -27,6 +28,7 @@ const App = () => {
     <Switch>
       <Route exact path="/" component={SearchContainer} />
       <Route exact path="/search/:term&:location&:radius&:price&:open_now&:idx" component={ResContainer}/>
+      <ProtectedRoute exact path="/profile" component={ProfileContainer} />
       <AuthRoute exact path="/signup" component={SignUpFormContainer} />
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <Route path="/" render={() => <Redirect to="/" />} />

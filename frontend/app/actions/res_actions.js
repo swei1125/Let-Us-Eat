@@ -22,6 +22,8 @@ export const clearCurrentRes = () => ({
 })
 
 export const fetchRestaurants = (data) => dispatch => (
+
+    
     $.ajax({
         method: 'get',
         url: 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search',
