@@ -1313,6 +1313,7 @@ var Res = function (_React$Component) {
   }, {
     key: 'goNext',
     value: function goNext(e) {
+
       this.setState({ loading: true });
       var term = this.props.match.params.term;
       var location = this.props.match.params.location;
@@ -1462,16 +1463,15 @@ var Res = function (_React$Component) {
             )
           ),
           _react2.default.createElement(
-            'button',
+            'div',
             {
-              disabled: this.state.loading ? "true" : "",
-              onClick: this.goNext.bind(this),
+
               className: 'btn',
               style: { color: this.state.loading ? "gray" : "white" }
             },
             _react2.default.createElement(
-              'div',
-              { className: 'button' },
+              'button',
+              { className: 'button', disabled: this.state.loading ? "true" : "", onClick: this.goNext.bind(this) },
               _react2.default.createElement(
                 'div',
                 { className: 'btn-content' },
