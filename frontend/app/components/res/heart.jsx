@@ -33,6 +33,7 @@ class Heart extends React.Component {
     componentWillReceiveProps(newProps) {
         const res = newProps.currentRes;
         const user = newProps.currentUser;
+        this.res = null;
         getRes(newProps.currentRes.id).then(response => {
             this.res = response.data;
         })
@@ -45,6 +46,8 @@ class Heart extends React.Component {
         } else {
             this.heart = "notLiked";
         }
+        console.log(this.res);
+        
     }
  
     like(e) {
@@ -81,9 +84,11 @@ class Heart extends React.Component {
             createRes(data).then(rest => {
                 
                 this.res = rest.data;                
-                updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: rest._id, action: "add"})
+                updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: rest.data._id, action: "add"})
+                console.log(rest);
             })            
         }
+        
     }
 
     render() {

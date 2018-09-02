@@ -775,18 +775,84 @@ div[class*='box-'] {
   flex-direction: column;
   align-items: center;
   align-content: center;
-  justify-content: center; }
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6); }
+  .profile .navbar {
+    width: 95%;
+    border-bottom: 1px solid white;
+    background-color: transparent;
+    height: 60px;
+    margin-bottom: 15px; }
 
 .profileContent {
-  background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
-  height: 1000px;
+  min-height: 500px;
+  height: auto;
   padding: 0;
   margin: 0 auto;
   text-align: center;
   color: white; }
+  .profileContent .res-list {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 50px; }
 
 .defaultContent {
   color: white; }
+
+.res-outer-wrapper {
+  width: 65%;
+  height: 300px;
+  margin: 15px auto 0;
+  border-bottom: 1px solid white; }
+  .res-outer-wrapper .header {
+    width: 95%;
+    height: 50px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid white;
+    font-size: 14px; }
+    .res-outer-wrapper .header button {
+      font-size: 18px; }
+  .res-outer-wrapper .content {
+    width: 95%;
+    height: 240px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center; }
+    .res-outer-wrapper .content .image-box {
+      width: 200px;
+      height: 200px;
+      overflow: hidden; }
+      .res-outer-wrapper .content .image-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 4px; }
+    .res-outer-wrapper .content .info-box {
+      width: 320px;
+      height: 100%;
+      text-align: left;
+      margin-top: 35px; }
+      .res-outer-wrapper .content .info-box .stars {
+        height: 24px;
+        width: 132px;
+        background-image: url("../../images/stars.png");
+        margin: 5px 0; }
+      .res-outer-wrapper .content .info-box .price {
+        display: flex;
+        justify-content: flex-start; }
+      .res-outer-wrapper .content .info-box .tags {
+        color: white;
+        font-size: 14px;
+        margin: 0; }
+      .res-outer-wrapper .content .info-box .phone {
+        margin: 10px 0; }
+      .res-outer-wrapper .content .info-box .address {
+        list-style: none;
+        font-size: 20px; }
 
 /*# sourceMappingURL=main.css.map */

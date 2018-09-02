@@ -2,19 +2,25 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { shuffle } from "lodash";
 import NavBar from '../navbar/navbar_container';
-import ResBox from './resbox'
+import ResBoxContainer from './resbox_container';
 
 
 class userProfile extends React.Component {
   
-  componentDidMount() {
+  componentWillMount() {
     this.props.getCurrentUser();
   }
+  componentWillReceiveProps(newProps) {
+    if (newProps.currentUser.likedResYelpIds.length !== this.props.currentUser.likedResYelpIds.length) {
+      this.props.getCurrentUser();
+      
+    }
+  }
 
-  // <button onClick={this.handleDelete.bind(this)}><img src={"../../../images/garbage.png"}/></button>
 
   render(){
     const list = this.props.currentUser.likedResIds;
+   
     const defaultContent = list.length === 0 ? (
       <div className="defaultContent">
         <h1>You haven't liked any restaurants yet!</h1>
@@ -32,9 +38,8 @@ class userProfile extends React.Component {
       <div className="profileContent">
         <h1>Hello, {this.props.currentUser.name}</h1>
         {defaultContent}
-        <ul>
-          {list.map(res => <ResBox delete={this.props.deleteRes} key={res.name}/>)}
-        </ul>
+        <ResBoxContainer />
+        
       </div>     
     </div>
     ) 

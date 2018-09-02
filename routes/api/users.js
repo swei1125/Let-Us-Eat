@@ -119,7 +119,7 @@ router.get(
       User.findOne({email: req.user.email})
         .populate('likedResIds')
         .exec(function(err, user) {
-            console.log(JSON.stringify(user, null, "\t"))
+
             const payload = {
                 id: user.id,
                 email: user.email,
@@ -145,29 +145,17 @@ router.get(
   }
 );
 
+router.patch("/deleteRes", passport.authenticate("jwt", { session: false }), (req, res) => {
+    User.findOne({_id: req.body.userId})
+    .then(user => {
 
-router.patch('/:id', passport.authenticate("jwt", { session: false }), (req, res) => {
-    const id = req.params.id;
-    User.findOne({"_id": id}).then(user => {
-        
-        if (req.body.action === 'add') {
-            user.likedResYelpIds.push(req.body.yelpId);
-            user.likedResIds.push(req.body.resId)
-            user.save();
-        }else {
-            const idx1 = user.likedResYelpIds.indexOf(req.body.yelpId);
-            const idx2 = user.likedResIds.indexOf(req.body.resId);
-            user.likedResYelpIds.splice(idx1, 1);
-            user.likedResIds.splice(idx2, 1);
-            user.save();
-        }
-        const payload = {
-            id: user.id,
-            email: user.email,
-            name: user.name,
-            likedResYelpIds: user.likedResYelpIds,
-            likedResIds: user.likedResIds
-        }
+        const idx1 = user.likedResYelpIds.indexOf(req.body.yelpId);
+        const idx2 = user.likedResIds.indexOf(req.body.resId);
+        user.likedResYelpIds.splice(idx1, 1);
+        user.likedResIds.splice(idx2, 1);
+        user.save();
+
+        const payload = { id: user.id, email: user.email, name: user.name, likedResYelpIds: user.likedResYelpIds, likedResIds: user.likedResIds };
         jsonwebtoken.sign(
             payload,
             keys.secretOrKey,
@@ -176,12 +164,45 @@ router.patch('/:id', passport.authenticate("jwt", { session: false }), (req, res
             (err, token) => {
                 res.json({
                     success: true,
-                    token: 'Bearer ' + token,
+                    token: "Bearer " + token,
                     user
                 });
-            });
-     
+            }
+        );
     })
+});
+
+router.patch('/:id', passport.authenticate("jwt", { session: false }), (req, res) => {
+    const id = req.params.id;
+    User.findOne({ _id: id })
+      .then(user => {
+        if (req.body.action === "add") {
+          user.likedResYelpIds.push(req.body.yelpId);
+          user.likedResIds.push(req.body.resId);
+          user.save();
+        } else {
+          const idx1 = user.likedResYelpIds.indexOf(req.body.yelpId);
+          const idx2 = user.likedResIds.indexOf(req.body.resId);
+          user.likedResYelpIds.splice(idx1, 1);
+          user.likedResIds.splice(idx2, 1);
+          user.save();
+        }
+        const payload = { id: user.id, email: user.email, name: user.name, likedResYelpIds: user.likedResYelpIds, likedResIds: user.likedResIds };
+        jsonwebtoken.sign(
+          payload,
+          keys.secretOrKey,
+          // Key will expire in one hour
+          { expiresIn: 3600 },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token,
+              user
+            });
+          }
+        );
+      })
+    
     // console.log(user);
     
 })

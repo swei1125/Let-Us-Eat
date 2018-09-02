@@ -275,7 +275,7 @@ var App = function App() {
       null,
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _search_container2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/search/:term&:location&:radius&:price&:open_now&:idx', component: _res_container2.default }),
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profile', component: _user_profile_container2.default }),
+      _react2.default.createElement(_route_util.ProtectedRoute, { exact: true, path: '/profile', component: _user_profile_container2.default }),
       _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/signup', component: _signup_form_container2.default }),
       _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/login', component: _login_form_container2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { path: '/', render: function render() {
@@ -643,6 +643,12 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _user_util = __webpack_require__(/*! ../../util/user_util */ "./frontend/app/util/user_util.js");
+
+var _reactEmotion = __webpack_require__(/*! react-emotion */ "./node_modules/react-emotion/dist/index.esm.js");
+
+var _reactSpinners = __webpack_require__(/*! react-spinners */ "./node_modules/react-spinners/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -654,16 +660,104 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ResBox = function (_React$Component) {
   _inherits(ResBox, _React$Component);
 
-  function ResBox() {
+  function ResBox(props) {
     _classCallCheck(this, ResBox);
 
-    return _possibleConstructorReturn(this, (ResBox.__proto__ || Object.getPrototypeOf(ResBox)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (ResBox.__proto__ || Object.getPrototypeOf(ResBox)).call(this, props));
   }
 
   _createClass(ResBox, [{
+    key: "delete",
+    value: function _delete(id, yelpId) {
+      var _this2 = this;
+
+      return function (e) {
+        e.preventDefault();
+
+        var user = _this2.props.currentUser;
+        (0, _user_util.deleteRes)({ userId: user.id, resId: id, yelpId: yelpId });
+      };
+    }
+  }, {
     key: "render",
     value: function render() {
-      return _react2.default.createElement("div", { className: "outer-wrapper" });
+      var _this3 = this;
+
+      var list = this.props.currentUser.likedResIds;
+      if (list.length !== 0 && !list[0].name) {
+        return null;
+      }
+
+      return _react2.default.createElement(
+        "div",
+        { className: "res-list" },
+        this.props.currentUser.likedResIds.map(function (res) {
+          var name = res.name,
+              phone = res.phone,
+              location = res.location,
+              categories = res.categories,
+              price = res.price,
+              image_url = res.image_url,
+              rating = res.rating;
+
+          var starPos = { 0: "0 0px", 1: "0 -24px", 1.5: "0 -48px", 2: "0 -72px", 2.5: "0 -96px", 3: "0 -120px", 3.5: "0 -144px", 4: "0 -168px", 4.5: "0 -192px", 5: "0 -216px" };
+          var starPx = starPos[rating];
+          return _react2.default.createElement(
+            "div",
+            { className: "res-outer-wrapper", key: name },
+            _react2.default.createElement(
+              "div",
+              { className: "header" },
+              _react2.default.createElement(
+                "h1",
+                null,
+                name
+              ),
+              _react2.default.createElement(
+                "button",
+                { onClick: _this3.delete.bind(_this3)(res._id, res.yelpId) },
+                _react2.default.createElement("i", { className: "fas fa-trash-alt" })
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "content" },
+              _react2.default.createElement(
+                "div",
+                { className: "image-box" },
+                _react2.default.createElement("img", { src: image_url })
+              ),
+              _react2.default.createElement(
+                "div",
+                { className: "info-box" },
+                _react2.default.createElement(
+                  "h4",
+                  { className: "tags" },
+                  categories.join(", ")
+                ),
+                _react2.default.createElement("div", { className: "stars", style: { backgroundPosition: starPx } }),
+                _react2.default.createElement(
+                  "div",
+                  { className: "price" },
+                  price
+                ),
+                _react2.default.createElement(
+                  "h4",
+                  { className: "phone" },
+                  phone
+                ),
+                location.map(function (el, i) {
+                  return _react2.default.createElement(
+                    "li",
+                    { className: "address", key: i },
+                    el
+                  );
+                })
+              )
+            )
+          );
+        })
+      );
     }
   }]);
 
@@ -671,6 +765,48 @@ var ResBox = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = ResBox;
+
+/***/ }),
+
+/***/ "./frontend/app/components/profile/resbox_container.js":
+/*!*************************************************************!*\
+  !*** ./frontend/app/components/profile/resbox_container.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _user_util = __webpack_require__(/*! ../../util/user_util */ "./frontend/app/util/user_util.js");
+
+var _resbox = __webpack_require__(/*! ./resbox */ "./frontend/app/components/profile/resbox.jsx");
+
+var _resbox2 = _interopRequireDefault(_resbox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        currentUser: state.session
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        getCurrentUser: function getCurrentUser() {
+            return dispatch((0, _user_util.getCurrentUser)());
+        }
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_resbox2.default);
 
 /***/ }),
 
@@ -702,9 +838,9 @@ var _navbar_container = __webpack_require__(/*! ../navbar/navbar_container */ ".
 
 var _navbar_container2 = _interopRequireDefault(_navbar_container);
 
-var _resbox = __webpack_require__(/*! ./resbox */ "./frontend/app/components/profile/resbox.jsx");
+var _resbox_container = __webpack_require__(/*! ./resbox_container */ "./frontend/app/components/profile/resbox_container.js");
 
-var _resbox2 = _interopRequireDefault(_resbox);
+var _resbox_container2 = _interopRequireDefault(_resbox_container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -724,19 +860,22 @@ var userProfile = function (_React$Component) {
   }
 
   _createClass(userProfile, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
       this.props.getCurrentUser();
     }
-
-    // <button onClick={this.handleDelete.bind(this)}><img src={"../../../images/garbage.png"}/></button>
-
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(newProps) {
+      if (newProps.currentUser.likedResYelpIds.length !== this.props.currentUser.likedResYelpIds.length) {
+        this.props.getCurrentUser();
+      }
+    }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var list = this.props.currentUser.likedResIds;
+
       var defaultContent = list.length === 0 ? _react2.default.createElement(
         'div',
         { className: 'defaultContent' },
@@ -780,13 +919,7 @@ var userProfile = function (_React$Component) {
             this.props.currentUser.name
           ),
           defaultContent,
-          _react2.default.createElement(
-            'ul',
-            null,
-            list.map(function (res) {
-              return _react2.default.createElement(_resbox2.default, { 'delete': _this2.props.deleteRes, key: res.name });
-            })
-          )
+          _react2.default.createElement(_resbox_container2.default, null)
         )
       );
     }
@@ -922,6 +1055,7 @@ var Heart = function (_React$Component) {
 
             var res = newProps.currentRes;
             var user = newProps.currentUser;
+            this.res = null;
             (0, _res_util.getRes)(newProps.currentRes.id).then(function (response) {
                 _this3.res = response.data;
             });
@@ -934,6 +1068,7 @@ var Heart = function (_React$Component) {
             } else {
                 this.heart = "notLiked";
             }
+            console.log(this.res);
         }
     }, {
         key: 'like',
@@ -972,7 +1107,8 @@ var Heart = function (_React$Component) {
                 (0, _res_util.createRes)(data).then(function (rest) {
 
                     _this4.res = rest.data;
-                    (0, _user_util.updateUserLikeRes)(_this4.props.currentUser.id, { yelpId: res.id, resId: rest._id, action: "add" });
+                    (0, _user_util.updateUserLikeRes)(_this4.props.currentUser.id, { yelpId: res.id, resId: rest.data._id, action: "add" });
+                    console.log(rest);
                 });
             }
         }
@@ -2643,7 +2779,7 @@ var logoutUser = exports.logoutUser = function logoutUser() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateUserLikeRes = exports.setAuthToken = exports.getCurrentUser = undefined;
+exports.deleteRes = exports.updateUserLikeRes = exports.setAuthToken = exports.getCurrentUser = undefined;
 
 var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
@@ -2689,6 +2825,24 @@ var setAuthToken = exports.setAuthToken = function setAuthToken(token) {
 
 var updateUserLikeRes = exports.updateUserLikeRes = function updateUserLikeRes(id, data) {
   return _axios2.default.patch("/api/users/" + id, data).then(function (res) {
+    // Save to localStorage
+    var token = res.data.token;
+
+    // Set token to ls
+
+    localStorage.setItem('jwtToken', token);
+    // Set token to Auth header
+    setAuthToken(token);
+    // Decode token to get user data
+    var decoded = (0, _jwtDecode2.default)(token);
+
+    // Set current user
+    dispatch((0, _session_api_util.setCurrentUser)(decoded));
+  });
+};
+
+var deleteRes = exports.deleteRes = function deleteRes(data) {
+  return _axios2.default.patch("/api/users/deleteRes", data).then(function (res) {
     // Save to localStorage
     var token = res.data.token;
 

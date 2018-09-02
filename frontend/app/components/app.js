@@ -28,7 +28,7 @@ const App = () => {
     <Switch>
       <Route exact path="/" component={SearchContainer} />
       <Route exact path="/search/:term&:location&:radius&:price&:open_now&:idx" component={ResContainer}/>
-      <Route exact path="/profile" component={ProfileContainer} />
+      <ProtectedRoute exact path="/profile" component={ProfileContainer} />
       <AuthRoute exact path="/signup" component={SignUpFormContainer} />
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <Route path="/" render={() => <Redirect to="/" />} />
