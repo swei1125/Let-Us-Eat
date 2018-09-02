@@ -26,10 +26,22 @@
     flex-direction: column;
     align-items: center;
     align-content: center;
+    justify-content: space-between;
+}
+
+.search_form3 {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
     justify-content: center;
 }
 
-.search_form2 h3{
+.search_form3 h3{
     color: white;
     font-size: 25px;
     text-align: center;
@@ -143,7 +155,7 @@ li {
 }
 
 .checked {
-    color: #41a700;
+    color: #69E781;
     font-size: 25px;
 }
 
@@ -165,7 +177,7 @@ input[type='checkbox'] {
 }
 
 input[type='checkbox']:checked {
-    background: #41a700;
+    background: #69E781;
 }
 
 .open_now {
@@ -240,7 +252,7 @@ input[type='checkbox']:checked {
     margin-top: 50px;
     }
 
-    .search_form2 h3 {
+    .search_form3 h3 {
     color: white;
     font-size: 20px;
     text-align: center;
