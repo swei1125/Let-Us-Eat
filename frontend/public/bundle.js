@@ -622,7 +622,7 @@ var NavBar = function (_React$Component) {
   return NavBar;
 }(_react2.default.Component);
 
-exports.default = NavBar;
+exports.default = (0, _reactRouterDom.withRouter)(NavBar);
 
 /***/ }),
 

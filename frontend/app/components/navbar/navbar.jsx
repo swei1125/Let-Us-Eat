@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 class NavBar extends React.Component {
     constructor(props){
@@ -27,10 +28,10 @@ class NavBar extends React.Component {
             {this.state.clickMenu ?
               <ul className="menuList">
                 <li>
-                    {this.props.location.pathname === "/profile" ? < Link to="/">Search</Link> : <Link to="/profile">Profile</Link>}
+                  {this.props.location.pathname === "/profile" ? < Link to="/">Search</Link> : <Link to="/profile">Profile</Link>}
                 </li>
                 <li>
-                    <button onClick={() => this.props.logoutUser()}>Log Out</button>
+                  <button onClick={() => this.props.logoutUser()}>Log Out</button>
                 </li> 
               </ul> 
               :
@@ -73,4 +74,4 @@ class NavBar extends React.Component {
     }
 }
 
-export default NavBar;
+export default withRouter(NavBar);
