@@ -1,35 +1,55 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { createRes, getRes } from "../../util/res_util";
-import { getCurrentUser, likeRes } from "../../util/user_util";
+import { updateUserLikeRes } from "../../util/user_util";
 
 class Heart extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { dbRes: null, heart: ""};
+        this.res = null;
+        this.heart = "";
         this.like = this.like.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const res = this.props.currentRes;
         const user = this.props.currentUser;
+        
         getRes(res.id).then(response => {
-            // console.log(response);
-            
-            this.setState({ dbRes: response.data })
-            // console.log(this.state);
+
+            this.res = response.data;
         })
+        
         if (user.id) {
-            if (this.state.dbRes && user.likedRes.includes(this.state.dbRes._id)) {
-                this.setState({ heart: "liked" })
+            if (user.likedResYelpIds && user.likedResYelpIds.includes(res.id)) {
+              this.heart = "liked";
             } else {
-                this.setState({heart: "notLiked"})
+              this.heart = "notLiked";
             }
         } else {
-            this.setState({heart: "notLiked"})
+            this.heart = "notLiked";
         }
-    
     }
+    componentWillReceiveProps(newProps) {
+        const res = newProps.currentRes;
+        const user = newProps.currentUser;
+        this.res = null;
+        getRes(newProps.currentRes.id).then(response => {
+            this.res = response.data;
+        })
+        if (user.id) {
+            if (user.likedResYelpIds && user.likedResYelpIds.includes(res.id)) {
+              this.heart = "liked";
+            } else {
+              this.heart = "notLiked";
+            }
+        } else {
+            this.heart = "notLiked";
+        }
+        console.log(this.res);
+        
+    }
+ 
     like(e) {
         
         e.preventDefault();
@@ -38,23 +58,19 @@ class Heart extends React.Component {
             return
         }
         const res = this.props.currentRes;
-
-        
-        if (this.state.dbRes) {
-            // console.log("we have dbRes");
+        if (this.res) {
             
-            if (this.state.heart === 'notLiked') {
-                this.setState({heart: "liked"})
-                likeRes(this.props.currentUser.id, { resId: this.state.dbRes, action: "add" })
+            if (this.heart === 'notLiked') {
+                this.heart = "liked";
+                updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id,resId: this.res._id, action: "add" })
                
             }else {
-              this.setState({heart: "notLiked"})
-                likeRes(this.props.currentUser.id, { resId: this.state.dbRes, action: "delete" })
+                this.heart = "notLiked";
+                updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "delete" })
                
             }
         }else{
-            console.log("no");
-            this.setState({heart: "liked"})
+            this.heart = "liked";
             const data = {
                 yelpId: res.id,
                 name: res.name,
@@ -67,22 +83,22 @@ class Heart extends React.Component {
             }
             createRes(data).then(rest => {
                 
-                this.setState({dbRes: rest.data});
-                likeRes(this.props.currentUser.id, {resId: rest.data._id, action: "add"})
-                    
-            })
-            const theheart = document.getElementById("heart");
-            // theheart.style.color = `#ff6666`;
+                this.res = rest.data;                
+                updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: rest.data._id, action: "add"})
+                console.log(rest);
+            })            
         }
+        
     }
 
     render() {
         if (!this.props.currentRes.hours) {
             return null;
         };
+                
         return(
             <div className="heart">
-                {this.state.heart === "liked" ? (
+                {this.heart === "liked" ? (
                     <i onClick={this.like} style={{color: "#ff6666"}} className="fas fa-heart" />
             ) : (
                     <i onClick={this.like} className="far fa-heart" />

@@ -1,13 +1,11 @@
 .search_form {
     max-width: 940px;
-    position: absolute;
     margin: auto;
-    top: 100px;
+    top: 40px;
     bottom: 0;
     left: 0;
     right: 0;
     border: 1px solid white;
-    border-radius: 3px;
     height: 600px;
     display: block;
     display: flex;
@@ -15,6 +13,7 @@
     align-items: center;
     align-content: center;
     justify-content: center;
+    margin-top: 100px;
 }
 
 .search_form2 {
@@ -144,7 +143,7 @@ li {
 }
 
 .checked {
-    color: #cef932;
+    color: #41a700;
     font-size: 25px;
 }
 
@@ -166,7 +165,7 @@ input[type='checkbox'] {
 }
 
 input[type='checkbox']:checked {
-    background: #cef932;
+    background: #41a700;
 }
 
 .open_now {
@@ -238,7 +237,7 @@ input[type='checkbox']:checked {
 @media all and (max-width: 940px) {
 
     .search_form {
-    margin-top: -50px;
+    margin-top: 50px;
     }
 
     .search_form2 h3 {

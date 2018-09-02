@@ -38,7 +38,13 @@ router.post('/register', (req, res) => {
                         newUser.save()
                             .then(user => {
 
-                                const payload = { id: user.id, name: user.name, email: user.email, likedRes: user.likedRes };
+                                const payload = { 
+                                    id: user.id, 
+                                    name: user.name, 
+                                    email: user.email, 
+                                    likedResYelpIds: user.likedResYelpIds,
+                                    likedResIds: user.likedResIds 
+                                };
                                 jsonwebtoken.sign(
                                     payload,
                                     keys.secretOrKey,
@@ -79,7 +85,13 @@ router.post('/login', (req, res) => {
         bcrypt.compare(password, user.password)
         .then(isMatch => {
             if (isMatch) {
-                const payload = { id: user.id, name: user.name, email: user.email, likedRes: user.likedRes };
+                const payload = { 
+                    id: user.id, 
+                    name: user.name, 
+                    email: user.email, 
+                    likedResYelpIds: user.likedResYelpIds ,
+                    likedResIds: user.likedResIds
+                };
 
                 jsonwebtoken.sign(
                     payload,
@@ -104,28 +116,48 @@ router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.json(req.user);
+      User.findOne({email: req.user.email})
+        .populate('likedResIds')
+        .exec(function(err, user) {
+            console.log(user);
+            
+            const payload = {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                likedResYelpIds: user.likedResYelpIds,
+                likedResIds: user.likedResIds
+            }
+            jsonwebtoken.sign(
+                payload,
+                keys.secretOrKey,
+                // Key will expire in one hour
+                { expiresIn: 3600 },
+                (err, token) => {
+                    res.json({
+                        success: true,
+                        token: 'Bearer ' + token,
+                        user
+                    });
+                });
+            
+      })
+      
   }
 );
 
-router.patch('/:id', passport.authenticate("jwt", { session: false }), (req, res) => {
-    const id = req.params.id;
-    User.findOne({"_id": id}).then(user => {
+router.patch("/deleteRes", passport.authenticate("jwt", { session: false }), (req, res) => {
+    User.findOne({_id: req.body.userId})
+    .then(user => {
+        console.log(user);
         
-        if (req.body.action === 'add') {
-            user.likedRes.push(req.body.resId);
-            user.save();
-        }else {
-            const idx = user.likedRes.indexOf(req.body.resId);
-            user.likedRes.splice(idx, 1)
-            user.save();
-        }
-        const payload = {
-            id: user.id,
-            email: user.email,
-            naem: user.name,
-            likedRes: user.likedRes
-        }
+        const idx1 = user.likedResYelpIds.indexOf(req.body.yelpId);
+        const idx2 = user.likedResIds.indexOf(req.body.resId);
+        user.likedResYelpIds.splice(idx1, 1);
+        user.likedResIds.splice(idx2, 1);
+        user.save();
+
+        const payload = { id: user.id, email: user.email, name: user.name, likedResYelpIds: user.likedResYelpIds, likedResIds: user.likedResIds };
         jsonwebtoken.sign(
             payload,
             keys.secretOrKey,
@@ -134,12 +166,45 @@ router.patch('/:id', passport.authenticate("jwt", { session: false }), (req, res
             (err, token) => {
                 res.json({
                     success: true,
-                    token: 'Bearer ' + token,
+                    token: "Bearer " + token,
                     user
                 });
-            });
-     
+            }
+        );
     })
+});
+
+router.patch('/:id', passport.authenticate("jwt", { session: false }), (req, res) => {
+    const id = req.params.id;
+    User.findOne({ _id: id })
+      .then(user => {
+        if (req.body.action === "add") {
+          user.likedResYelpIds.push(req.body.yelpId);
+          user.likedResIds.push(req.body.resId);
+          user.save();
+        } else {
+          const idx1 = user.likedResYelpIds.indexOf(req.body.yelpId);
+          const idx2 = user.likedResIds.indexOf(req.body.resId);
+          user.likedResYelpIds.splice(idx1, 1);
+          user.likedResIds.splice(idx2, 1);
+          user.save();
+        }
+        const payload = { id: user.id, email: user.email, name: user.name, likedResYelpIds: user.likedResYelpIds, likedResIds: user.likedResIds };
+        jsonwebtoken.sign(
+          payload,
+          keys.secretOrKey,
+          // Key will expire in one hour
+          { expiresIn: 3600 },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token,
+              user
+            });
+          }
+        );
+      })
+    
     // console.log(user);
     
 })
