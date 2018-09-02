@@ -1363,7 +1363,7 @@ var Res = function (_React$Component) {
           'div',
           { className: 'res-box' },
           _react2.default.createElement(_navbar_container2.default, null),
-          _react2.default.createElement(_reactSpinners.BeatLoader, { className: override, sizeUnit: "px", size: 50, color: "#dc41f4", loading: this.state.loading }),
+          _react2.default.createElement(_reactSpinners.BeatLoader, { className: override, sizeUnit: "px", size: 50, color: "white", loading: this.state.loading }),
           _react2.default.createElement(
             'div',
             { className: 'top-bottom-wrapper', style: { opacity: this.state.loading ? "0.15" : "1" } },
