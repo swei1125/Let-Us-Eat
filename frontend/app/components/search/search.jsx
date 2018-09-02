@@ -114,6 +114,21 @@ class Search extends React.Component {
                   {this.state.submitted ? <div className="loader"></div> : <input type="submit" value="" id="submitInput" />}
                 </div>  
               </form>
+            <footer className="authors">
+              <img src="./images/split.png" />
+              <a href="https://www.linkedin.com/in/jose-martinez-517a29149/">
+                Jose Martinez
+              </a>
+              <img src="./images/split.png" />
+              <a href="https://www.linkedin.com/in/nmenares/?locale=en_US">
+                Nataly Menares
+              </a>
+              <img src="./images/split.png" />
+              <a href="https://www.linkedin.com/in/shiyuwei1125">
+                Natasha Wei
+              </a>
+              <img src="./images/split.png" />
+            </footer>
             </div>
         )
     }

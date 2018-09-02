@@ -186,7 +186,7 @@ li {
   font-size: 25px; }
 
 .checked {
-  color: #41a700;
+  color: #69E781;
   font-size: 25px; }
 
 .OpenNow {
@@ -205,7 +205,7 @@ input[type='checkbox'] {
   margin-right: 5px; }
 
 input[type='checkbox']:checked {
-  background: #41a700; }
+  background: #69E781; }
 
 .open_now {
   color: white;
