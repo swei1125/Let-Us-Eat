@@ -18,7 +18,7 @@ class userProfile extends React.Component {
     const defaultContent = list.length === 0 ? (
       <div className="defaultContent">
         <h1>You haven't liked any restaurants yet!</h1>
-        <Link to="/">Click here to search a restaurant.</Link>
+        <Link to="/"><div className="img"></div></Link>
       </div>  
     ) : (
       <div className='defaultContent'>
