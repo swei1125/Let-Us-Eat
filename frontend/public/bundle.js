@@ -544,6 +544,17 @@ var NavBar = function (_React$Component) {
               { to: '/signup' },
               'Sign up'
             )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'button',
+              { onClick: function onClick() {
+                  return _this3.props.loginUser({ email: "demouser@letseat.io", password: "Qwe123" });
+                } },
+              'Demo'
+            )
           )
         ),
         _react2.default.createElement(
@@ -568,6 +579,17 @@ var NavBar = function (_React$Component) {
                 _reactRouterDom.Link,
                 { to: '/signup' },
                 'Sign up'
+              )
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              _react2.default.createElement(
+                'button',
+                { onClick: function onClick() {
+                    return _this3.props.loginUser({ email: "demouser@letseat.io", password: "Qwe123" });
+                  } },
+                'Demo'
               )
             )
           ) : null
@@ -637,6 +659,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     logoutUser: function logoutUser() {
       return dispatch((0, _session_api_util.logoutUser)());
+    },
+    loginUser: function loginUser(user) {
+      return dispatch((0, _session_api_util.loginUser)(user));
     }
   };
 };
@@ -1691,115 +1716,119 @@ var Search = function (_React$Component) {
           'form',
           { onSubmit: this.handleSubmit.bind(this), className: 'search_form2' },
           _react2.default.createElement(
-            'h3',
-            null,
-            'Don\'t worry, we\'ll pick a restaurant for you!'
-          ),
-          _react2.default.createElement(
             'div',
-            { className: 'where' },
+            { className: 'search_form3' },
             _react2.default.createElement(
-              'div',
-              { className: 'inputs' },
-              _react2.default.createElement(
-                'h2',
-                null,
-                'Near'
-              ),
-              _react2.default.createElement('input', { id: 'initialInput', required: true, type: 'text', onChange: this.update.bind(this, "location"), value: this.state.location, placeholder: 'city, area, state or/and zip' })
+              'h3',
+              null,
+              'Don\'t worry, we\'ll pick a restaurant for you!'
             ),
             _react2.default.createElement(
               'div',
-              { className: 'slidecontainer' },
-              _react2.default.createElement('input', { type: 'range', min: '3200', max: '38400', step: '1600', className: 'slider', list: 'tickmarks', onChange: this.update.bind(this, "radius"), value: this.state.radius,
-                style: { background: 'linear-gradient(to left, #ffffff, #ffffff ' + (100 - Math.floor((this.state.radius - 3200) * 100 / 35200)) + '%, #f44141 ' + (100 - Math.floor((this.state.radius - 3200) * 100 / 35200)) + '%, #4143f4)' }
-              }),
+              { className: 'where' },
               _react2.default.createElement(
-                'datalist',
-                { id: 'tickmarks' },
-                _react2.default.createElement('option', { value: '3200' }),
-                _react2.default.createElement('option', { value: '6400' }),
-                _react2.default.createElement('option', { value: '12800' }),
-                _react2.default.createElement('option', { value: '20200' }),
-                _react2.default.createElement('option', { value: '26600' }),
-                _react2.default.createElement('option', { value: '32000' }),
-                _react2.default.createElement('option', { value: '38400' })
+                'div',
+                { className: 'inputs' },
+                _react2.default.createElement(
+                  'h2',
+                  null,
+                  'Near'
+                ),
+                _react2.default.createElement('input', { id: 'initialInput', required: true, type: 'text', onChange: this.update.bind(this, "location"), value: this.state.location, placeholder: 'city, area, state or/and zip' })
               ),
               _react2.default.createElement(
-                'p',
-                null,
-                Math.floor(this.state.radius / 1600),
-                ' miles around'
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'extra' },
-              _react2.default.createElement(
-                'ul',
-                { className: 'price' },
+                'div',
+                { className: 'slidecontainer' },
+                _react2.default.createElement('input', { type: 'range', min: '3200', max: '38400', step: '1600', className: 'slider', list: 'tickmarks', onChange: this.update.bind(this, "radius"), value: this.state.radius,
+                  style: { background: 'linear-gradient(to left, #ffffff, #ffffff ' + (100 - Math.floor((this.state.radius - 3200) * 100 / 35200)) + '%, #f44141 ' + (100 - Math.floor((this.state.radius - 3200) * 100 / 35200)) + '%, #4143f4)' }
+                }),
                 _react2.default.createElement(
-                  'li',
-                  { onClick: this.handleClick.bind(this, 0), className: this.state.selected[0] ? "checked" : "" },
-                  '$'
+                  'datalist',
+                  { id: 'tickmarks' },
+                  _react2.default.createElement('option', { value: '3200' }),
+                  _react2.default.createElement('option', { value: '6400' }),
+                  _react2.default.createElement('option', { value: '12800' }),
+                  _react2.default.createElement('option', { value: '20200' }),
+                  _react2.default.createElement('option', { value: '26600' }),
+                  _react2.default.createElement('option', { value: '32000' }),
+                  _react2.default.createElement('option', { value: '38400' })
                 ),
                 _react2.default.createElement(
-                  'li',
-                  { onClick: this.handleClick.bind(this, 1), className: this.state.selected[1] ? "checked" : "" },
-                  '$'
-                ),
-                _react2.default.createElement(
-                  'li',
-                  { onClick: this.handleClick.bind(this, 2), className: this.state.selected[2] ? "checked" : "" },
-                  '$'
-                ),
-                _react2.default.createElement(
-                  'li',
-                  { onClick: this.handleClick.bind(this, 3), className: this.state.selected[3] ? "checked" : "" },
-                  '$'
+                  'p',
+                  null,
+                  Math.floor(this.state.radius / 1600),
+                  ' miles around'
                 )
               ),
               _react2.default.createElement(
                 'div',
-                { className: 'OpenNow' },
-                _react2.default.createElement('input', { type: 'checkbox', id: 'open_now',
-                  onChange: this.update.bind(this, "open_now"), value: this.state.open_now }),
+                { className: 'extra' },
                 _react2.default.createElement(
-                  'label',
-                  { htmlFor: 'open', className: 'open_now' },
-                  'Open Now'
+                  'ul',
+                  { className: 'price' },
+                  _react2.default.createElement(
+                    'li',
+                    { onClick: this.handleClick.bind(this, 0), className: this.state.selected[0] ? "checked" : "" },
+                    '$'
+                  ),
+                  _react2.default.createElement(
+                    'li',
+                    { onClick: this.handleClick.bind(this, 1), className: this.state.selected[1] ? "checked" : "" },
+                    '$'
+                  ),
+                  _react2.default.createElement(
+                    'li',
+                    { onClick: this.handleClick.bind(this, 2), className: this.state.selected[2] ? "checked" : "" },
+                    '$'
+                  ),
+                  _react2.default.createElement(
+                    'li',
+                    { onClick: this.handleClick.bind(this, 3), className: this.state.selected[3] ? "checked" : "" },
+                    '$'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'OpenNow' },
+                  _react2.default.createElement('input', { type: 'checkbox', id: 'open_now',
+                    onChange: this.update.bind(this, "open_now"), value: this.state.open_now }),
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'open', className: 'open_now' },
+                    'Open Now'
+                  )
                 )
               )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'inputDiv' },
+              this.state.submitted ? _react2.default.createElement('div', { className: 'loader' }) : _react2.default.createElement('input', { type: 'submit', value: '', id: 'submitInput' })
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'inputDiv' },
-            this.state.submitted ? _react2.default.createElement('div', { className: 'loader' }) : _react2.default.createElement('input', { type: 'submit', value: '', id: 'submitInput' })
+            'footer',
+            { className: 'authors' },
+            _react2.default.createElement('img', { src: './images/split.png' }),
+            _react2.default.createElement(
+              'a',
+              { href: 'https://www.linkedin.com/in/jose-martinez-517a29149/' },
+              'Jose Martinez'
+            ),
+            _react2.default.createElement('img', { src: './images/split.png' }),
+            _react2.default.createElement(
+              'a',
+              { href: 'https://www.linkedin.com/in/nmenares/?locale=en_US' },
+              'Nataly Menares'
+            ),
+            _react2.default.createElement('img', { src: './images/split.png' }),
+            _react2.default.createElement(
+              'a',
+              { href: 'https://www.linkedin.com/in/shiyuwei1125' },
+              'Natasha Wei'
+            ),
+            _react2.default.createElement('img', { src: './images/split.png' })
           )
-        ),
-        _react2.default.createElement(
-          'footer',
-          { className: 'authors' },
-          _react2.default.createElement('img', { src: './images/split.png' }),
-          _react2.default.createElement(
-            'a',
-            { href: 'https://www.linkedin.com/in/jose-martinez-517a29149/' },
-            'Jose Martinez'
-          ),
-          _react2.default.createElement('img', { src: './images/split.png' }),
-          _react2.default.createElement(
-            'a',
-            { href: 'https://www.linkedin.com/in/nmenares/?locale=en_US' },
-            'Nataly Menares'
-          ),
-          _react2.default.createElement('img', { src: './images/split.png' }),
-          _react2.default.createElement(
-            'a',
-            { href: 'https://www.linkedin.com/in/shiyuwei1125' },
-            'Natasha Wei'
-          ),
-          _react2.default.createElement('img', { src: './images/split.png' })
         )
       );
     }
