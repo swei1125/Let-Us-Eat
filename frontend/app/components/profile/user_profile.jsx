@@ -10,6 +10,7 @@ class userProfile extends React.Component {
   componentWillMount() {
     this.props.getCurrentUser();
   }
+
   componentWillReceiveProps(newProps) {
     if (newProps.currentUser.likedResYelpIds.length !== this.props.currentUser.likedResYelpIds.length) {
       this.props.getCurrentUser();
@@ -19,6 +20,9 @@ class userProfile extends React.Component {
 
 
   render(){
+
+    if (!this.props.currentUser) {return null};
+    
     const list = this.props.currentUser.likedResIds;
    
     const defaultContent = list.length === 0 ? (
