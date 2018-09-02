@@ -154,8 +154,6 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log(_production_vars.yelpKey);
-
 var RECEIVE_RESTAURANTS = exports.RECEIVE_RESTAURANTS = 'RECEIVE_RESTAURANTS';
 var RECEIVE_CURRENT_RES = exports.RECEIVE_CURRENT_RES = 'RECEIVE_CURRENT_RES';
 var CLEAR_CURRENT_RES = exports.CLEAR_CURRENT_RES = 'CLEAR_CURRENT_RES';
@@ -1639,35 +1637,34 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                 );
             }
         }
-
-        // renderErrors() {
-        //     if (this.props.errors.length === 0) {
-        //         return (
-        //             <div></div>
-        //         )
-        //     }
-        //     return (
-        //         <ul className="error-ul">
-        //             {this.props.errors.map((error, i) => (
-        //                 <li key={`error-${i}`}>
-        //                     {error}
-        //                 </li>
-        //             ))}
-        //         </ul>
-        //     );
-        // }
-
+    }, {
+        key: 'renderErrors',
+        value: function renderErrors() {
+            if (this.props.errors.length === 0) {
+                return _react2.default.createElement('div', null);
+            }
+            return _react2.default.createElement(
+                'ul',
+                { className: 'error-ul' },
+                this.props.errors.map(function (error, i) {
+                    return _react2.default.createElement(
+                        'li',
+                        { key: 'error-' + i },
+                        error
+                    );
+                })
+            );
+        }
     }, {
         key: 'render',
         value: function render() {
-            console.log(this.props.errors);
-
             return _react2.default.createElement(
                 'div',
                 { className: 'session-form-outer' },
                 _react2.default.createElement(
                     'div',
                     { className: 'full-page-session' },
+                    _react2.default.createElement('img', { src: "frontend/public/images/logoWhite.png" }),
                     _react2.default.createElement(
                         'div',
                         { className: 'form-type-header' },
@@ -1694,7 +1691,12 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                                             'Email'
                                         ),
                                         _react2.default.createElement('input', { type: 'email', className: 'inputs-sess-form', required: true, onChange: this.update("email"), value: this.state.email, placeholder: 'email' }),
-                                        _react2.default.createElement('span', { className: 'help-text' })
+                                        _react2.default.createElement('span', { className: 'help-text' }),
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'requirements' },
+                                            this.props.errors.session.email
+                                        )
                                     )
                                 ),
                                 this.nameForm(),
@@ -1765,7 +1767,7 @@ var mapStateToProps = function mapStateToProps(_ref) {
     var errors = _ref.errors;
 
     return {
-        errors: Object.values(errors.session),
+        errors: errors,
         formType: 'signup',
         navLink: _react2.default.createElement(
             _reactRouterDom.Link,

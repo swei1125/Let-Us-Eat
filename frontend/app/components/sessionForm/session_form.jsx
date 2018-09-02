@@ -105,28 +105,27 @@ export class SessionForm extends React.Component {
         }
     }
 
-    // renderErrors() {
-    //     if (this.props.errors.length === 0) {
-    //         return (
-    //             <div></div>
-    //         )
-    //     }
-    //     return (
-    //         <ul className="error-ul">
-    //             {this.props.errors.map((error, i) => (
-    //                 <li key={`error-${i}`}>
-    //                     {error}
-    //                 </li>
-    //             ))}
-    //         </ul>
-    //     );
-    // }
+    renderErrors() {
+        if (this.props.errors.length === 0) {
+            return (
+                <div></div>
+            )
+        }
+        return (
+            <ul className="error-ul">
+                {this.props.errors.map((error, i) => (
+                    <li key={`error-${i}`}>
+                        {error}
+                    </li>
+                ))}
+            </ul>
+        );
+    }
 
   render() {
-      console.log(this.props.errors);
-      
     return <div className="session-form-outer">
         <div className="full-page-session">
+        <img src={"frontend/public/images/logoWhite.png"} />
           <div className="form-type-header">{this.formTypeHeader()}</div>
           <div className="session-form-container">
             <div className="session-form-input">
@@ -137,8 +136,8 @@ export class SessionForm extends React.Component {
                     <h2>Email</h2>
                     <input type="email" className="inputs-sess-form" required onChange={this.update("email")} value={this.state.email} placeholder="email" />
                     <span className="help-text"></span>
+                    <div className="requirements">{this.props.errors.session.email}</div>
                   </div>
-                    {/* <div className="requirements">{this.props.errors.session.email}</div> */}
                 </div>
 
                 {this.nameForm()}
