@@ -271,16 +271,20 @@ var App = function App() {
     'div',
     null,
     _react2.default.createElement(
-      _reactRouterDom.Switch,
+      'div',
       null,
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _search_container2.default }),
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/search/:term&:location&:radius&:price&:open_now&:idx', component: _res_container2.default }),
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profile', component: _user_profile_container2.default }),
-      _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/signup', component: _signup_form_container2.default }),
-      _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/login', component: _login_form_container2.default }),
-      _react2.default.createElement(_reactRouterDom.Route, { path: '/', render: function render() {
-          return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
-        } })
+      _react2.default.createElement(
+        _reactRouterDom.Switch,
+        null,
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _search_container2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/search/:term&:location&:radius&:price&:open_now&:idx', component: _res_container2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/profile', component: _user_profile_container2.default }),
+        _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/signup', component: _signup_form_container2.default }),
+        _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/login', component: _login_form_container2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/', render: function render() {
+            return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
+          } })
+      )
     ),
     _react2.default.createElement(
       'footer',

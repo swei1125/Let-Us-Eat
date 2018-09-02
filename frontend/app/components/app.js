@@ -24,14 +24,16 @@ const App = () => {
   }  
 
   return <div>
-      <Switch>
-        <Route exact path="/" component={SearchContainer} />
-        <Route exact path="/search/:term&:location&:radius&:price&:open_now&:idx" component={ResContainer} />
-        <Route exact path="/profile" component={ProfileContainer} />
-        <AuthRoute exact path="/signup" component={SignUpFormContainer} />
-        <AuthRoute exact path="/login" component={LoginFormContainer} />
-        <Route path="/" render={() => <Redirect to="/" />} />
-      </Switch>
+      <div>
+        <Switch>
+          <Route exact path="/" component={SearchContainer} />
+          <Route exact path="/search/:term&:location&:radius&:price&:open_now&:idx" component={ResContainer} />
+          <Route exact path="/profile" component={ProfileContainer} />
+          <AuthRoute exact path="/signup" component={SignUpFormContainer} />
+          <AuthRoute exact path="/login" component={LoginFormContainer} />
+          <Route path="/" render={() => <Redirect to="/" />} />
+        </Switch>
+      </div>
       <footer className="authors">
         <img src="./images/split.png" />
         <a href="https://www.linkedin.com/in/jose-martinez-517a29149/">

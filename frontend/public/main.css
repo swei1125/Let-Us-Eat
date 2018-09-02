@@ -17,6 +17,10 @@ fieldset, label, input, textarea, span, article, footer, time, small {
 ul {
   list-style: none; }
 
+body {
+  padding-top: 80px;
+  padding-bottom: 0px; }
+
 input[type="password"],
 input[type="email"],
 input[type="text"],
@@ -55,9 +59,8 @@ input[type="submit"] {
 
 .search_form {
   max-width: 940px;
-  position: absolute;
   margin: auto;
-  top: 0;
+  top: 40px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -655,14 +658,13 @@ div[class*='box-'] {
     margin-bottom: 20px; } }
 .profile {
   max-width: 940px;
-  position: absolute;
   margin: auto;
-  top: 80px;
+  top: 40px;
   bottom: 0;
   left: 0;
   right: 0;
   border: 1px solid white;
-  height: 1000px;
+  height: auto;
   display: block;
   display: flex;
   flex-direction: column;
@@ -685,7 +687,8 @@ div[class*='box-'] {
     color: white;
     font-weight: 400;
     text-transform: capitalize;
-    font-size: 25px; }
+    font-size: 25px;
+    margin: 30px 20px; }
 
 .defaultContent {
   display: flex;
