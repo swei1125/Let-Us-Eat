@@ -722,9 +722,6 @@ var ResBox = function (_React$Component) {
         e.preventDefault();
 
         var user = _this2.props.currentUser;
-        console.log(user);
-        console.log(id);
-        console.log(yelpId);
 
         (0, _user_util.deleteRes)({ userId: user.id, resId: id, yelpId: yelpId });
       };
@@ -738,7 +735,6 @@ var ResBox = function (_React$Component) {
       if (list.length !== 0 && !list[0].name) {
         return null;
       }
-      console.log(this.props);
 
       return _react2.default.createElement(
         "div",
@@ -1125,7 +1121,6 @@ var Heart = function (_React$Component) {
             } else {
                 this.heart = "notLiked";
             }
-            console.log(this.res);
         }
     }, {
         key: 'like',
@@ -1165,7 +1160,6 @@ var Heart = function (_React$Component) {
 
                     _this4.res = rest.data;
                     (0, _user_util.updateUserLikeRes)(_this4.props.currentUser.id, { yelpId: res.id, resId: rest.data._id, action: "add" });
-                    console.log(rest);
                 });
             }
         }
@@ -2837,15 +2831,13 @@ var loginUser = exports.loginUser = function loginUser(userData) {
             // Save to localStorage
             var token = res.data.token;
 
-            console.log(res.data);
-
             // Set token to ls
+
             localStorage.setItem('jwtToken', token);
             // Set token to Auth header
             setAuthToken(token);
             // Decode token to get user data
             var decoded = (0, _jwtDecode2.default)(token);
-            console.log(decoded);
 
             // Set current user
             dispatch(setCurrentUser(decoded));

@@ -13,9 +13,6 @@ class ResBox extends React.Component {
       e.preventDefault();
       
       const user = this.props.currentUser;
-      console.log(user);
-      console.log(id);
-      console.log(yelpId);
       
       
       deleteRes({userId: user.id, resId: id, yelpId: yelpId})
@@ -27,7 +24,6 @@ class ResBox extends React.Component {
     if (list.length !== 0 && !list[0].name) {
       return null;
     }
-    console.log(this.props);
     
     return (
       <div className="res-list">
