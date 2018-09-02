@@ -16,7 +16,6 @@ class Res extends React.Component {
         };
         this.resIds = props.resIds;
         this.idx = +props.match.params.idx;
-        
     }
     componentWillMount() {
         this.props.clearCurrentRes();

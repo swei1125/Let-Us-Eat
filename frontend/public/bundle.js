@@ -1295,7 +1295,6 @@ var Res = function (_React$Component) {
     };
     _this.resIds = props.resIds;
     _this.idx = +props.match.params.idx;
-
     return _this;
   }
 
