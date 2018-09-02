@@ -84,9 +84,20 @@ input[type="submit"] {
   flex-direction: column;
   align-items: center;
   align-content: center;
+  justify-content: space-between; }
+
+.search_form3 {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
   justify-content: center; }
 
-.search_form2 h3 {
+.search_form3 h3 {
   color: white;
   font-size: 25px;
   text-align: center;
@@ -186,7 +197,7 @@ li {
   font-size: 25px; }
 
 .checked {
-  color: #41a700;
+  color: #69E781;
   font-size: 25px; }
 
 .OpenNow {
@@ -205,7 +216,7 @@ input[type='checkbox'] {
   margin-right: 5px; }
 
 input[type='checkbox']:checked {
-  background: #41a700; }
+  background: #69E781; }
 
 .open_now {
   color: white;
@@ -261,7 +272,7 @@ input[type='checkbox']:checked {
   .search_form {
     margin-top: 50px; }
 
-  .search_form2 h3 {
+  .search_form3 h3 {
     color: white;
     font-size: 20px;
     text-align: center;
@@ -1013,16 +1024,10 @@ div[class*='box-'] {
     .menuList button {
       font-size: 14px; } }
 .authors {
-  width: 100%;
+  width: auto;
   padding: 10px;
-  position: absolute;
-  margin: auto;
-  bottom: 0;
-  left: 0;
-  right: 0;
   color: white;
   font-size: 14px;
-  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: row;
   align-items: center;

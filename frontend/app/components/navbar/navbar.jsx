@@ -39,30 +39,36 @@ class NavBar extends React.Component {
             }
             </div>
           </div>;
-          const notLoggedIn = (<div className='nav-right'>
-            <ul className="sessionul">
-              <li>
-                <Link to="/login">Sign in</Link>
-              </li>
-              <li>
-                <Link to="/signup">Sign up</Link>
-              </li>
-            </ul>
-            <div className="dropdown" onClick={this.handleClick.bind(this)}>
-            {this.state.clickMenu ?
-              <ul className="menuList">
+          const notLoggedIn = <div className="nav-right">
+              <ul className="sessionul">
                 <li>
                   <Link to="/login">Sign in</Link>
                 </li>
                 <li>
                   <Link to="/signup">Sign up</Link>
                 </li>
+                <li>
+                  <button onClick={() => this.props.loginUser({ email: "demouser@letseat.io", password: "Qwe123" })}>
+                    Demo
+                  </button>
+                </li>
               </ul>
-              :
-              null
-            }
-            </div>
-        </div> )
+              <div className="dropdown" onClick={this.handleClick.bind(this)}>
+                {this.state.clickMenu ? <ul className="menuList">
+                    <li>
+                      <Link to="/login">Sign in</Link>
+                    </li>
+                    <li>
+                      <Link to="/signup">Sign up</Link>
+                    </li>
+                    <li>
+                      <button onClick={() => this.props.loginUser({ email: "demouser@letseat.io", password: "Qwe123" })}>
+                        Demo
+                      </button>
+                    </li>
+                  </ul> : null}
+              </div>
+            </div>;
         return (
         <div className="navbar">
           <Link to="/"><h1>LET'S EAT</h1></Link>

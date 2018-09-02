@@ -116,8 +116,8 @@ class Res extends React.Component {
                           {el}
                         </li>
                       ))}
-                      <li className="is-open" style={{ color: res.hours[0].is_open_now ? "#23A923" : "#cc0000" }}>
-                        {res.hours[0].is_open_now ? "Open Now" : "Close Now"}
+                    <li className="is-open" style={{ color: res.hours[0].is_open_now ? "#69E781" : "#cc0000" }}>
+                        {res.hours[0].is_open_now ? "Open Now" : "Closed Now"}
                       </li>
                     </div>
                   </div>
