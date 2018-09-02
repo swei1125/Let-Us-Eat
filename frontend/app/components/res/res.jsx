@@ -16,7 +16,6 @@ class Res extends React.Component {
         };
         this.resIds = props.resIds;
         this.idx = +props.match.params.idx;
-        
     }
     componentWillMount() {
         this.props.clearCurrentRes();
@@ -32,7 +31,7 @@ class Res extends React.Component {
     }
 
     goNext(e) {
-        e.preventDefault();
+        
         this.setState({loading: true});
         const term = this.props.match.params.term;
         const location = this.props.match.params.location;
@@ -77,7 +76,7 @@ class Res extends React.Component {
         return <div className="res-wrapper">
             <div className="res-box">
               <NavBar />
-              <BeatLoader className={override} sizeUnit={"px"} size={50} color={"#dc41f4"} loading={this.state.loading} />
+              <BeatLoader className={override} sizeUnit={"px"} size={50} color={"white"} loading={this.state.loading} />
               <div className="top-bottom-wrapper" style={{ opacity: this.state.loading ? "0.15" : "1" }}>
                 <div className="top">
                   <div className="box-1">
@@ -136,19 +135,18 @@ class Res extends React.Component {
                 </div>
               </div>
               
-                <button 
-                disabled={this.state.loading ? "true" : ""} 
-                onClick={this.goNext.bind(this)} 
+                <div 
+                 
                 className="btn"
                 style={{color: this.state.loading ? "gray" : "white"}}
                 >
-                  <div className='button'>
+                <button className='button' disabled={this.state.loading ? "true" : ""} onClick={this.goNext.bind(this)}>
                     <div className='btn-content' >
                       <h2>Next</h2>
                       <img className="nextImage" src={"../../../images/next.png"} />
                     </div>
-                  </div>
-                </button>
+                  </button>
+                </div>
               
             </div>
           </div>;

@@ -7,21 +7,11 @@
     left: 0;
     right: 0;
     border: 1px solid #e6e6e8;
-    height: 690px;
     display: flex;
     flex-direction: column;
     align-items: center;
     align-content: center;
-}
-
-@media all and (max-width: 940px) {
-    .session-form-outer {
-        margin-top: -50px;
-    }
-
-    .signup-header {
-        font-size: 20px;
-    }
+    height: 600px;
 }
 
 .form-container {
@@ -126,6 +116,7 @@ input:focus:required:invalid {
     font-style: 24px;
     color: #FFF;
     align-self: center;
+    margin: 20px;
 }
 
 .other-session {
@@ -147,7 +138,6 @@ input:placeholder-shown + label {
 }
 
 input:required + .help-text::before {
-    content: '*Required';
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -162,31 +152,125 @@ input[type='email']:invalid + .help-text {
     content: 'Enter valid email'
 }
 
-input[type='email']:invalid, input[type="password"]:invalid {
+input[type='email']:invalid, input[type="password"]:invalid, #name:invalid {
     border-color: var(--color-error);
     background-image: url("data:image/svg+xml,%3Csvg width='30px' height='30px' viewBox='0 0 30 30' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg transform='translate%28-128.000000, -59.000000%29' fill='%23F44336'%3E%3Cpolygon points='157.848404 61.9920213 145.980053 73.8603723 157.848404 85.7287234 154.856383 88.7207447 142.988032 76.8523936 131.119681 88.7207447 128.12766 85.7287234 139.996011 73.8603723 128.12766 61.9920213 131.119681 59 142.988032 70.8683511 154.856383 59'%3E%3C/polygon%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
 }
 
-input[type="email"]:valid,  input[type="password"]:valid {
+input[type="email"]:valid,  input[type="password"]:valid, #name:valid {
   border-color: var(--color-primary);
   background-image: url("data:image/svg+xml,%3Csvg width='45px' height='34px' viewBox='0 0 45 34' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg transform='translate%28-56.000000, -59.000000%29' fill='%232EEC96'%3E%3Cpolygon points='70.1468531 85.8671329 97.013986 59 100.58042 62.5664336 70.1468531 93 56 78.8531469 59.5664336 75.2867133'%3E%3C/polygon%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
 }
 
-input[type='email'], input[type='password']{
+input[type='email'], input[type='password'], #name{
     background-repeat: no-repeat;
     background-position: right center;
     background-size: 0.75rem; 
 }
 
-.requirements {
-    position: relative;
-    color: red;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    top: 40px;
+.name-requirements {
+  transition: 0.28s;
+  overflow: hidden;
+  color: red;
+  font-style: italic;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 220px;
+  right: 0;
+  bottom: 43%;
 }
+
+.email-requirements {
+    transition: 0.28s;
+  overflow: hidden;
+  color: red;
+  font-style: italic;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 220px;
+  right: 0;
+  bottom: 56.5%;
+}
+
+.confirm-pass-req {
+    transition: 0.28s;
+  overflow: hidden;
+  color: red;
+  font-style: italic;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 220px;
+  right: 0;
+  bottom: 16%;
+}
+
+.session-img {
+    width: 80px;
+    height: 80px;
+}
+
+.sess-img-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.button-session:hover {
+    color: #751b79;
+}
+
+input[type="password"]:invalid:not(:placeholder-shown) ~ .pass-requirements {
+    max-height: 200px;
+}
+
+
+.pass-requirements {
+  max-height: 0;
+  transition: 0.28s;
+  overflow: hidden;
+  color: red;
+  font-style: italic;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 220px;
+  right: 0;
+  bottom: 29%;
+}
+
+@media all and (max-width: 940px) {
+    .session-form-outer {
+        margin-top: -50px;
+    }
+
+    .signup-header {
+        font-size: 20px;
+    }
+
+    .pass-requirements {
+        left: 30px;
+        bottom: 27%;
+    }
+
+    .email-requirements {
+        left: 36px;
+    }
+
+    .name-requirements {
+        left: 36px;
+        bottom: 44%;
+    }
+
+    .confirm-pass-req {
+        left: 36px;
+        bottom: 17%;
+    }
+}
+
+
 
 
 

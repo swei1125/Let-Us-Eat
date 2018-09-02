@@ -724,9 +724,6 @@ var ResBox = function (_React$Component) {
         e.preventDefault();
 
         var user = _this2.props.currentUser;
-        console.log(user);
-        console.log(id);
-        console.log(yelpId);
 
         (0, _user_util.deleteRes)({ userId: user.id, resId: id, yelpId: yelpId });
       };
@@ -740,7 +737,6 @@ var ResBox = function (_React$Component) {
       if (list.length !== 0 && !list[0].name) {
         return null;
       }
-      console.log(this.props);
 
       return _react2.default.createElement(
         "div",
@@ -1127,7 +1123,6 @@ var Heart = function (_React$Component) {
             } else {
                 this.heart = "notLiked";
             }
-            console.log(this.res);
         }
     }, {
         key: 'like',
@@ -1167,7 +1162,6 @@ var Heart = function (_React$Component) {
 
                     _this4.res = rest.data;
                     (0, _user_util.updateUserLikeRes)(_this4.props.currentUser.id, { yelpId: res.id, resId: rest.data._id, action: "add" });
-                    console.log(rest);
                 });
             }
         }
@@ -1297,7 +1291,6 @@ var Res = function (_React$Component) {
     };
     _this.resIds = props.resIds;
     _this.idx = +props.match.params.idx;
-
     return _this;
   }
 
@@ -1322,7 +1315,7 @@ var Res = function (_React$Component) {
   }, {
     key: 'goNext',
     value: function goNext(e) {
-      e.preventDefault();
+
       this.setState({ loading: true });
       var term = this.props.match.params.term;
       var location = this.props.match.params.location;
@@ -1366,7 +1359,7 @@ var Res = function (_React$Component) {
           'div',
           { className: 'res-box' },
           _react2.default.createElement(_navbar_container2.default, null),
-          _react2.default.createElement(_reactSpinners.BeatLoader, { className: override, sizeUnit: "px", size: 50, color: "#dc41f4", loading: this.state.loading }),
+          _react2.default.createElement(_reactSpinners.BeatLoader, { className: override, sizeUnit: "px", size: 50, color: "white", loading: this.state.loading }),
           _react2.default.createElement(
             'div',
             { className: 'top-bottom-wrapper', style: { opacity: this.state.loading ? "0.15" : "1" } },
@@ -1472,16 +1465,15 @@ var Res = function (_React$Component) {
             )
           ),
           _react2.default.createElement(
-            'button',
+            'div',
             {
-              disabled: this.state.loading ? "true" : "",
-              onClick: this.goNext.bind(this),
+
               className: 'btn',
               style: { color: this.state.loading ? "gray" : "white" }
             },
             _react2.default.createElement(
-              'div',
-              { className: 'button' },
+              'button',
+              { className: 'button', disabled: this.state.loading ? "true" : "", onClick: this.goNext.bind(this) },
               _react2.default.createElement(
                 'div',
                 { className: 'btn-content' },
@@ -2001,7 +1993,7 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
             if (this.props.formType === 'signup') {
                 return _react2.default.createElement(
                     'div',
-                    { className: 'email' },
+                    { className: 'username' },
                     _react2.default.createElement(
                         'div',
                         { className: 'inputs' },
@@ -2010,12 +2002,13 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                             null,
                             'Name'
                         ),
-                        _react2.default.createElement('input', { type: 'text',
-                            required: true,
-                            className: 'inputs-sess-form',
-                            onChange: this.update('name'),
-                            value: this.state.name,
-                            placeholder: 'name' })
+                        _react2.default.createElement('input', { type: 'text', id: 'name', className: 'inputs-sess-form', required: true, onChange: this.update("name"), value: this.state.name, placeholder: 'Name' }),
+                        _react2.default.createElement('span', { className: 'help-text' }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'name-requirements' },
+                            this.props.errors.session.name
+                        )
                     )
                 );
             }
@@ -2024,6 +2017,12 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
         key: 'handleSubmit',
         value: function handleSubmit(e) {
             e.preventDefault();
+
+            if (this.props.formType === 'login') {
+                var req = document.getElementById("email-requirements");
+                req.style.bottom = "43%";
+            }
+
             var user = Object.assign({}, this.state);
             this.props.processForm(user);
         }
@@ -2076,7 +2075,12 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                             null,
                             'Password'
                         ),
-                        _react2.default.createElement('input', { type: 'password', className: 'inputs-sess-form', required: true, onChange: this.update("password2"), value: this.state.password2, placeholder: 'Confirm Password' })
+                        _react2.default.createElement('input', { type: 'password', className: 'inputs-sess-form', required: true, onChange: this.update("password2"), value: this.state.password2, placeholder: 'Confirm Password', pattern: '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}' }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'confirm-pass-req' },
+                            this.props.errors.session.password2
+                        )
                     )
                 );
             }
@@ -2135,7 +2139,15 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'full-page-session' },
-                    _react2.default.createElement('img', { src: "frontend/public/images/logoWhite.png" }),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'sess-img-container' },
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: '/' },
+                            _react2.default.createElement('img', { src: "../../../images/logoCover.png", className: 'session-img' })
+                        )
+                    ),
                     _react2.default.createElement(
                         'div',
                         { className: 'form-type-header' },
@@ -2165,7 +2177,7 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                                         _react2.default.createElement('span', { className: 'help-text' }),
                                         _react2.default.createElement(
                                             'div',
-                                            { className: 'requirements' },
+                                            { id: 'email-requirements', className: 'email-requirements' },
                                             this.props.errors.session.email
                                         )
                                     )
@@ -2183,7 +2195,11 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                                             'Password'
                                         ),
                                         _react2.default.createElement('input', { type: 'password', id: 'password', className: 'inputs-sess-form', required: true, onChange: this.update("password"), value: this.state.password, placeholder: 'Password', pattern: '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}' }),
-                                        _react2.default.createElement('span', { className: 'help-text' })
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'pass-requirements' },
+                                            '6 characters, one number, one lowercase and uppercase letter'
+                                        )
                                     )
                                 ),
                                 this.confirmPassword(),
@@ -2817,15 +2833,13 @@ var loginUser = exports.loginUser = function loginUser(userData) {
             // Save to localStorage
             var token = res.data.token;
 
-            console.log(res.data);
-
             // Set token to ls
+
             localStorage.setItem('jwtToken', token);
             // Set token to Auth header
             setAuthToken(token);
             // Decode token to get user data
             var decoded = (0, _jwtDecode2.default)(token);
-            console.log(decoded);
 
             // Set current user
             dispatch(setCurrentUser(decoded));

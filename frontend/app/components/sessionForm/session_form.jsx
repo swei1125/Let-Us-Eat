@@ -28,16 +28,13 @@ export class SessionForm extends React.Component {
     nameForm() {
         if (this.props.formType === 'signup') {
             return (
-                <div className="email">
-                <div className="inputs">
-                    <h2>Name</h2>
-                    <input type="text"
-                        required
-                        className="inputs-sess-form"
-                        onChange={this.update('name')}
-                        value={this.state.name}
-                        placeholder="name" />
-                </div>
+                <div className="username">
+                    <div className="inputs">
+                        <h2>Name</h2>
+                        <input type="text" id="name" className="inputs-sess-form" required onChange={this.update("name")} value={this.state.name} placeholder="Name" />
+                        <span className="help-text"></span>
+                        <div className="name-requirements">{this.props.errors.session.name}</div>
+                    </div>
                 </div>
             )
         }
@@ -45,6 +42,12 @@ export class SessionForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+
+        if (this.props.formType === 'login') {
+            const req = document.getElementById("email-requirements")
+            req.style.bottom = "43%";
+        }
+
         const user = Object.assign({}, this.state);
         this.props.processForm(user)
     }
@@ -82,7 +85,8 @@ export class SessionForm extends React.Component {
             return <div className="username">
                 <div className="inputs">
                   <h2>Password</h2>
-                    <input type="password" className="inputs-sess-form" required onChange={this.update("password2")} value={this.state.password2} placeholder="Confirm Password" />
+                  <input type="password" className="inputs-sess-form" required onChange={this.update("password2")} value={this.state.password2} placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" />
+                  <div className="confirm-pass-req">{this.props.errors.session.password2}</div>
                 </div>
               </div>;
         }
@@ -125,7 +129,11 @@ export class SessionForm extends React.Component {
   render() {
     return <div className="session-form-outer">
         <div className="full-page-session">
-        <img src={"frontend/public/images/logoWhite.png"} />
+            <div className="sess-img-container">
+            <Link to="/">
+            <img src={"../../../images/logoCover.png"} className="session-img"/>
+            </Link> 
+            </div>
           <div className="form-type-header">{this.formTypeHeader()}</div>
           <div className="session-form-container">
             <div className="session-form-input">
@@ -136,7 +144,7 @@ export class SessionForm extends React.Component {
                     <h2>Email</h2>
                     <input type="email" className="inputs-sess-form" required onChange={this.update("email")} value={this.state.email} placeholder="email" />
                     <span className="help-text"></span>
-                    <div className="requirements">{this.props.errors.session.email}</div>
+                    <div id="email-requirements" className="email-requirements">{this.props.errors.session.email}</div>
                   </div>
                 </div>
 
@@ -146,9 +154,10 @@ export class SessionForm extends React.Component {
                   <div className="inputs">
                     <h2>Password</h2>
                     <input type="password" id="password" className="inputs-sess-form" required onChange={this.update("password")} value={this.state.password} placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"/>
-                    <span className="help-text"></span>
+                    <div className="pass-requirements">
+                    6 characters, one number, one lowercase and uppercase letter
+                    </div>
                   </div>
-                    {/* <div className="requirements">{this.props.errors.session.password}</div> */}
                 </div>
 
                 {this.confirmPassword()}
