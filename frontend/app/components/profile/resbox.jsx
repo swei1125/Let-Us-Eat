@@ -13,7 +13,12 @@ class ResBox extends React.Component {
       e.preventDefault();
       
       const user = this.props.currentUser;
-      deleteRes({userId: user.id,resId: id, yelpId: yelpId})
+      console.log(user);
+      console.log(id);
+      console.log(yelpId);
+      
+      
+      deleteRes({userId: user.id, resId: id, yelpId: yelpId})
     }
   }
   
@@ -22,10 +27,11 @@ class ResBox extends React.Component {
     if (list.length !== 0 && !list[0].name) {
       return null;
     }
- 
+    console.log(this.props);
+    
     return (
       <div className="res-list">
-        {this.props.currentUser.likedResIds.map(res => {
+        {list.map(res => {
           const { name, phone, location, categories, price, image_url, rating } = res;
           const starPos = { 0: "0 0px", 1: "0 -24px", 1.5: "0 -48px", 2: "0 -72px", 2.5: "0 -96px", 3: "0 -120px", 3.5: "0 -144px", 4: "0 -168px", 4.5: "0 -192px", 5: "0 -216px" };
           const starPx = starPos[rating];

@@ -119,7 +119,8 @@ router.get(
       User.findOne({email: req.user.email})
         .populate('likedResIds')
         .exec(function(err, user) {
-
+            console.log(user);
+            
             const payload = {
                 id: user.id,
                 email: user.email,
@@ -148,7 +149,8 @@ router.get(
 router.patch("/deleteRes", passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({_id: req.body.userId})
     .then(user => {
-
+        console.log(user);
+        
         const idx1 = user.likedResYelpIds.indexOf(req.body.yelpId);
         const idx2 = user.likedResIds.indexOf(req.body.resId);
         user.likedResYelpIds.splice(idx1, 1);

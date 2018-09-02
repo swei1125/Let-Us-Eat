@@ -13,9 +13,9 @@ class NavBar extends React.Component {
     this.setState({clickMenu: true})
     setTimeout(() => this.setState({ clickMenu: false}), 3000)
     }
-
+    //
     render() { 
-        const loggedIn = <div>
+        const loggedIn = <div className='nav-right'>
             <ul className="sessionul">
               <li>
                 {this.props.location.pathname === "/profile" ? < Link to="/">Search</Link>:<Link to="/profile">Profile</Link>}
@@ -39,7 +39,7 @@ class NavBar extends React.Component {
             }
             </div>
           </div>;
-        const notLoggedIn = (<div>
+          const notLoggedIn = (<div className='nav-right'>
             <ul className="sessionul">
               <li>
                 <Link to="/login">Sign in</Link>

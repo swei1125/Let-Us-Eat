@@ -135,17 +135,21 @@ class Res extends React.Component {
                   </div>
                 </div>
               </div>
-              <div>
+              
                 <button 
                 disabled={this.state.loading ? "true" : ""} 
                 onClick={this.goNext.bind(this)} 
                 className="btn"
                 style={{color: this.state.loading ? "gray" : "white"}}
                 >
-                  <h2>Next</h2>
-                  <img className="nextImage" src={"../../../images/next.png"} />
+                  <div className='button'>
+                    <div className='btn-content' >
+                      <h2>Next</h2>
+                      <img className="nextImage" src={"../../../images/next.png"} />
+                    </div>
+                  </div>
                 </button>
-              </div>
+              
             </div>
           </div>;
     }
