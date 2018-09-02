@@ -19,7 +19,8 @@ ul {
 
 body {
   padding-top: 0;
-  padding-bottom: 0px; }
+  padding-bottom: 0px;
+  background-color: black; }
 
 input[type="password"],
 input[type="email"],
