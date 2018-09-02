@@ -1999,7 +1999,7 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
             if (this.props.formType === 'signup') {
                 return _react2.default.createElement(
                     'div',
-                    { className: 'email' },
+                    { className: 'username' },
                     _react2.default.createElement(
                         'div',
                         { className: 'inputs' },
@@ -2008,12 +2008,13 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                             null,
                             'Name'
                         ),
-                        _react2.default.createElement('input', { type: 'text',
-                            required: true,
-                            className: 'inputs-sess-form',
-                            onChange: this.update('name'),
-                            value: this.state.name,
-                            placeholder: 'name' })
+                        _react2.default.createElement('input', { type: 'text', id: 'name', className: 'inputs-sess-form', required: true, onChange: this.update("name"), value: this.state.name, placeholder: 'Name' }),
+                        _react2.default.createElement('span', { className: 'help-text' }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'name-requirements' },
+                            this.props.errors.session.name
+                        )
                     )
                 );
             }
@@ -2022,6 +2023,12 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
         key: 'handleSubmit',
         value: function handleSubmit(e) {
             e.preventDefault();
+
+            if (this.props.formType === 'login') {
+                var req = document.getElementById("email-requirements");
+                req.style.bottom = "43%";
+            }
+
             var user = Object.assign({}, this.state);
             this.props.processForm(user);
         }
@@ -2074,7 +2081,12 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                             null,
                             'Password'
                         ),
-                        _react2.default.createElement('input', { type: 'password', className: 'inputs-sess-form', required: true, onChange: this.update("password2"), value: this.state.password2, placeholder: 'Confirm Password' })
+                        _react2.default.createElement('input', { type: 'password', className: 'inputs-sess-form', required: true, onChange: this.update("password2"), value: this.state.password2, placeholder: 'Confirm Password', pattern: '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}' }),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'confirm-pass-req' },
+                            this.props.errors.session.password2
+                        )
                     )
                 );
             }
@@ -2133,7 +2145,15 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'full-page-session' },
-                    _react2.default.createElement('img', { src: "frontend/public/images/logoWhite.png" }),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'sess-img-container' },
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: '/' },
+                            _react2.default.createElement('img', { src: "../../../images/logoCover.png", className: 'session-img' })
+                        )
+                    ),
                     _react2.default.createElement(
                         'div',
                         { className: 'form-type-header' },
@@ -2163,7 +2183,7 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                                         _react2.default.createElement('span', { className: 'help-text' }),
                                         _react2.default.createElement(
                                             'div',
-                                            { className: 'requirements' },
+                                            { id: 'email-requirements', className: 'email-requirements' },
                                             this.props.errors.session.email
                                         )
                                     )
@@ -2181,7 +2201,11 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                                             'Password'
                                         ),
                                         _react2.default.createElement('input', { type: 'password', id: 'password', className: 'inputs-sess-form', required: true, onChange: this.update("password"), value: this.state.password, placeholder: 'Password', pattern: '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}' }),
-                                        _react2.default.createElement('span', { className: 'help-text' })
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'pass-requirements' },
+                                            '6 characters, one number, one lowercase and uppercase letter'
+                                        )
                                     )
                                 ),
                                 this.confirmPassword(),
