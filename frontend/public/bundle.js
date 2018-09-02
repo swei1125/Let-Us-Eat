@@ -265,6 +265,8 @@ var App = function App() {
     var imgarray = ["../../images/search1.jpg", "../../images/search2.jpg", "../../images/search3.jpg", "../../images/search4.jpg", "../../images/search5.jpg", "../../images/search6.jpg"];
     var spot = Math.floor(Math.random() * imgarray.length);
     thediv.style.background = 'url(' + imgarray[spot] + ')';
+    thediv.style.backgroundRepeat = 'no-repeat';
+    thediv.style.backgroundAttachment = 'fixed';
   };
 
   return _react2.default.createElement(
