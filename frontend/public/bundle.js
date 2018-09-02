@@ -98,8 +98,8 @@
 
 module.exports = {
   mongoURI: "mongodb://wsyalways:baobeiwsy1314@ds133262.mlab.com:33262/flex_pj",
-  secretOrKey: "jdijsmnfkj998",
-  mapKey: "AIzaSyDIkzScchhbTJ2j4LPmVmelKOzES4Mr6lc",
+  secretOrKey: "secret",
+  mapKey: 'AIzaSyDIkzScchhbTJ2j4LPmVmelKOzES4Mr6lc',
   yelpKey: "ep2ZPMGFAw-UMN7N4oHAYZ51r1Z3zL-oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF-CW3Yx"
   //Make sure this is your own unique string
 };
@@ -1320,7 +1320,6 @@ var Res = function (_React$Component) {
   }, {
     key: 'goNext',
     value: function goNext(e) {
-      e.preventDefault();
       this.setState({ loading: true });
       var term = this.props.match.params.term;
       var location = this.props.match.params.location;
@@ -1364,7 +1363,7 @@ var Res = function (_React$Component) {
           'div',
           { className: 'res-box' },
           _react2.default.createElement(_navbar_container2.default, null),
-          _react2.default.createElement(_reactSpinners.BeatLoader, { className: override, sizeUnit: "px", size: 50, color: "#dc41f4", loading: this.state.loading }),
+          _react2.default.createElement(_reactSpinners.BeatLoader, { className: override, sizeUnit: "px", size: 50, color: "white", loading: this.state.loading }),
           _react2.default.createElement(
             'div',
             { className: 'top-bottom-wrapper', style: { opacity: this.state.loading ? "0.15" : "1" } },

@@ -32,7 +32,6 @@ class Res extends React.Component {
     }
 
     goNext(e) {
-        e.preventDefault();
         this.setState({loading: true});
         const term = this.props.match.params.term;
         const location = this.props.match.params.location;
@@ -77,7 +76,7 @@ class Res extends React.Component {
         return <div className="res-wrapper">
             <div className="res-box">
               <NavBar />
-              <BeatLoader className={override} sizeUnit={"px"} size={50} color={"#dc41f4"} loading={this.state.loading} />
+              <BeatLoader className={override} sizeUnit={"px"} size={50} color={"white"} loading={this.state.loading} />
               <div className="top-bottom-wrapper" style={{ opacity: this.state.loading ? "0.15" : "1" }}>
                 <div className="top">
                   <div className="box-1">
