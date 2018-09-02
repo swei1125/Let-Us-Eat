@@ -32,7 +32,6 @@ class Res extends React.Component {
     }
 
     goNext(e) {
-        e.preventDefault();
         this.setState({loading: true});
         const term = this.props.match.params.term;
         const location = this.props.match.params.location;
