@@ -25,6 +25,54 @@
     justify-content: space-between;
     align-items: center;
     align-content: center;
+    
+    li {
+        text-align: center;
+        vertical-align: center;
+        width: 90px;
+        letter-spacing: 0;
+        transition-duration: .6s;
+        transition-timing-function: ease;
+        a{
+            margin: 0;
+            position: relative;
+            bottom: 5px;
+        }
+        button {
+            margin: 0;
+            position: relative;
+            bottom: 5px;
+        }
+    }
+
+    li:hover,
+    li:active {
+        letter-spacing: 2px;
+    }
+    li:after,
+    li:before {
+        backface-visibility: hidden;
+        border: 1px solid rgba(#fff, 0);
+        bottom: 0px;
+        content: " ";
+        display: block;
+        margin: 0 auto;
+        position: relative;
+        transition: all 400ms ease-in-out;
+        width: 0;
+    }
+    li:hover:after,
+    li:hover:before {
+        backface-visibility: hidden;
+        border-color: #fff;
+        transition: width 350ms ease-in-out;
+        width: 90%;
+    }
+    li:hover:before {
+        bottom: auto;
+        top: 0;
+        width: 90%;
+    }
 }
 
 .sessionul button {
@@ -44,7 +92,7 @@
 }
 
 .sessionul a:hover, .sessionul button:hover{
-    color: #dc41f4;
+    // color: #dc41f4;
 }
 
 

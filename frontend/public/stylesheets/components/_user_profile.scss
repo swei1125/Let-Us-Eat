@@ -1,6 +1,6 @@
 .profile {
     max-width: 940px;
-    margin: auto;
+    margin: 50px auto;
     top: 40px;
     bottom: 0;
     left: 0;
@@ -14,6 +14,7 @@
     align-content: center;
     justify-content: center;
     background-color: rgba(0,0,0, 0.6);
+
 
     .navbar {
         width: 95%;
@@ -56,6 +57,9 @@
   align-content: center;
   justify-content: space-between;
   color: white;
+  h1 {
+      margin: 0;
+  }
 
   .img {
     width: 150px;
@@ -99,7 +103,7 @@
     width: 65%;
     height: 300px;
     margin: 15px auto 0;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid gray;
     
     .header {
         width: 95%;
@@ -110,6 +114,9 @@
         justify-content: space-between;
         border-bottom: 1px solid white;
         font-size: 14px;
+        h1 {
+            margin: 0;
+        }
         button {
             font-size: 18px;
         }
@@ -167,9 +174,9 @@
         }
     }
 }
-@media all and (max-width: 940px) {
+@media all and (max-width: 860px) {
   .profile {
-    margin-top: -50px;
+    margin-top: 50px;
   }
 
   .profileContent h1 {
@@ -182,12 +189,31 @@
     font-weight: 200;
     font-size: 18px;
   }
-
-  img {
-    width: 100px;
-    height: 100px;
-    margin: 40px;
+  .res-outer-wrapper {
+      height: auto;
+      .content {
+        flex-direction: column;
+        height: auto;
+        margin: 30px auto;
+        .info-box {
+            text-align: center;
+            margin-top: 10px;
+            .stars {
+                margin: 5px auto;
+            }
+            .price{
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+        }
+      }
   }
+//   img {
+//     width: 100px;
+//     height: 100px;
+//     margin: 40px;
+//   }
 }
 
 

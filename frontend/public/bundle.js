@@ -450,6 +450,8 @@ var NavBar = function (_React$Component) {
         return _this2.setState({ clickMenu: false });
       }, 3000);
     }
+    //
+
   }, {
     key: 'render',
     value: function render() {
@@ -457,7 +459,7 @@ var NavBar = function (_React$Component) {
 
       var loggedIn = _react2.default.createElement(
         'div',
-        null,
+        { className: 'nav-right' },
         _react2.default.createElement(
           'ul',
           { className: 'sessionul' },
@@ -521,7 +523,7 @@ var NavBar = function (_React$Component) {
       );
       var notLoggedIn = _react2.default.createElement(
         'div',
-        null,
+        { className: 'nav-right' },
         _react2.default.createElement(
           'ul',
           { className: 'sessionul' },
@@ -695,6 +697,10 @@ var ResBox = function (_React$Component) {
         e.preventDefault();
 
         var user = _this2.props.currentUser;
+        console.log(user);
+        console.log(id);
+        console.log(yelpId);
+
         (0, _user_util.deleteRes)({ userId: user.id, resId: id, yelpId: yelpId });
       };
     }
@@ -707,11 +713,12 @@ var ResBox = function (_React$Component) {
       if (list.length !== 0 && !list[0].name) {
         return null;
       }
+      console.log(this.props);
 
       return _react2.default.createElement(
         "div",
         { className: "res-list" },
-        this.props.currentUser.likedResIds.map(function (res) {
+        list.map(function (res) {
           var name = res.name,
               phone = res.phone,
               location = res.location,
@@ -1433,22 +1440,26 @@ var Res = function (_React$Component) {
             )
           ),
           _react2.default.createElement(
-            'div',
-            null,
+            'button',
+            {
+              disabled: this.state.loading ? "true" : "",
+              onClick: this.goNext.bind(this),
+              className: 'btn',
+              style: { color: this.state.loading ? "gray" : "white" }
+            },
             _react2.default.createElement(
-              'button',
-              {
-                disabled: this.state.loading ? "true" : "",
-                onClick: this.goNext.bind(this),
-                className: 'btn',
-                style: { color: this.state.loading ? "gray" : "white" }
-              },
+              'div',
+              { className: 'button' },
               _react2.default.createElement(
-                'h2',
-                null,
-                'Next'
-              ),
-              _react2.default.createElement('img', { className: 'nextImage', src: "../../../images/next.png" })
+                'div',
+                { className: 'btn-content' },
+                _react2.default.createElement(
+                  'h2',
+                  null,
+                  'Next'
+                ),
+                _react2.default.createElement('img', { className: 'nextImage', src: "../../../images/next.png" })
+              )
             )
           )
         )
