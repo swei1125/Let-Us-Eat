@@ -46,9 +46,32 @@ export const updateUserLikeRes = (id, data) => (
             setAuthToken(token);
             // Decode token to get user data
             const decoded = jwt_decode(token);
+            
            
 
             // Set current user
             dispatch(setCurrentUser(decoded));
         })
+)
+
+export const deleteRes = (data) => (
+  axios
+    .patch(`/api/users/deleteRes`, data)
+    .then(res => {
+      // Save to localStorage
+      const { token } = res.data;
+
+
+      // Set token to ls
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+
+
+
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+    })
 )
