@@ -178,7 +178,7 @@ input[type='email'], input[type='password'], #name{
   margin-right: auto;
   left: 220px;
   right: 0;
-  bottom: 43%;
+  bottom: 45%;
 }
 
 .email-requirements {
@@ -191,7 +191,7 @@ input[type='email'], input[type='password'], #name{
   margin-right: auto;
   left: 220px;
   right: 0;
-  bottom: 56.5%;
+  bottom: 60.5%;
 }
 
 .confirm-pass-req {
@@ -204,7 +204,7 @@ input[type='email'], input[type='password'], #name{
   margin-right: auto;
   left: 220px;
   right: 0;
-  bottom: 16%;
+  bottom: 14%;
 }
 
 .session-img {
@@ -216,6 +216,7 @@ input[type='email'], input[type='password'], #name{
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
+    margin-top: 12px;
 }
 
 .button-session:hover {
@@ -238,7 +239,7 @@ input[type="password"]:invalid:not(:placeholder-shown) ~ .pass-requirements {
   margin-right: auto;
   left: 220px;
   right: 0;
-  bottom: 29%;
+  bottom: 30%;
 }
 
 @media all and (max-width: 940px) {
@@ -252,7 +253,7 @@ input[type="password"]:invalid:not(:placeholder-shown) ~ .pass-requirements {
 
     .pass-requirements {
         left: 30px;
-        bottom: 27%;
+        bottom: 26%;
     }
 
     .email-requirements {
