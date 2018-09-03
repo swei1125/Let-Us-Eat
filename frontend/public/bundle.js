@@ -1806,19 +1806,19 @@ var Search = function (_React$Component) {
             _react2.default.createElement('img', { src: './images/split.png' }),
             _react2.default.createElement(
               'a',
-              { href: 'https://www.linkedin.com/in/jose-martinez-517a29149/' },
+              { target: '_blank', href: 'https://www.linkedin.com/in/jose-martinez-517a29149/' },
               'Jose Martinez'
             ),
             _react2.default.createElement('img', { src: './images/split.png' }),
             _react2.default.createElement(
               'a',
-              { href: 'https://www.linkedin.com/in/nmenares/?locale=en_US' },
+              { target: '_blank', href: 'https://www.linkedin.com/in/nmenares/?locale=en_US' },
               'Nataly Menares'
             ),
             _react2.default.createElement('img', { src: './images/split.png' }),
             _react2.default.createElement(
               'a',
-              { href: 'https://www.linkedin.com/in/shiyuwei1125' },
+              { target: '_blank', href: 'https://www.linkedin.com/in/shiyuwei1125' },
               'Natasha Wei'
             ),
             _react2.default.createElement('img', { src: './images/split.png' })
@@ -1979,6 +1979,23 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
             this.props.deleteErrors();
         }
     }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var passReq = document.getElementById('password');
+            if (this.props.formType === 'signup') {
+                passReq.style = {
+                    position: "absolute",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    left: "220px",
+                    right: "0",
+                    bottom: "30%"
+                };
+            } else {
+                passReq.style.bottom = "152px";
+            }
+        }
+    }, {
         key: 'update',
         value: function update(field) {
             var _this2 = this;
@@ -2020,7 +2037,7 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
 
             if (this.props.formType === 'login') {
                 var req = document.getElementById("email-requirements");
-                req.style.bottom = "43%";
+                req.style.bottom = "39%";
             }
 
             var user = Object.assign({}, this.state);
@@ -2197,7 +2214,7 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                                         _react2.default.createElement('input', { type: 'password', id: 'password', className: 'inputs-sess-form', required: true, onChange: this.update("password"), value: this.state.password, placeholder: 'Password', pattern: '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}' }),
                                         _react2.default.createElement(
                                             'div',
-                                            { className: 'pass-requirements' },
+                                            { className: 'pass-requirements', style: this.props.formType === "signup" ? { color: "#F00" } : { bottom: "24%" } },
                                             '6 characters, one number, one lowercase and uppercase letter'
                                         )
                                     )
@@ -2342,14 +2359,6 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = '/login';
         }
     }
-
-    window.getState = store.getState;
-    window.dispatch = store.dispatch;
-    window.getState = store.store.getState;
-    window.dispatch = store.store.dispatch;
-    window.fetchSingleRes = _res_actions.fetchSingleRes;
-    window.fetchRestaurants = _res_actions.fetchRestaurants;
-    window.fetch = _res_actions.fetch;
 
     _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 });
@@ -2661,7 +2670,7 @@ var persistedReducer = (0, _reduxPersist.persistReducer)(persistConfig, _root_re
 // );
 
 exports.default = function () {
-    var store = (0, _redux.createStore)(persistedReducer, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default, _reduxLogger2.default));
+    var store = (0, _redux.createStore)(persistedReducer, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default));
     var persistor = (0, _reduxPersist.persistStore)(store);
     return { store: store, persistor: persistor };
 };

@@ -19,6 +19,22 @@ export class SessionForm extends React.Component {
         this.props.deleteErrors();
     }
 
+    componentDidMount() {
+        let passReq = document.getElementById('password');
+        if (this.props.formType === 'signup') {
+            passReq.style = {
+                position: "absolute",
+                marginLeft: "auto",
+                marginRight: "auto",
+                left: "220px",
+                right: "0",
+                bottom: "30%"
+            }
+        } else {
+            passReq.style.bottom = "152px";
+        }
+    }
+
     update(field) {
         return e => {
             this.setState({[field]: e.target.value})
@@ -45,7 +61,7 @@ export class SessionForm extends React.Component {
 
         if (this.props.formType === 'login') {
             const req = document.getElementById("email-requirements")
-            req.style.bottom = "43%";
+            req.style.bottom = "39%";
         }
 
         const user = Object.assign({}, this.state);
@@ -154,7 +170,7 @@ export class SessionForm extends React.Component {
                   <div className="inputs">
                     <h2>Password</h2>
                     <input type="password" id="password" className="inputs-sess-form" required onChange={this.update("password")} value={this.state.password} placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"/>
-                    <div className="pass-requirements">
+                    <div className="pass-requirements" style={this.props.formType === "signup" ? {color: "#F00"} : {bottom: "24%"}}>
                     6 characters, one number, one lowercase and uppercase letter
                     </div>
                   </div>
