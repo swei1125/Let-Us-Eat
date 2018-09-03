@@ -16,7 +16,6 @@ class Res extends React.Component {
         };
         this.resIds = props.resIds;
         this.idx = +props.match.params.idx;
-        
     }
     componentWillMount() {
         this.props.clearCurrentRes();
@@ -32,6 +31,7 @@ class Res extends React.Component {
     }
 
     goNext(e) {
+        
         this.setState({loading: true});
         const term = this.props.match.params.term;
         const location = this.props.match.params.location;
@@ -135,19 +135,18 @@ class Res extends React.Component {
                 </div>
               </div>
               
-                <button 
-                disabled={this.state.loading ? "true" : ""} 
-                onClick={this.goNext.bind(this)} 
+                <div 
+                 
                 className="btn"
                 style={{color: this.state.loading ? "gray" : "white"}}
                 >
-                  <div className='button'>
+                <button className='button' disabled={this.state.loading ? "true" : ""} onClick={this.goNext.bind(this)}>
                     <div className='btn-content' >
                       <h2>Next</h2>
                       <img className="nextImage" src={"../../../images/next.png"} />
                     </div>
-                  </div>
-                </button>
+                  </button>
+                </div>
               
             </div>
           </div>;

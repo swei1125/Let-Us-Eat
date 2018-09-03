@@ -19,7 +19,8 @@ ul {
 
 body {
   padding-top: 0;
-  padding-bottom: 0px; }
+  padding-bottom: 0px;
+  background-color: black; }
 
 input[type="password"],
 input[type="email"],
@@ -563,7 +564,8 @@ input[type="password"]:invalid:not(:placeholder-shown) ~ .pass-requirements {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: white; }
+    color: white;
+    cursor: auto; }
     .res-box .btn .button {
       transition-duration: .6s;
       transition-timing-function: ease;
@@ -586,7 +588,8 @@ input[type="password"]:invalid:not(:placeholder-shown) ~ .pass-requirements {
           margin: 10px;
           margin-top: 15px; }
     .res-box .btn .button:hover {
-      letter-spacing: 3px; }
+      letter-spacing: 3px;
+      cursor: pointer; }
 @keyframes bounceIn {
   0% {
     transform: scale(0.6); }

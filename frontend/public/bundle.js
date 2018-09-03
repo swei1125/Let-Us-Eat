@@ -98,9 +98,10 @@
 
 module.exports = {
   mongoURI: "mongodb://wsyalways:baobeiwsy1314@ds133262.mlab.com:33262/flex_pj",
-  secretOrKey: "vmdsakvdknadk",
+  secretOrKey: "jdijsmnfkj998",
   mapKey: "AIzaSyDIkzScchhbTJ2j4LPmVmelKOzES4Mr6lc",
   yelpKey: "ep2ZPMGFAw-UMN7N4oHAYZ51r1Z3zL-oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF-CW3Yx"
+  //Make sure this is your own unique string
 };
 
 /***/ }),
@@ -264,6 +265,8 @@ var App = function App() {
     var imgarray = ["../../images/search1.jpg", "../../images/search2.jpg", "../../images/search3.jpg", "../../images/search4.jpg", "../../images/search5.jpg", "../../images/search6.jpg"];
     var spot = Math.floor(Math.random() * imgarray.length);
     thediv.style.background = 'url(' + imgarray[spot] + ')';
+    thediv.style.backgroundRepeat = 'no-repeat';
+    thediv.style.backgroundAttachment = 'fixed';
   };
 
   return _react2.default.createElement(
@@ -1288,7 +1291,6 @@ var Res = function (_React$Component) {
     };
     _this.resIds = props.resIds;
     _this.idx = +props.match.params.idx;
-
     return _this;
   }
 
@@ -1313,6 +1315,7 @@ var Res = function (_React$Component) {
   }, {
     key: 'goNext',
     value: function goNext(e) {
+
       this.setState({ loading: true });
       var term = this.props.match.params.term;
       var location = this.props.match.params.location;
@@ -1462,16 +1465,15 @@ var Res = function (_React$Component) {
             )
           ),
           _react2.default.createElement(
-            'button',
+            'div',
             {
-              disabled: this.state.loading ? "true" : "",
-              onClick: this.goNext.bind(this),
+
               className: 'btn',
               style: { color: this.state.loading ? "gray" : "white" }
             },
             _react2.default.createElement(
-              'div',
-              { className: 'button' },
+              'button',
+              { className: 'button', disabled: this.state.loading ? "true" : "", onClick: this.goNext.bind(this) },
               _react2.default.createElement(
                 'div',
                 { className: 'btn-content' },
