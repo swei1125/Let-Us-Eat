@@ -98,10 +98,9 @@
 
 module.exports = {
   mongoURI: "mongodb://wsyalways:baobeiwsy1314@ds133262.mlab.com:33262/flex_pj",
-  secretOrKey: "jdijsmnfkj998",
+  secretOrKey: "vmdsakvdknadk",
   mapKey: "AIzaSyDIkzScchhbTJ2j4LPmVmelKOzES4Mr6lc",
   yelpKey: "ep2ZPMGFAw-UMN7N4oHAYZ51r1Z3zL-oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF-CW3Yx"
-  //Make sure this is your own unique string
 };
 
 /***/ }),
