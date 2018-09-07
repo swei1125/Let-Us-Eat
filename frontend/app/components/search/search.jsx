@@ -117,15 +117,15 @@ class Search extends React.Component {
                 </div>               
                 <footer className="authors">
                   <img src="./images/split.png" />
-                  <a href="https://www.linkedin.com/in/jose-martinez-517a29149/">
+                  <a target="_blank" href="https://www.linkedin.com/in/jose-martinez-517a29149/">
                     Jose Martinez
                   </a>
                   <img src="./images/split.png" />
-                  <a href="https://www.linkedin.com/in/nmenares/?locale=en_US">
+                  <a target="_blank" href="https://www.linkedin.com/in/nmenares/?locale=en_US">
                     Nataly Menares
                   </a>
                   <img src="./images/split.png" />
-                  <a href="https://www.linkedin.com/in/shiyuwei1125">
+                  <a target="_blank" href="https://www.linkedin.com/in/shiyuwei1125">
                     Natasha Wei
                   </a>
                   <img src="./images/split.png" />

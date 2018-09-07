@@ -61,11 +61,11 @@ class Heart extends React.Component {
             
             if (this.heart === 'notLiked') {
                 this.heart = "liked";
-                updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id,resId: this.res._id, action: "add" })
+                this.props.updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id,resId: this.res._id, action: "add" })
                
             }else {
                 this.heart = "notLiked";
-                updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "delete" })
+                this.props.updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "delete" })
                
             }
         }else{
@@ -83,7 +83,7 @@ class Heart extends React.Component {
             createRes(data).then(rest => {
                 
                 this.res = rest.data;                
-                updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: rest.data._id, action: "add"})
+                this.props.updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: rest.data._id, action: "add"})
             })            
         }
         

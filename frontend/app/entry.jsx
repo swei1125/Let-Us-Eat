@@ -31,14 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = '/login';
         }
     }
-
-    window.getState = store.getState;
-    window.dispatch = store.dispatch;
-    window.getState = store.store.getState;
-    window.dispatch = store.store.dispatch;
-    window.fetchSingleRes = fetchSingleRes;
-    window.fetchRestaurants = fetchRestaurants;
-    window.fetch = fetch;
    
     ReactDOM.render(<Root store={store} />, root);
 })

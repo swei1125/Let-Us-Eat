@@ -32,7 +32,7 @@ export const setAuthToken = token => {
   }
 };
 
-export const updateUserLikeRes = (id, data) => (
+export const updateUserLikeRes = (id, data) => dispatch => (
     axios
     .patch(`/api/users/${id}`, data)
         .then(res => {
@@ -54,7 +54,7 @@ export const updateUserLikeRes = (id, data) => (
         })
 )
 
-export const deleteRes = (data) => (
+export const deleteRes = (data) => dispatch => (
   axios
     .patch(`/api/users/deleteRes`, data)
     .then(res => {

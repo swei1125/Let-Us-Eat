@@ -692,8 +692,6 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _user_util = __webpack_require__(/*! ../../util/user_util */ "./frontend/app/util/user_util.js");
-
 var _reactEmotion = __webpack_require__(/*! react-emotion */ "./node_modules/react-emotion/dist/index.esm.js");
 
 var _reactSpinners = __webpack_require__(/*! react-spinners */ "./node_modules/react-spinners/index.js");
@@ -705,6 +703,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import { deleteRes } from "../../util/user_util";
+
 
 var ResBox = function (_React$Component) {
   _inherits(ResBox, _React$Component);
@@ -721,11 +721,11 @@ var ResBox = function (_React$Component) {
       var _this2 = this;
 
       return function (e) {
-        e.preventDefault();
+        // e.preventDefault();
 
         var user = _this2.props.currentUser;
 
-        (0, _user_util.deleteRes)({ userId: user.id, resId: id, yelpId: yelpId });
+        _this2.props.deleteRes({ userId: user.id, resId: id, yelpId: yelpId });
       };
     }
   }, {
@@ -852,6 +852,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getCurrentUser: function getCurrentUser() {
             return dispatch((0, _user_util.getCurrentUser)());
+        },
+        deleteRes: function deleteRes(data) {
+            return dispatch((0, _user_util.deleteRes)(data));
         }
     };
 };
@@ -1139,10 +1142,10 @@ var Heart = function (_React$Component) {
 
                 if (this.heart === 'notLiked') {
                     this.heart = "liked";
-                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "add" });
+                    this.props.updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "add" });
                 } else {
                     this.heart = "notLiked";
-                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "delete" });
+                    this.props.updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "delete" });
                 }
             } else {
                 this.heart = "liked";
@@ -1161,7 +1164,7 @@ var Heart = function (_React$Component) {
                 (0, _res_util.createRes)(data).then(function (rest) {
 
                     _this4.res = rest.data;
-                    (0, _user_util.updateUserLikeRes)(_this4.props.currentUser.id, { yelpId: res.id, resId: rest.data._id, action: "add" });
+                    _this4.props.updateUserLikeRes(_this4.props.currentUser.id, { yelpId: res.id, resId: rest.data._id, action: "add" });
                 });
             }
         }
@@ -1222,6 +1225,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     updateCurrentUser: function updateCurrentUser(user) {
       return dispatch((0, _user_util.updateCurrentUser)(user));
+    },
+    updateUserLikeRes: function updateUserLikeRes(id, data) {
+      return dispatch((0, _user_util.updateUserLikeRes)(id, data));
     }
   };
 };
@@ -1806,19 +1812,19 @@ var Search = function (_React$Component) {
             _react2.default.createElement('img', { src: './images/split.png' }),
             _react2.default.createElement(
               'a',
-              { href: 'https://www.linkedin.com/in/jose-martinez-517a29149/' },
+              { target: '_blank', href: 'https://www.linkedin.com/in/jose-martinez-517a29149/' },
               'Jose Martinez'
             ),
             _react2.default.createElement('img', { src: './images/split.png' }),
             _react2.default.createElement(
               'a',
-              { href: 'https://www.linkedin.com/in/nmenares/?locale=en_US' },
+              { target: '_blank', href: 'https://www.linkedin.com/in/nmenares/?locale=en_US' },
               'Nataly Menares'
             ),
             _react2.default.createElement('img', { src: './images/split.png' }),
             _react2.default.createElement(
               'a',
-              { href: 'https://www.linkedin.com/in/shiyuwei1125' },
+              { target: '_blank', href: 'https://www.linkedin.com/in/shiyuwei1125' },
               'Natasha Wei'
             ),
             _react2.default.createElement('img', { src: './images/split.png' })
@@ -1979,6 +1985,23 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
             this.props.deleteErrors();
         }
     }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var passReq = document.getElementById('password');
+            if (this.props.formType === 'signup') {
+                passReq.style = {
+                    position: "absolute",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    left: "220px",
+                    right: "0",
+                    bottom: "30%"
+                };
+            } else {
+                passReq.style.bottom = "152px";
+            }
+        }
+    }, {
         key: 'update',
         value: function update(field) {
             var _this2 = this;
@@ -2020,7 +2043,7 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
 
             if (this.props.formType === 'login') {
                 var req = document.getElementById("email-requirements");
-                req.style.bottom = "43%";
+                req.style.bottom = "39%";
             }
 
             var user = Object.assign({}, this.state);
@@ -2197,7 +2220,7 @@ var SessionForm = exports.SessionForm = function (_React$Component) {
                                         _react2.default.createElement('input', { type: 'password', id: 'password', className: 'inputs-sess-form', required: true, onChange: this.update("password"), value: this.state.password, placeholder: 'Password', pattern: '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}' }),
                                         _react2.default.createElement(
                                             'div',
-                                            { className: 'pass-requirements' },
+                                            { className: 'pass-requirements', style: this.props.formType === "signup" ? { color: "#F00" } : { bottom: "24%" } },
                                             '6 characters, one number, one lowercase and uppercase letter'
                                         )
                                     )
@@ -2342,14 +2365,6 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = '/login';
         }
     }
-
-    window.getState = store.getState;
-    window.dispatch = store.dispatch;
-    window.getState = store.store.getState;
-    window.dispatch = store.store.dispatch;
-    window.fetchSingleRes = _res_actions.fetchSingleRes;
-    window.fetchRestaurants = _res_actions.fetchRestaurants;
-    window.fetch = _res_actions.fetch;
 
     _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 });
@@ -2661,7 +2676,7 @@ var persistedReducer = (0, _reduxPersist.persistReducer)(persistConfig, _root_re
 // );
 
 exports.default = function () {
-    var store = (0, _redux.createStore)(persistedReducer, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default, _reduxLogger2.default));
+    var store = (0, _redux.createStore)(persistedReducer, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default));
     var persistor = (0, _reduxPersist.persistStore)(store);
     return { store: store, persistor: persistor };
 };
@@ -2932,39 +2947,43 @@ var setAuthToken = exports.setAuthToken = function setAuthToken(token) {
 };
 
 var updateUserLikeRes = exports.updateUserLikeRes = function updateUserLikeRes(id, data) {
-  return _axios2.default.patch("/api/users/" + id, data).then(function (res) {
-    // Save to localStorage
-    var token = res.data.token;
+  return function (dispatch) {
+    return _axios2.default.patch("/api/users/" + id, data).then(function (res) {
+      // Save to localStorage
+      var token = res.data.token;
 
-    // Set token to ls
+      // Set token to ls
 
-    localStorage.setItem('jwtToken', token);
-    // Set token to Auth header
-    setAuthToken(token);
-    // Decode token to get user data
-    var decoded = (0, _jwtDecode2.default)(token);
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      var decoded = (0, _jwtDecode2.default)(token);
 
-    // Set current user
-    dispatch((0, _session_api_util.setCurrentUser)(decoded));
-  });
+      // Set current user
+      dispatch((0, _session_api_util.setCurrentUser)(decoded));
+    });
+  };
 };
 
 var deleteRes = exports.deleteRes = function deleteRes(data) {
-  return _axios2.default.patch("/api/users/deleteRes", data).then(function (res) {
-    // Save to localStorage
-    var token = res.data.token;
+  return function (dispatch) {
+    return _axios2.default.patch("/api/users/deleteRes", data).then(function (res) {
+      // Save to localStorage
+      var token = res.data.token;
 
-    // Set token to ls
+      // Set token to ls
 
-    localStorage.setItem('jwtToken', token);
-    // Set token to Auth header
-    setAuthToken(token);
-    // Decode token to get user data
-    var decoded = (0, _jwtDecode2.default)(token);
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      var decoded = (0, _jwtDecode2.default)(token);
 
-    // Set current user
-    dispatch((0, _session_api_util.setCurrentUser)(decoded));
-  });
+      // Set current user
+      dispatch((0, _session_api_util.setCurrentUser)(decoded));
+    });
+  };
 };
 
 /***/ }),

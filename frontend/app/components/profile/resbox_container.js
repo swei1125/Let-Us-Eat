@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { getCurrentUser } from "../../util/user_util";
+import { getCurrentUser, deleteRes } from "../../util/user_util";
 import ResBox from './resbox';
 
 const mapStateToProps = state => ({
@@ -7,7 +7,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getCurrentUser: () => dispatch(getCurrentUser())
+    getCurrentUser: () => dispatch(getCurrentUser()),
+    deleteRes: (data) => dispatch(deleteRes(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResBox);
