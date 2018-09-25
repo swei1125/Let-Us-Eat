@@ -11,7 +11,7 @@
     flex-direction: column;
     align-items: center;
     align-content: center;
-    height: 600px;
+    height: 700px;
 }
 
 .form-container {
@@ -41,6 +41,7 @@
 
 .other-session {
     font-size: 16px;
+    margin-bottom: 40px;
 }
 
 .signup-input {
@@ -101,7 +102,7 @@
 }
 
 .other-session-link:hover {
-    color: #751b79;
+    color: #69E781;
 }
 
 input:focus:required:invalid {
@@ -208,6 +209,7 @@ input[type='email'], input[type='password'], #name{
 }
 
 .session-img {
+    margin-top: 40px;
     width: 80px;
     height: 80px;
 }
@@ -220,7 +222,7 @@ input[type='email'], input[type='password'], #name{
 }
 
 .button-session:hover {
-    color: #751b79;
+    color: #69E781;
 }
 
 input[type="password"]:invalid:not(:placeholder-shown) ~ .pass-requirements {
