@@ -25,6 +25,7 @@ const App = () => {
     thediv.style.background = `url(${imgarray[spot]})`;
     thediv.style.backgroundRepeat = `no-repeat`;
     thediv.style.backgroundAttachment = `fixed`;
+    thediv.style.width = 100%;
   }  
 
   return (
