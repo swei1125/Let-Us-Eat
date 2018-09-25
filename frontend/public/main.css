@@ -60,7 +60,8 @@ input[type="submit"] {
 
 .search_form {
   max-width: 940px;
-  margin: auto;
+  position: absolute;
+  margin: 5% auto;
   top: 40px;
   bottom: 0;
   left: 0;
@@ -314,8 +315,8 @@ input[type='checkbox']:checked {
 .session-form-outer {
   max-width: 940px;
   position: absolute;
-  margin: auto;
-  top: 100px;
+  margin: 5% auto;
+  top: 40px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -324,7 +325,7 @@ input[type='checkbox']:checked {
   flex-direction: column;
   align-items: center;
   align-content: center;
-  height: 600px; }
+  height: 700px; }
 
 .form-container {
   display: flex;
@@ -349,7 +350,8 @@ input[type='checkbox']:checked {
   margin-top: 14px; }
 
 .other-session {
-  font-size: 16px; }
+  font-size: 16px;
+  margin-bottom: 40px; }
 
 .signup-input {
   width: 500px;
@@ -401,7 +403,7 @@ input[type='checkbox']:checked {
   color: #FFF; }
 
 .other-session-link:hover {
-  color: #751b79; }
+  color: #69E781; }
 
 input:focus:required:invalid {
   border-color: var(--color-error); }
@@ -493,6 +495,7 @@ input[type='email'], input[type='password'], #name {
   bottom: 14%; }
 
 .session-img {
+  margin-top: 40px;
   width: 80px;
   height: 80px; }
 
@@ -503,7 +506,7 @@ input[type='email'], input[type='password'], #name {
   margin-top: 12px; }
 
 .button-session:hover {
-  color: #751b79; }
+  color: #69E781; }
 
 input[type="password"]:invalid:not(:placeholder-shown) ~ .pass-requirements {
   max-height: 200px; }
@@ -542,6 +545,9 @@ input[type="password"]:invalid:not(:placeholder-shown) ~ .pass-requirements {
   .confirm-pass-req {
     left: 36px;
     bottom: 17%; } }
+.res-wrapper {
+  margin: 5% auto; }
+
 .res-box {
   max-width: 990px;
   height: 725px;
