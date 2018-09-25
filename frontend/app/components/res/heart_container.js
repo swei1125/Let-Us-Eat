@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Heart from './heart';
-import { updateCurrentUser } from '../../util/user_util';
+import { updateCurrentUser, updateUserLikeRes } from '../../util/user_util';
 
 const mapStateToProps = state => ({
   currentRes: state.entities.currentRes,
@@ -8,7 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateCurrentUser: (user) => dispatch(updateCurrentUser(user))
+    updateCurrentUser: (user) => dispatch(updateCurrentUser(user)),
+    updateUserLikeRes: (id, data) => dispatch(updateUserLikeRes(id, data))
 })
 
 export default connect(

@@ -1,5 +1,5 @@
 import React from "react";
-import { deleteRes } from "../../util/user_util";
+// import { deleteRes } from "../../util/user_util";
 import { css } from "react-emotion";
 import { BeatLoader } from "react-spinners";
 
@@ -10,12 +10,12 @@ class ResBox extends React.Component {
 
   delete(id, yelpId) {
     return (e) => {
-      e.preventDefault();
+      // e.preventDefault();
       
       const user = this.props.currentUser;
       
       
-      deleteRes({userId: user.id, resId: id, yelpId: yelpId})
+      this.props.deleteRes({userId: user.id, resId: id, yelpId: yelpId})
     }
   }
   

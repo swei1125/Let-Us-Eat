@@ -98,8 +98,8 @@
 
 module.exports = {
   mongoURI: "mongodb://wsyalways:baobeiwsy1314@ds133262.mlab.com:33262/flex_pj",
-  secretOrKey: "jdijsmnfkj998",
-  mapKey: "AIzaSyDIkzScchhbTJ2j4LPmVmelKOzES4Mr6lc",
+  secretOrKey: "secret",
+  mapKey: 'AIzaSyDIkzScchhbTJ2j4LPmVmelKOzES4Mr6lc',
   yelpKey: "ep2ZPMGFAw-UMN7N4oHAYZ51r1Z3zL-oDPb2TYyJluB5FzXrPpqCsTU70aAWeXVQiqGM6sCJYot7qU2lK8V4PjyjweH3wh3_95ODQsgjfN7DLgWT7VY1XUPvrF-CW3Yx"
   //Make sure this is your own unique string
 };
@@ -692,8 +692,6 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _user_util = __webpack_require__(/*! ../../util/user_util */ "./frontend/app/util/user_util.js");
-
 var _reactEmotion = __webpack_require__(/*! react-emotion */ "./node_modules/react-emotion/dist/index.esm.js");
 
 var _reactSpinners = __webpack_require__(/*! react-spinners */ "./node_modules/react-spinners/index.js");
@@ -705,6 +703,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import { deleteRes } from "../../util/user_util";
+
 
 var ResBox = function (_React$Component) {
   _inherits(ResBox, _React$Component);
@@ -721,11 +721,11 @@ var ResBox = function (_React$Component) {
       var _this2 = this;
 
       return function (e) {
-        e.preventDefault();
+        // e.preventDefault();
 
         var user = _this2.props.currentUser;
 
-        (0, _user_util.deleteRes)({ userId: user.id, resId: id, yelpId: yelpId });
+        _this2.props.deleteRes({ userId: user.id, resId: id, yelpId: yelpId });
       };
     }
   }, {
@@ -852,6 +852,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getCurrentUser: function getCurrentUser() {
             return dispatch((0, _user_util.getCurrentUser)());
+        },
+        deleteRes: function deleteRes(data) {
+            return dispatch((0, _user_util.deleteRes)(data));
         }
     };
 };
@@ -1139,10 +1142,10 @@ var Heart = function (_React$Component) {
 
                 if (this.heart === 'notLiked') {
                     this.heart = "liked";
-                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "add" });
+                    this.props.updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "add" });
                 } else {
                     this.heart = "notLiked";
-                    (0, _user_util.updateUserLikeRes)(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "delete" });
+                    this.props.updateUserLikeRes(this.props.currentUser.id, { yelpId: res.id, resId: this.res._id, action: "delete" });
                 }
             } else {
                 this.heart = "liked";
@@ -1161,7 +1164,7 @@ var Heart = function (_React$Component) {
                 (0, _res_util.createRes)(data).then(function (rest) {
 
                     _this4.res = rest.data;
-                    (0, _user_util.updateUserLikeRes)(_this4.props.currentUser.id, { yelpId: res.id, resId: rest.data._id, action: "add" });
+                    _this4.props.updateUserLikeRes(_this4.props.currentUser.id, { yelpId: res.id, resId: rest.data._id, action: "add" });
                 });
             }
         }
@@ -1222,6 +1225,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     updateCurrentUser: function updateCurrentUser(user) {
       return dispatch((0, _user_util.updateCurrentUser)(user));
+    },
+    updateUserLikeRes: function updateUserLikeRes(id, data) {
+      return dispatch((0, _user_util.updateUserLikeRes)(id, data));
     }
   };
 };
@@ -2941,39 +2947,43 @@ var setAuthToken = exports.setAuthToken = function setAuthToken(token) {
 };
 
 var updateUserLikeRes = exports.updateUserLikeRes = function updateUserLikeRes(id, data) {
-  return _axios2.default.patch("/api/users/" + id, data).then(function (res) {
-    // Save to localStorage
-    var token = res.data.token;
+  return function (dispatch) {
+    return _axios2.default.patch("/api/users/" + id, data).then(function (res) {
+      // Save to localStorage
+      var token = res.data.token;
 
-    // Set token to ls
+      // Set token to ls
 
-    localStorage.setItem('jwtToken', token);
-    // Set token to Auth header
-    setAuthToken(token);
-    // Decode token to get user data
-    var decoded = (0, _jwtDecode2.default)(token);
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      var decoded = (0, _jwtDecode2.default)(token);
 
-    // Set current user
-    dispatch((0, _session_api_util.setCurrentUser)(decoded));
-  });
+      // Set current user
+      dispatch((0, _session_api_util.setCurrentUser)(decoded));
+    });
+  };
 };
 
 var deleteRes = exports.deleteRes = function deleteRes(data) {
-  return _axios2.default.patch("/api/users/deleteRes", data).then(function (res) {
-    // Save to localStorage
-    var token = res.data.token;
+  return function (dispatch) {
+    return _axios2.default.patch("/api/users/deleteRes", data).then(function (res) {
+      // Save to localStorage
+      var token = res.data.token;
 
-    // Set token to ls
+      // Set token to ls
 
-    localStorage.setItem('jwtToken', token);
-    // Set token to Auth header
-    setAuthToken(token);
-    // Decode token to get user data
-    var decoded = (0, _jwtDecode2.default)(token);
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      var decoded = (0, _jwtDecode2.default)(token);
 
-    // Set current user
-    dispatch((0, _session_api_util.setCurrentUser)(decoded));
-  });
+      // Set current user
+      dispatch((0, _session_api_util.setCurrentUser)(decoded));
+    });
+  };
 };
 
 /***/ }),
