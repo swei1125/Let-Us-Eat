@@ -18,14 +18,13 @@ const App = () => {
 
   window.onload = function () {
     const thediv = document.getElementById("mainView");
-    const imgarray = ["../../images/search1.jpg", "../../images/search2.jpg", 
-    "../../images/search3.jpg", "../../images/search4.jpg", 
-    "../../images/search5.jpg", "../../images/search6.jpg"];  
+    const imgarray = ["../../images/search1.jpg", "../../images/search2.jpg", "../../images/search3.jpg", "../../images/search4.jpg", "../../images/search5.jpg", "../../images/search6.jpg", "../../images/search7.jpg", "../../images/search8.jpg", "../../images/search9.jpg", "../../images/search10.jpg"];  
     const spot = Math.floor(Math.random() * imgarray.length);
     thediv.style.background = `url(${imgarray[spot]})`;
     thediv.style.backgroundRepeat = `no-repeat`;
     thediv.style.backgroundAttachment = `fixed`;
-    thediv.style.width = 100%;
+    thediv.style.width = `100%`;
+    thediv.style.height = `100%`;
   }  
 
   return (
